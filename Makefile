@@ -1,0 +1,3 @@
+
+setup:
+	brew install tmux
