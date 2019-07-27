@@ -10,3 +10,4 @@ alias v="code"
 alias r='cd $(git rev-parse --show-toplevel)'
 alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
 alias grep='grep -i'
+alias cat='ccat'
