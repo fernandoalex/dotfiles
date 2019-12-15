@@ -21,3 +21,6 @@ highlight Comment ctermfg=DarkGrey
 set hlsearch
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 set number relativenumber
+
+au BufReadPost,BufNewFile *_test.go let g:ycm_enable_diagnostic_signs = 0
+au BufReadPost,BufNewFile *_test.go let g:ycm_enable_diagnostic_highlighting = 0
