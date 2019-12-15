@@ -20,4 +20,4 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 highlight Comment ctermfg=DarkGrey
 set hlsearch
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-
+set number relativenumber
