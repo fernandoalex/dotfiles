@@ -24,3 +24,11 @@ set number relativenumber
 
 au BufReadPost,BufNewFile *_test.go let g:ycm_enable_diagnostic_signs = 0
 au BufReadPost,BufNewFile *_test.go let g:ycm_enable_diagnostic_highlighting = 0
+
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
