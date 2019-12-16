@@ -1,6 +1,6 @@
-. ~/dotfiles/01-zshrc
+source ~/dotfiles/01-zshrc
 
-If you come from bash you might have to change your $PATH.
+# If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
@@ -17,7 +17,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-. ~/dotfiles/99-zshrc
+source ~/dotfiles/99-zshrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

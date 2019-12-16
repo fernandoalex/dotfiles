@@ -6,10 +6,11 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 # clonning repos
 git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
 
-# links
+# stuff
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/zshrc ~/.zshrc
+mkdir ~/.vimdid
 
 # VIM Pathogen
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -22,6 +23,8 @@ brew install tldr
 brew install ccat
 brew install cmake 
 brew install macvim
+brew install exa
+brew install rg
 $(brew --prefix)/opt/fzf/install
 
 # Pathogen plugins
