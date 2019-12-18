@@ -22,14 +22,26 @@ set hlsearch
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 set number relativenumber
 
-au BufReadPost,BufNewFile *_test.go let g:ycm_enable_diagnostic_signs = 0
-au BufReadPost,BufNewFile *_test.go let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
+
+set completeopt-=preview
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+
+let mapleader = "\<Space>"
+nnoremap <leader><leader> <c-^>
 
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
-inoremap { {}<left>
+inoremap { {  }<left><left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 

@@ -35,9 +35,13 @@ git clone https://github.com/altercation/vim-colors-solarized ~/.vim/bundle/vim-
 git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp
 git clone https://github.com/hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
 git clone https://github.com/airblade/vim-rooter.git ~/.vim/bundle/vim-rooter
+git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
 cd ~/.vim/bundle/youcompleteme
 git submodule update --init --recursive
 ~/.vim/bundle/youcompleteme/install.py --clangd-completer --go-completer --rust-completer
+
+# not sure if this works so lets put this in the end
+vim -c GoInstallBinaries -c exit
