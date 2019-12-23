@@ -37,14 +37,6 @@ let g:ctrlp_custom_ignore = {
 let mapleader = "\<Space>"
 nnoremap <leader><leader> <c-^>
 
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {  }<left><left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
 inoremap <C-j> <Esc>
 
 inoremap <up> <nop>
