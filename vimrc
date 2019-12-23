@@ -2,6 +2,7 @@ set mouse-=a
 set number
 set backspace=indent,eol,start
 set smartindent
+set showcmd
 syntax on
 filetype plugin on
 set clipboard=unnamed
