@@ -3,6 +3,9 @@
 #zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+mkdir -p .zsh/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+
 # clonning repos
 git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
 
@@ -26,6 +29,8 @@ brew install macvim
 brew install exa
 brew install rg
 $(brew --prefix)/opt/fzf/install
+brew install zsh-syntax-highlighting
+brew install zsh-autosuggestions
 
 # Pathogen plugins
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
