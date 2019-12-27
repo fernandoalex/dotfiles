@@ -31,6 +31,7 @@ brew install rg
 $(brew --prefix)/opt/fzf/install
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
+brew install w3m
 
 # Pathogen plugins
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
