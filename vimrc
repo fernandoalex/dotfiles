@@ -8,7 +8,6 @@ filetype plugin on
 set clipboard=unnamed
 set rtp+=/usr/local/opt/fzf
 execute pathogen#infect()
-set cursorline
 fun! SetupCommandAlias(from, to)
   exec 'cnoreabbrev <expr> '.a:from
         \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
@@ -17,9 +16,13 @@ endfun
 
 call SetupCommandAlias("nt","NERDTree")
 
+highlight CursorLine term=bold cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE 
 highlight Comment ctermfg=DarkGrey
+hi CursorLineNR cterm=bold ctermfg=LightGrey
 set hlsearch
+set cursorline
+
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 set number relativenumber
 
@@ -44,6 +47,14 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {  }<left><left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
 
 set undodir=~/.vimdid
 set undofile
