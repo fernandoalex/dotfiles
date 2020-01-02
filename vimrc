@@ -26,10 +26,13 @@ set cursorline
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 set number relativenumber
 
-let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_signs = 1
 let g:ycm_enable_diagnostic_highlighting = 0
 
 set completeopt-=preview
+
+let g:go_highlight_diagnostic_warnings = 0
+let g:go_highlight_diagnostic_errors = 0
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
