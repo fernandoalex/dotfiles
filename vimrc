@@ -3,6 +3,8 @@ set number
 set backspace=indent,eol,start
 set smartindent
 set showcmd
+set tw=100
+
 syntax on
 filetype plugin on
 set clipboard=unnamed
@@ -55,6 +57,7 @@ inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
+inoremap ` ``<left>
 inoremap { {  }<left><left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
