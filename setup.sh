@@ -44,6 +44,7 @@ git clone https://github.com/airblade/vim-rooter.git ~/.vim/bundle/vim-rooter
 git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 git clone https://github.com/junegunn/fzf.vim.git ~/.vim/bundle/fzf
 git clone https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
+git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
