@@ -70,3 +70,7 @@ let g:terraform_fmt_on_save=1
 let @v='v$%'
 
 autocmd Filetype yaml setlocal tabstop=2
+
+" leader cmd"
+nnoremap <leader>w :write<CR>
+nnoremap <leader>r :Rg<CR>
