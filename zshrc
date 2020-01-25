@@ -25,3 +25,7 @@ source ~/dotfiles/99-zshrc
 export PATH="$PATH:$HOME/.rvm/bin"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+if [[ -e ~/.zshrc.local ]]; then
+	source ~/.zshrc.local
+fi
