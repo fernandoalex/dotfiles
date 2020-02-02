@@ -16,8 +16,7 @@ ln -s ~/dotfiles/zshrc ~/.zshrc
 mkdir ~/.vimdid
 
 # VIM Pathogen
-mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Brew installs
 brew install tmux
@@ -51,6 +50,10 @@ git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
 cd ~/.vim/bundle/youcompleteme
 git submodule update --init --recursive
 ~/.vim/bundle/youcompleteme/install.py --clangd-completer --go-completer --rust-completer
+
+source ~/.zshrc
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
 # not sure if this works so lets put this in the end
 vim -c GoInstallBinaries -c exit
