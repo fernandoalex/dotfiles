@@ -75,6 +75,7 @@ alias grep='grep -i'
 alias cat='ccat'
 alias ls='exa'
 alias ll='exa -la --git'
+alias note='vim `date -u +"%Y-%m-%d"`'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
