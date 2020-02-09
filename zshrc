@@ -1,10 +1,8 @@
-source ~/dotfiles/01-zshrc
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/neptune/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -17,10 +15,10 @@ SPACESHIP_PROMPT_ORDER=(
   dir           # Current directory section
   host          # Hostname section
   git           # Git section (git_branch + git_status)
-  aws           # Amazon Web Services section
+#  aws           # Amazon Web Services section
   venv          # virtualenv section
   pyenv         # Pyenv section
-  terraform     # Terraform workspace section
+#  terraform     # Terraform workspace section
   exec_time     # Execution time
   line_sep      # Line break
   jobs          # Background jobs indicator
@@ -61,14 +59,32 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/dotfiles/99-zshrc
+function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
+
+alias r='cd $(git rev-parse --show-toplevel)'
+alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
+alias grep='grep -i'
+alias cat='ccat'
+alias ls='exa'
+alias ll='exa -la --git'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+bindkey -v
+bindkey '^j' vi-cmd-mode
 
 if [[ -e ~/.zshrc.local ]]; then
 	source ~/.zshrc.local
