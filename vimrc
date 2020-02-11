@@ -3,7 +3,7 @@ set number
 set backspace=indent,eol,start
 set smartindent
 set showcmd
-set tw=100
+set tw=120
 
 syntax on
 filetype plugin on
@@ -21,7 +21,9 @@ call SetupCommandAlias("nt","NERDTree")
 highlight CursorLine term=bold cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
 highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE 
 highlight Comment ctermfg=DarkGrey
+
 hi CursorLineNR cterm=bold ctermfg=LightGrey
+
 set hlsearch
 set cursorline
 
