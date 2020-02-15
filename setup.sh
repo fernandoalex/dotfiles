@@ -43,7 +43,6 @@ git clone https://github.com/airblade/vim-gitgutter ~/.vim/bundle/vim-gitgutter
 git clone https://github.com/altercation/vim-colors-solarized ~/.vim/bundle/vim-colors-solarized
 git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp
 git clone https://github.com/hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
-git clone https://github.com/airblade/vim-rooter.git ~/.vim/bundle/vim-rooter
 git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 git clone https://github.com/junegunn/fzf.vim.git ~/.vim/bundle/fzf
 git clone https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
