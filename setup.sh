@@ -49,6 +49,7 @@ git clone https://github.com/junegunn/fzf.vim.git ~/.vim/bundle/fzf
 git clone https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
 git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
 git clone https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags
+git clone https://github.com/cespare/vim-toml.git ~/.vim/bundle/vim-toml
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
@@ -68,3 +69,6 @@ git config --global core.excludesfile ~/.gitignore_global
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 git config --global alias.d difftool
+
+# rust stuff
+rustup component add rustfmt --toolchain stable-x86_64-apple-darwin
