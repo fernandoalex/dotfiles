@@ -77,8 +77,6 @@ alias ls='exa'
 alias ll='exa -la --git'
 alias note='vim `date -u +"%Y-%m-%d"`'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -86,6 +84,28 @@ source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 bindkey -v
 bindkey '^j' vi-cmd-mode
+
+function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
+
+alias v="code"
+alias r='cd $(git rev-parse --show-toplevel)'
+alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
+alias grep='grep -i'
+alias cat='ccat'
+alias ls='exa'
+alias ll='exa -la --git'
+
+if [[ -f ~/.fzf.zsh ]]; then 
+	source ~/.fzf.zsh
+fi
 
 if [[ -e ~/.zshrc.local ]]; then
 	source ~/.zshrc.local

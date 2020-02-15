@@ -18,7 +18,7 @@ endfun
 
 call SetupCommandAlias("nt","NERDTree")
 
-highlight CursorLine term=bold cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
+highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
 highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE 
 highlight Comment ctermfg=DarkGrey
 

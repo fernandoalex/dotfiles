@@ -13,6 +13,8 @@ git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/zshrc ~/.zshrc
+ln -s ~/dotfiles/gitignore_global ~/.gitignore_global
+
 mkdir ~/.vimdid
 
 # VIM Pathogen
@@ -32,6 +34,7 @@ brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install w3m
 brew install shellcheck
+brew install ctags
 
 # Pathogen plugins
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
@@ -45,6 +48,7 @@ git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 git clone https://github.com/junegunn/fzf.vim.git ~/.vim/bundle/fzf
 git clone https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
 git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
+git clone https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
@@ -58,3 +62,9 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 
 # not sure if this works so lets put this in the end
 vim -c GoInstallBinaries -c exit
+
+# some git config
+git config --global core.excludesfile ~/.gitignore_global
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global alias.d difftool
