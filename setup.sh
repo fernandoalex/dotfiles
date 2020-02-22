@@ -35,6 +35,7 @@ brew install zsh-autosuggestions
 brew install w3m
 brew install shellcheck
 brew install ctags
+brew cask install amethyst
 
 # Pathogen plugins
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
@@ -49,6 +50,7 @@ git clone https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
 git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
 git clone https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags
 git clone https://github.com/cespare/vim-toml.git ~/.vim/bundle/vim-toml
+git clone https://github.com/vimwiki/vimwiki.git ~/.vim/bundle/vimwiki
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme

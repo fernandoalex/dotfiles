@@ -78,5 +78,6 @@ let @v='v$%'
 autocmd Filetype yaml setlocal tabstop=2
 
 " leader cmd"
-nnoremap <leader>w :write<CR>
+nnoremap <leader>s :write<CR>
 nnoremap <leader>r :Rg<CR>
+let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]

@@ -75,7 +75,6 @@ alias grep='grep -i'
 alias cat='ccat'
 alias ls='exa'
 alias ll='exa -la --git'
-alias note='vim `date -u +"%Y-%m-%d"`'
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin"
