@@ -80,6 +80,7 @@ alias ll='exa -la --git'
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 bindkey -v
 bindkey '^j' vi-cmd-mode
