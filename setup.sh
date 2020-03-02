@@ -52,6 +52,8 @@ git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
 git clone https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags
 git clone https://github.com/cespare/vim-toml.git ~/.vim/bundle/vim-toml
 git clone https://github.com/vimwiki/vimwiki.git ~/.vim/bundle/vimwiki
+git clone https://github.com/arzg/vim-rust-syntax-ext.git ~/.vim/bundle/vim-rust-syntax-ext
+git clone https://github.com/preservim/nerdcommenter.git ~/.vim/bundle/nerdcommenter
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
