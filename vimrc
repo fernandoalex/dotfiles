@@ -82,6 +82,9 @@ nnoremap <leader>s :write<CR>
 nnoremap <leader>r :Rg<CR>
 let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 
+"tags"
+let g:gutentags_ctags_exclude = ['*.git/*', '*.terraform/*']
+
 "" auto set paste""
 function! WrapForTmux(s)
   if !exists('$TMUX')
