@@ -19,11 +19,10 @@ endfun
 call SetupCommandAlias("nt","NERDTree")
 
 highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
-highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE 
+highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
 highlight Comment ctermfg=DarkGrey
 highlight Todo cterm=bold ctermfg=red ctermbg=NONE
-
-hi CursorLineNR cterm=bold ctermfg=LightGrey
+highlight CursorLineNR cterm=bold ctermfg=LightGrey ctermbg=black
 
 set hlsearch
 set cursorline
