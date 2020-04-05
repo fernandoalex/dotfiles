@@ -3,7 +3,6 @@ set number
 set backspace=indent,eol,start
 set smartindent
 set showcmd
-set tw=100
 
 syntax on
 filetype plugin on

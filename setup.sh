@@ -6,6 +6,8 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 mkdir -p .zsh/plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
 git clone https://github.com/softmoth/zsh-vim-mode.git ~/.zsh/plugins/zsh-vim-mode
+# getting newer version of per-directory-history since the one in oh-my-zsh is broken
+git clone https://github.com/jimhester/per-directory-history.git ~/.zsh/plugins/zsh-per-directory-history
 
 # clonning repos
 git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack

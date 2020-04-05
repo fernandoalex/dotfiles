@@ -81,6 +81,7 @@ export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+source ~/.zsh/plugins/zsh-per-directory-history/per-directory-history.zsh
 
 bindkey -v
 bindkey '^j' vi-cmd-mode
