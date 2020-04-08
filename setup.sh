@@ -38,6 +38,7 @@ brew install zsh-autosuggestions
 brew install w3m
 brew install shellcheck
 brew install ctags
+brew install fx
 brew cask install amethyst
 
 # Pathogen plugins
