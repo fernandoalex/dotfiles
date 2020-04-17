@@ -9,6 +9,20 @@ syntax on
 filetype plugin on
 set clipboard=unnamed
 set rtp+=/usr/local/opt/fzf
+
+""preview stuff""
+
+let g:fzf_preview_window = 'right:60%'
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+
 execute pathogen#infect()
 fun! SetupCommandAlias(from, to)
   exec 'cnoreabbrev <expr> '.a:from
