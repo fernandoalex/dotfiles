@@ -59,6 +59,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_show_hidden = 1
 
 let mapleader = "\<Space>"
 nnoremap <leader><leader> <c-^>
