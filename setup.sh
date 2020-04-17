@@ -39,6 +39,7 @@ brew install w3m
 brew install shellcheck
 brew install ctags
 brew install fx
+brew install bat
 brew cask install amethyst
 
 # Pathogen plugins
@@ -46,7 +47,7 @@ git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
 git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
 git clone https://github.com/airblade/vim-gitgutter ~/.vim/bundle/vim-gitgutter
 git clone https://github.com/altercation/vim-colors-solarized ~/.vim/bundle/vim-colors-solarized
-git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp
+git clone https://github.com/ctrlpvim/ctrlp.vim ~/.vim/bundle/ctrlp
 git clone https://github.com/hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
 git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
 git clone https://github.com/junegunn/fzf.vim.git ~/.vim/bundle/fzf
