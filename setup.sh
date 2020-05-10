@@ -32,7 +32,7 @@ brew install cmake
 brew install macvim
 brew install exa
 brew install rg
-$(brew --prefix)/opt/fzf/install
+"$(brew --prefix)"/opt/fzf/install
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install w3m
@@ -56,15 +56,18 @@ git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
 git clone https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags
 git clone https://github.com/cespare/vim-toml.git ~/.vim/bundle/vim-toml
 git clone https://github.com/vimwiki/vimwiki.git ~/.vim/bundle/vimwiki
+git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
+git clone --depth=1 https://github.com/rust-lang/rust.vim.git ~/.vim/bundle/rust.vim ~/.vim/bundle/rust.vim
 git clone https://github.com/arzg/vim-rust-syntax-ext.git ~/.vim/bundle/vim-rust-syntax-ext
 git clone https://github.com/preservim/nerdcommenter.git ~/.vim/bundle/nerdcommenter
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
-cd ~/.vim/bundle/youcompleteme
+cd ~/.vim/bundle/youcompleteme || exit
 git submodule update --init --recursive
 ~/.vim/bundle/youcompleteme/install.py --clangd-completer --go-completer --rust-completer
 
+# shellcheck disable=1090
 source ~/.zshrc
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"

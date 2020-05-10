@@ -27,9 +27,9 @@ command! -bang -nargs=* Rg
 
 execute pathogen#infect()
 fun! SetupCommandAlias(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+	exec 'cnoreabbrev <expr> '.a:from
+        	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+        	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 
 call SetupCommandAlias("nt","NERDTree")
@@ -126,3 +126,18 @@ endfunction
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 nnoremap <silent> <leader>e :call Fzf_dev()<CR>
+
+"syntastic"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"" GODOT STUFF""
+nnoremap <buffer> <F5> :GodotRun<CR>
+nnoremap <buffer> <F6> :GodotRunCurrent<CR>
+nnoremap <buffer> <F7> :GodotRunFZF<CR>
