@@ -15,10 +15,9 @@ SPACESHIP_PROMPT_ORDER=(
   dir           # Current directory section
   host          # Hostname section
   git           # Git section (git_branch + git_status)
-#  aws           # Amazon Web Services section
   venv          # virtualenv section
   pyenv         # Pyenv section
-#  terraform     # Terraform workspace section
+  kubectl
   exec_time     # Execution time
   line_sep      # Line break
   jobs          # Background jobs indicator
@@ -48,13 +47,15 @@ SPACESHIP_DOCKER_SHOW=false
 SPACESHIP_CONDA_SHOW=false
 SPACESHIP_DOTNET_SHOW=false
 SPACESHIP_EMBER_SHOW=false
-SPACESHIP_KUBECTL_SHOW=false
+SPACESHIP_KUBECTL_SHOW=true
 SPACESHIP_KUBECTL_VERSION_SHOW=false
-SPACESHIP_KUBECONTEXT_SHOW=false
+SPACESHIP_KUBECONTEXT_SHOW=true
 SPACESHIP_BATTERY_SHOW=false
+SPACESHIP_VENV_SHOW=true
+SPACESHIP_PYENV_SHOW=true
 
 plugins=(
-  git
+ git
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -81,7 +82,9 @@ export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
-source ~/.zsh/plugins/zsh-per-directory-history/per-directory-history.zsh
+
+# Custom Plugins
+source ~/.oh-my-zsh/custom/plugins/per-directory-history/per-directory-history.zsh
 
 bindkey -v
 bindkey '^j' vi-cmd-mode

@@ -4,6 +4,9 @@ set backspace=indent,eol,start
 set smartindent
 set showcmd
 set incsearch
+set tabstop=8
+
+let g:airline_powerline_fonts = 1
 
 syntax on
 filetype plugin on
@@ -19,9 +22,8 @@ command! -bang -nargs=? -complete=dir Files
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
-
 
 execute pathogen#infect()
 fun! SetupCommandAlias(from, to)
@@ -36,6 +38,7 @@ highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=black gui=NONE gu
 highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
 highlight Comment ctermfg=DarkGrey
 highlight Todo cterm=bold ctermfg=red ctermbg=NONE
+highlight Done cterm=bold ctermfg=green ctermbg=NONE
 highlight CursorLineNR cterm=bold ctermfg=LightGrey ctermbg=black
 
 set hlsearch
@@ -121,3 +124,5 @@ function! XTermPasteBegin()
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+nnoremap <silent> <leader>e :call Fzf_dev()<CR>
