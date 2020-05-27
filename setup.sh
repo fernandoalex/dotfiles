@@ -60,6 +60,7 @@ git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
 git clone --depth=1 https://github.com/rust-lang/rust.vim.git ~/.vim/bundle/rust.vim ~/.vim/bundle/rust.vim
 git clone https://github.com/arzg/vim-rust-syntax-ext.git ~/.vim/bundle/vim-rust-syntax-ext
 git clone https://github.com/preservim/nerdcommenter.git ~/.vim/bundle/nerdcommenter
+git clone https://github.com/wellle/targets.vim ~/.vim/bundle/targets
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme
