@@ -1,1 +1,14 @@
 tags
+
+# General Stuff
+.idea/
+tmp/
+.DS_Store
+share/
+
+# VENV
+bin/
+include/
+lib/
+pyvenv.cfg
+pip-selfcheck.json

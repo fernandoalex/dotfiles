@@ -3,64 +3,15 @@
 #zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-mkdir -p .zsh/plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
-git clone https://github.com/softmoth/zsh-vim-mode.git ~/.zsh/plugins/zsh-vim-mode
-# getting newer version of per-directory-history since the one in oh-my-zsh is broken
-git clone https://github.com/jimhester/per-directory-history.git ~/.zsh/plugins/zsh-per-directory-history
-
-# clonning repos
-git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
-
 # stuff
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/zshrc ~/.zshrc
 ln -s ~/dotfiles/gitignore_global ~/.gitignore_global
 
-mkdir ~/.vimdid
-
-# VIM Pathogen
-mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
 # Brew installs
-brew install tmux
-brew install fzf
-brew install tldr
-brew install ccat
-brew install cmake 
-brew install macvim
-brew install exa
-brew install rg
 "$(brew --prefix)"/opt/fzf/install
-brew install zsh-syntax-highlighting
-brew install zsh-autosuggestions
-brew install w3m
-brew install shellcheck
-brew install ctags
-brew install fx
-brew install bat
 brew cask install amethyst
-
-# Pathogen plugins
-git clone https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive
-git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
-git clone https://github.com/airblade/vim-gitgutter ~/.vim/bundle/vim-gitgutter
-git clone https://github.com/altercation/vim-colors-solarized ~/.vim/bundle/vim-colors-solarized
-git clone https://github.com/ctrlpvim/ctrlp.vim ~/.vim/bundle/ctrlp
-git clone https://github.com/hashivim/vim-terraform.git ~/.vim/bundle/vim-terraform
-git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
-git clone https://github.com/junegunn/fzf.vim.git ~/.vim/bundle/fzf
-git clone https://github.com/tpope/vim-surround.git ~/.vim/bundle/vim-surround
-git clone https://github.com/tpope/vim-repeat.git ~/.vim/bundle/vim-repeat
-git clone https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags
-git clone https://github.com/cespare/vim-toml.git ~/.vim/bundle/vim-toml
-git clone https://github.com/vimwiki/vimwiki.git ~/.vim/bundle/vimwiki
-git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
-git clone --depth=1 https://github.com/rust-lang/rust.vim.git ~/.vim/bundle/rust.vim ~/.vim/bundle/rust.vim
-git clone https://github.com/arzg/vim-rust-syntax-ext.git ~/.vim/bundle/vim-rust-syntax-ext
-git clone https://github.com/preservim/nerdcommenter.git ~/.vim/bundle/nerdcommenter
-git clone https://github.com/wellle/targets.vim ~/.vim/bundle/targets
 
 # YouCompleteMe
 git clone https://github.com/valloric/youcompleteme ~/.vim/bundle/youcompleteme

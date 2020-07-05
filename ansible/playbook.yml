@@ -1,0 +1,102 @@
+---
+- name: dotfile
+  hosts: localhost
+  become: false
+
+  pre_tasks:
+    - name: Ensuring Homebrew Is Installed
+      stat:
+        path: /usr/local/bin/brew
+      register: homebrew_check
+
+    - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
+      fail:
+        msg: Homebrew is missing...Install from http://brew.sh/
+      when:
+        - not homebrew_check.stat.exists
+        - not install_homebrew_if_missing
+
+    - name: Installing Homebrew
+      shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      when:
+        - not homebrew_check.stat.exists
+        - install_homebrew_if_missing
+
+  tasks:
+
+  - name: Make a vimdid forlder
+    file:
+      path: ~/.vimdid
+      state: directory
+
+  - name: ZSH folder
+    file:
+      path: ~/.zsh/plugins
+      state: directory
+
+  - name: ZSH AutoSuggestions
+    git:
+      repo: https://github.com/zsh-users/zsh-autosuggestions
+      dest: ~/.zsh/plugins/zsh-autosuggestions
+
+  - name: ZSH zsh-vim-mode
+    git:
+      repo: https://github.com/softmoth/zsh-vim-mode.git
+      dest: ~/.zsh/plugins/zsh-vim-mode
+
+  - name: ZSH per directory-history
+    git:
+      repo: https://github.com/jimhester/per-directory-history.git
+      dest: ~/.zsh/plugins/per-directory-history
+
+  - name: SpaceShip repo
+    git:
+      repo: https://github.com/denysdovhan/spaceship-prompt.git
+      dest: ~/.oh-my-zsh/custom/themes/spaceship-prompt
+
+  - name: SpaceShip link
+    file:
+      src: ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme 
+      dest: ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme 
+      state: link
+
+  - name: Install packages
+    package:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - ccat
+    - tmux
+    - fzf
+    - tldr
+    - ccat
+    - cmake 
+    - exa
+    - rg
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
+    - w3m
+    - shellcheck
+    - ctags
+    - fx
+    - bat
+
+  - name: Clonning Tmux themepack
+    git:
+      repo: https://github.com/jimeh/tmux-themepack.git
+      dest: "~/.tmux-themepack"
+
+  - name: making some links
+    file:
+      src: "{{ item.file }}"
+      dest: "{{ item.link }}"
+      state: link
+    loop:
+      - file: ~/git/dotfiles/init.vim
+        link: ~/.config/nvim/init.vim
+      - file: ~/git/dotfiles/tmux.conf
+        link: ~/.tmux.conf
+      - file: ~/git/dotfiles/zshrc
+        link: ~/.zshrc
+      - file: ~/git/dotfiles/gitignore_global
+        link: ~/.gitignore_global

@@ -70,21 +70,14 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-alias r='cd $(git rev-parse --show-toplevel)'
-alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
-alias grep='grep -i'
-alias cat='ccat'
-alias ls='exa'
-alias ll='exa -la --git'
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 # Custom Plugins
-source ~/.oh-my-zsh/custom/plugins/per-directory-history/per-directory-history.zsh
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+source ~/.zsh/plugins/per-directory-history/per-directory-history.zsh
 
 bindkey -v
 bindkey '^j' vi-cmd-mode
@@ -99,13 +92,13 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-alias v="code"
 alias r='cd $(git rev-parse --show-toplevel)'
 alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
 alias grep='grep -i'
 alias cat='ccat'
 alias ls='exa'
 alias ll='exa -la --git'
+alias vi='nvim'
 
 if [[ -f ~/.fzf.zsh ]]; then 
 	source ~/.fzf.zsh
