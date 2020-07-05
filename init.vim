@@ -28,6 +28,7 @@ Plug 'arzg/vim-rust-syntax-ext'
 Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'itchyny/lightline.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -54,6 +55,7 @@ fun! SetupCommandAlias(from, to)
         	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
         	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
+
 
 call SetupCommandAlias("nt","NERDTree")
 
@@ -106,7 +108,7 @@ let g:terraform_fmt_on_save=1
 
 let @v='v$%'
 
-autocmd Filetype yaml setlocal tabstop=2
+autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 
 " leader cmd"
 nnoremap <leader>s :write<CR>

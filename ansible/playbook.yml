@@ -29,6 +29,11 @@
       path: ~/.vimdid
       state: directory
 
+  - name: Make a NeoVIM config folder
+    file:
+      path: ~/.config/nvim
+      state: directory
+
   - name: ZSH folder
     file:
       path: ~/.zsh/plugins
@@ -65,6 +70,7 @@
       name: "{{ item }}"
       state: present
     loop:
+    - neovim
     - ccat
     - tmux
     - fzf
