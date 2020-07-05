@@ -19,11 +19,6 @@ cd ~/.vim/bundle/youcompleteme || exit
 git submodule update --init --recursive
 ~/.vim/bundle/youcompleteme/install.py --clangd-completer --go-completer --rust-completer
 
-# shellcheck disable=1090
-source ~/.zshrc
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
 # not sure if this works so lets put this in the end
 vim -c GoInstallBinaries -c exit
 
