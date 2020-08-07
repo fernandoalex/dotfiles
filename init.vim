@@ -4,6 +4,7 @@ set backspace=indent,eol,start
 set smartindent
 set showcmd
 set incsearch
+set inccommand=split
 set tabstop=8
 
 let g:airline_powerline_fonts = 1
@@ -27,8 +28,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'arzg/vim-rust-syntax-ext'
 Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'itchyny/lightline.vim'
+Plug 'rhysd/git-messenger.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -108,7 +109,11 @@ let g:terraform_fmt_on_save=1
 
 let @v='v$%'
 
+" Filetype
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
+autocmd Filetype gitcommit setlocal spell
+autocmd Filetype markdown setlocal spell
+autocmd Filetype *.txt setlocal spell
 
 " leader cmd"
 nnoremap <leader>s :write<CR>
@@ -158,3 +163,10 @@ let g:syntastic_loc_list_height=5
 nnoremap <buffer> <F5> :GodotRun<CR>
 nnoremap <buffer> <F6> :GodotRunCurrent<CR>
 nnoremap <buffer> <F7> :GodotRunFZF<CR>
+
+"" Git Messenger color ""
+hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#333333 ctermfg=255 ctermbg=234
+hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111
+hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229
+hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210
+
