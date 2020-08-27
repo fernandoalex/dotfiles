@@ -7,8 +7,6 @@ set incsearch
 set inccommand=split
 set tabstop=8
 
-let g:airline_powerline_fonts = 1
-
 call plug#begin()
 
 Plug 'tpope/vim-fugitive'
@@ -22,6 +20,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
@@ -30,14 +29,42 @@ Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/git-messenger.vim'
+Plug 'morhetz/gruvbox'
+Plug 'nvie/vim-flake8'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
 call plug#end()
+
+autocmd vimenter * colorscheme gruvbox
+
+hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#333333 ctermfg=255 ctermbg=234
+hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111
+hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229
+hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210
 
 syntax on
 filetype plugin on
 set clipboard=unnamed
 set rtp+=/usr/local/opt/fzf
+
+" Lightline
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
 
 ""preview stuff""
 
@@ -90,8 +117,6 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_show_hidden = 1
 
-let mapleader = "\<Space>"
-nnoremap <leader><leader> <c-^>
 
 inoremap <C-j> <Esc>
 
@@ -116,8 +141,11 @@ autocmd Filetype markdown setlocal spell
 autocmd Filetype *.txt setlocal spell
 
 " leader cmd"
+let mapleader = "\<Space>"
+nnoremap <leader><leader> <c-^>
 nnoremap <leader>s :write<CR>
 nnoremap <leader>r :Rg<CR>
+nnoremap <leader>q :bufdo q<CR>
 let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 
 "tags"

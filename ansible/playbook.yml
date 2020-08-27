@@ -23,7 +23,6 @@
         - install_homebrew_if_missing
 
   tasks:
-
   - name: Make a vimdid forlder
     file:
       path: ~/.vimdid
@@ -65,6 +64,12 @@
       dest: ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme 
       state: link
 
+  - name: brew taps
+    homebrew_tap:
+      name: "{{ item }}"
+    loop:
+    - aws/tap
+
   - name: Install packages
     package:
       name: "{{ item }}"
@@ -86,6 +91,7 @@
     - ctags
     - fx
     - bat
+    - aws-sam-cli
 
   - name: Clonning Tmux themepack
     git:
