@@ -107,3 +107,5 @@ fi
 if [[ -e ~/.zshrc.local ]]; then
 	source ~/.zshrc.local
 fi
+
+xrandr --output Virtual1 --mode 2560x1600 --rate 60
