@@ -33,11 +33,13 @@ Plug 'morhetz/gruvbox'
 Plug 'nvie/vim-flake8'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
 call plug#end()
-
+set foldlevel=99
 autocmd vimenter * colorscheme gruvbox
 
 hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#333333 ctermfg=255 ctermbg=234
@@ -69,6 +71,13 @@ endfunction
 ""preview stuff""
 
 let g:fzf_preview_window = 'right:60%'
+
+
+"" sneak
+let g:sneak#label = 1
+let g:sneak#s_next = 1
+
+
 
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
@@ -133,6 +142,7 @@ set undofile
 let g:terraform_fmt_on_save=1
 
 let @v='v$%'
+let @c="0i{{/*\<Esc>A*/}}"
 
 " Filetype
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
@@ -198,3 +208,36 @@ hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111
 hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229
 hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210
 
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
