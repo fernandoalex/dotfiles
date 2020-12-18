@@ -100,6 +100,8 @@ alias ls='exa'
 alias ll='exa -la --git'
 alias vi='nvim'
 
+export FZF_DEFAULT_COMMAND='rg --hidden ---glob !.git --files'
+
 if [[ -f ~/.fzf.zsh ]]; then 
 	source ~/.fzf.zsh
 fi

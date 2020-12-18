@@ -91,3 +91,5 @@
         link: ~/.zshrc
       - file: ~/git/dotfiles/gitignore_global
         link: ~/.gitignore_global
+
+  # COC and language server stuff
