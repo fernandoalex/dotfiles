@@ -17,7 +17,8 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   venv          # virtualenv section
   pyenv         # Pyenv section
-  kubectl
+  kubectl # Kubernets
+  aws # AWS
   exec_time     # Execution time
   line_sep      # Line break
   jobs          # Background jobs indicator
@@ -53,22 +54,14 @@ SPACESHIP_KUBECONTEXT_SHOW=true
 SPACESHIP_BATTERY_SHOW=false
 SPACESHIP_VENV_SHOW=true
 SPACESHIP_PYENV_SHOW=true
+#AWS
+SPACESHIP_AWS_SHOW=true
 
 plugins=(
  git
 )
 
 source $ZSH/oh-my-zsh.sh
-
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
-export KEYTIMEOUT=1
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin"
@@ -83,7 +76,7 @@ bindkey -v
 bindkey '^j' vi-cmd-mode
 
 function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+    VIM_PROMPT="%{$fg_bold[yellow]%}[% NORMAL]% %{$reset_color%}"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
     zle reset-prompt
 }
@@ -109,5 +102,3 @@ fi
 if [[ -e ~/.zshrc.local ]]; then
 	source ~/.zshrc.local
 fi
-
-xrandr --output Virtual1 --mode 2560x1600 --rate 60

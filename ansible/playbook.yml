@@ -93,3 +93,4 @@
         link: ~/.gitignore_global
 
   # COC and language server stuff
+  # Rust analyzer stuff
