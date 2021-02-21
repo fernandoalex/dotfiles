@@ -10,10 +10,18 @@ set tabstop=8
 call plug#begin()
 
 Plug 'airblade/vim-rooter'
+
+" Git stuff
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
+Plug 'rhysd/git-messenger.vim'
+Plug 'stsewd/fzf-checkout.vim'
+
+" color stuff
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+
 Plug 'hashivim/vim-terraform'
 Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -30,8 +38,6 @@ Plug 'arzg/vim-rust-syntax-ext'
 Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'rhysd/git-messenger.vim'
-Plug 'morhetz/gruvbox'
 Plug 'nvie/vim-flake8'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -62,24 +68,26 @@ call plug#end()
 set foldlevel=99
 autocmd vimenter * colorscheme gruvbox
 
-hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#333333 ctermfg=255 ctermbg=234
-hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111
-hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229
-hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210
-
-"" Git Fugitive stuff
-" Fugitive Conflict Resolution
+" remaps
+let mapleader = "\<Space>"
 nnoremap <leader>gf :Gvdiff<CR>
 nnoremap gfh :diffget //2<CR>
 nnoremap gfl :diffget //3<CR>
+nnoremap <leader>co :GBranches<CR>
+nnoremap <leader><leader> <c-^>
+nnoremap <leader>w :write<CR>
+nnoremap <leader>r :Rg<CR>
+nnoremap <leader>q :bufdo q<CR>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 syntax on
 filetype plugin on
 set clipboard=unnamed
 set rtp+=/usr/local/opt/fzf
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'highlight': 'Comment' } }
+let $FZF_DEFAULT_OPTS='--reverse'
 
-nnoremap <silent> <C-p> :Files<CR>
 
 " Lightline
 let g:lightline = {
@@ -131,8 +139,6 @@ highlight CursorLineNR cterm=bold ctermfg=LightGrey ctermbg=black
 
 set hlsearch
 set cursorline
-
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 set number relativenumber
 
 let g:ycm_enable_diagnostic_signs = 1
@@ -177,11 +183,6 @@ autocmd Filetype markdown setlocal spell
 autocmd Filetype *.txt setlocal spell
 
 " leader cmd"
-let mapleader = "\<Space>"
-nnoremap <leader><leader> <c-^>
-nnoremap <leader>w :write<CR>
-nnoremap <leader>r :Rg<CR>
-nnoremap <leader>q :bufdo q<CR>
 let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 
 "tags"
