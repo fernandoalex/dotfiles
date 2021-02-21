@@ -71,6 +71,7 @@
     - ctags
     - bat
     - aws-sam-cli
+    - composer
 
   - name: Clonning Tmux themepack
     git:

@@ -16,16 +16,16 @@ Plug 'junegunn/gv.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'hashivim/vim-terraform'
 Plug 'fatih/vim-go'
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-"Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-syntastic/syntastic'
-"Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 Plug 'arzg/vim-rust-syntax-ext'
 Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
@@ -42,9 +42,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
 
 " LanguageServer stuff
-
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
     \ 'python': ['/usr/local/bin/pyls'],
