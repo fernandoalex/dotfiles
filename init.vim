@@ -10,6 +10,7 @@ set tabstop=8
 call plug#begin()
 
 Plug 'airblade/vim-rooter'
+Plug 'ap/vim-buftabline'
 
 " Git stuff
 Plug 'tpope/vim-fugitive'
@@ -80,6 +81,10 @@ nnoremap <leader>r :Rg<CR>
 nnoremap <leader>q :bufdo q<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" BufTabstuff
+nnoremap <C-M> :bnext<CR>
+nnoremap <C-N> :bprev<CR>
 
 syntax on
 filetype plugin on
