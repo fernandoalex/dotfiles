@@ -72,6 +72,7 @@
     - bat
     - aws-sam-cli
     - composer
+    - lf
 
   - name: Clonning Tmux themepack
     git:

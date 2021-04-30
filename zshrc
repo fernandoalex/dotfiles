@@ -17,8 +17,9 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   venv          # virtualenv section
   pyenv         # Pyenv section
-  kubectl # Kubernets
-  aws # AWS
+  kubectl	# Kubernets
+  aws		# AWS
+  terraform	# terraform
   exec_time     # Execution time
   line_sep      # Line break
   jobs          # Background jobs indicator
@@ -48,14 +49,24 @@ SPACESHIP_DOCKER_SHOW=false
 SPACESHIP_CONDA_SHOW=false
 SPACESHIP_DOTNET_SHOW=false
 SPACESHIP_EMBER_SHOW=false
-SPACESHIP_KUBECTL_SHOW=true
-SPACESHIP_KUBECTL_VERSION_SHOW=false
-SPACESHIP_KUBECONTEXT_SHOW=true
 SPACESHIP_BATTERY_SHOW=false
 SPACESHIP_VENV_SHOW=true
 SPACESHIP_PYENV_SHOW=true
-#AWS
+# AWS
 SPACESHIP_AWS_SHOW=true
+SPACESHIP_AWS_PREFIX=""
+# TERRAFORM
+SPACESHIP_TERRAFORM_SHOW=false
+# KUBECTL
+SPACESHIP_KUBECTL_SHOW=true
+SPACESHIP_KUBECTL_VERSION_SHOW=false
+SPACESHIP_KUBECONTEXT_NAMESPACE_SHOW=true
+SPACESHIP_KUBECONTEXT_SHOW=true
+SPACESHIP_KUBECONTEXT_PREFIX=""
+
+# GIT
+SPACESHIP_GIT_SYMBOL=""
+SPACESHIP_GIT_BRANCH_SUFFIX=""
 
 plugins=(
  git
