@@ -39,6 +39,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
@@ -56,7 +57,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'justinmk/vim-sneak'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'wellle/context.vim'
-
+Plug 'Yggdroot/indentLine'
 " LSP plugins
 
 Plug 'autozimu/LanguageClient-neovim', {
@@ -98,6 +99,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 EOF
 
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_defaultGroup = 'SpecialKey'
+set list lcs=tab:\|\ 
+
 " Code navigation shortcuts
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
@@ -127,9 +132,11 @@ nmap <silent> gd <Plug>(lcn-definition)
 "nmap <silent> gD <Plug>(coc-implementation)
 nmap <silent> <F2> <Plug>(lcn-rename)
 
+
 " Initialize plugin system
 set foldlevel=99
 autocmd vimenter * colorscheme gruvbox
+
 
 " remaps
 let mapleader = "\<Space>"
