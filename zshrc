@@ -104,6 +104,34 @@ alias ls='exa'
 alias ll='exa -la --git'
 alias vi='nvim'
 
+urlencode(){
+  declare str="$*"
+  declare encoded=""
+  declare i c x
+  for ((i=0; i<${#str}; i++ )); do
+    c=${str:$i:1}
+    case "$c" in
+      [-_.~a-zA-Z0-9] ) x="$c" ;;
+      * ) printf -v x '%%%02x' "'$c";;
+    esac
+    encoded+="$x"
+  done
+  echo "$encoded"
+}
+
+duck(){
+  declare url=$(urlencode "$*")
+  lynx --accept_all_cookies "https://duckduckgo.com/lite?q=$url"
+}
+
+wiki_search(){
+  declare url=$(urlencode "$*")
+  lynx --accept_all_cookies "https://en.wikipedia.org/wiki/$url"
+}
+
+alias "?"=duck
+alias "wiki"=wiki_search
+
 export FZF_DEFAULT_COMMAND='rg --hidden ---glob !.git --files'
 
 if [[ -f ~/.fzf.zsh ]]; then 
