@@ -1,143 +1,53 @@
+setopt prompt_subst
+
+# import stuff
+PLUGIN_FOLDER="$HOME/git/dotfiles/zsh-plugins"
+
+FUNCTION_FILE="functions.zsh"
+[ -f "$PLUGIN_FOLDER/$FUNCTION_FILE" ] && source $PLUGIN_FOLDER/$FUNCTION_FILE
+ALIAS_FILE="alias.zsh"
+[ -f "$PLUGIN_FOLDER/$ALIAS_FILE" ] && source $PLUGIN_FOLDER/$ALIAS_FILE
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Git stuff
+# Format the vcs_info_msg_0_ variable
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+# Enable colors and change prompt:
+autoload -U colors && colors
+PROMPT='
+%B%{$fg[white]%}[ %{$fg[magenta]%}%~%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
+$%b '
 
-SPACESHIP_PROMPT_ORDER=(
-  time          # Time stamps section
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  venv          # virtualenv section
-  pyenv         # Pyenv section
-  kubectl	# Kubernets
-  aws		# AWS
-  terraform	# terraform
-  exec_time     # Execution time
-  line_sep      # Line break
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
 
-SPACESHIP_CHAR_SYMBOL='$'
-SPACESHIP_CHAR_SUFFIX=' '
-SPACESHIP_TIME_SHOW=true
-SPACESHIP_HG_SHOW=false
-SPACESHIP_HG_BRANCH_SHOW=false
-SPACESHIP_HG_STATUS_SHOW=false
-SPACESHIP_PACKAGE_SHOW=false
-SPACESHIP_NODE_SHOW=false
-SPACESHIP_RUBY_SHOW=false
-SPACESHIP_ELM_SHOW=false
-SPACESHIP_ELIXIR_SHOW=false
-SPACESHIP_XCODE_SHOW_LOCAL=false
-SPACESHIP_SWIFT_SHOW_LOCAL=false
-SPACESHIP_GOLANG_SHOW=false
-SPACESHIP_PHP_SHOW=false
-SPACESHIP_RUST_SHOW=false
-SPACESHIP_HASKELL_SHOW=false
-SPACESHIP_JULIA_SHOW=false
-SPACESHIP_DOCKER_SHOW=false
-SPACESHIP_CONDA_SHOW=false
-SPACESHIP_DOTNET_SHOW=false
-SPACESHIP_EMBER_SHOW=false
-SPACESHIP_BATTERY_SHOW=false
-SPACESHIP_VENV_SHOW=true
-SPACESHIP_PYENV_SHOW=true
-# AWS
-SPACESHIP_AWS_SHOW=true
-SPACESHIP_AWS_PREFIX=""
-# TERRAFORM
-SPACESHIP_TERRAFORM_SHOW=false
-# KUBECTL
-SPACESHIP_KUBECTL_SHOW=true
-SPACESHIP_KUBECTL_VERSION_SHOW=false
-SPACESHIP_KUBECONTEXT_NAMESPACE_SHOW=true
-SPACESHIP_KUBECONTEXT_SHOW=true
-SPACESHIP_KUBECONTEXT_PREFIX=""
-
-# GIT
-SPACESHIP_GIT_SYMBOL=""
-SPACESHIP_GIT_BRANCH_SUFFIX=""
-
-plugins=(
- git
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin"
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Custom Plugins
-source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
-source ~/.zsh/plugins/per-directory-history/per-directory-history.zsh
-
+# vi mode
 bindkey -v
 bindkey '^j' vi-cmd-mode
-
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%}[% NORMAL]% %{$reset_color%}"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 export KEYTIMEOUT=1
 
-alias r='cd $(git rev-parse --show-toplevel)'
-alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
-alias grep='grep -i'
-alias cat='ccat'
-alias ls='exa'
-alias ll='exa -la --git'
-alias vi='nvim'
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
 
-urlencode(){
-  declare str="$*"
-  declare encoded=""
-  declare i c x
-  for ((i=0; i<${#str}; i++ )); do
-    c=${str:$i:1}
-    case "$c" in
-      [-_.~a-zA-Z0-9] ) x="$c" ;;
-      * ) printf -v x '%%%02x' "'$c";;
-    esac
-    encoded+="$x"
-  done
-  echo "$encoded"
-}
-
-duck(){
-  declare url=$(urlencode "$*")
-  lynx --accept_all_cookies "https://duckduckgo.com/lite?q=$url"
-}
-
-wiki_search(){
-  declare url=$(urlencode "$*")
-  lynx --accept_all_cookies "https://en.wikipedia.org/wiki/$url"
-}
-
-alias "?"=duck
-alias "wiki"=wiki_search
+# Custom Plugins
+source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+source ~/.zsh/plugins/per-directory-history/per-directory-history.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export FZF_DEFAULT_COMMAND='rg --hidden ---glob !.git --files'
 
-if [[ -f ~/.fzf.zsh ]]; then 
-	source ~/.fzf.zsh
-fi
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin"
 
-if [[ -e ~/.zshrc.local ]]; then
-	source ~/.zshrc.local
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

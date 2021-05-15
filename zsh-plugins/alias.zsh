@@ -1,0 +1,9 @@
+alias r='cd $(git rev-parse --show-toplevel)'
+alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
+alias grep='grep -i'
+alias cat='ccat'
+alias ls='exa'
+alias ll='exa -la --git'
+alias vi='nvim'
+alias "?"=duck
+alias "wiki"=wiki_search
