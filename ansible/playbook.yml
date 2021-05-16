@@ -19,11 +19,6 @@
       path: ~/.zsh/plugins
       state: directory
 
-  - name: ZSH AutoSuggestions
-    git:
-      repo: https://github.com/zsh-users/zsh-autosuggestions
-      dest: ~/.zsh/plugins/zsh-autosuggestions
-
   - name: ZSH zsh-vim-mode
     git:
       repo: https://github.com/softmoth/zsh-vim-mode.git
@@ -33,17 +28,6 @@
     git:
       repo: https://github.com/jimhester/per-directory-history.git
       dest: ~/.zsh/plugins/per-directory-history
-
-  - name: SpaceShip repo
-    git:
-      repo: https://github.com/denysdovhan/spaceship-prompt.git
-      dest: ~/.oh-my-zsh/custom/themes/spaceship-prompt
-
-  - name: SpaceShip link
-    file:
-      src: ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme 
-      dest: ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme 
-      state: link
 
   - name: brew taps
     homebrew_tap:
@@ -65,7 +49,6 @@
     - exa
     - ripgrep
     - zsh-syntax-highlighting
-    - zsh-autosuggestions
     - w3m
     - shellcheck
     - ctags

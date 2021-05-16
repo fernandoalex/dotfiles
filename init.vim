@@ -19,6 +19,7 @@ set signcolumn=yes
 
 call plug#begin()
 
+Plug 'nvim-lua/plenary.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'ap/vim-buftabline'
 
@@ -28,6 +29,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 " color stuff
 Plug 'altercation/vim-colors-solarized'

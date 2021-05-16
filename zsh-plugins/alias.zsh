@@ -7,3 +7,4 @@ alias ll='exa -la --git'
 alias vi='nvim'
 alias "?"=duck
 alias "wiki"=wiki_search
+alias wt="worktree.sh"

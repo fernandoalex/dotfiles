@@ -10,6 +10,7 @@ ALIAS_FILE="alias.zsh"
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin.local:/usr/local/bin:$PATH
 
 # Git stuff
 # Format the vcs_info_msg_0_ variable
@@ -17,7 +18,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Enable colors and change prompt:
 autoload -U colors && colors
 PROMPT='
-%B%{$fg[white]%}[ %{$fg[magenta]%}%~%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
+%B%{$fg[white]%}[ %{$fg[magenta]%}%(4~|.../%3~|%~)%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
 $%b '
 
 # Basic auto/tab complete:
