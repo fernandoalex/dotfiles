@@ -29,11 +29,25 @@
       repo: https://github.com/jimhester/per-directory-history.git
       dest: ~/.zsh/plugins/per-directory-history
 
-  - name: brew taps
-    homebrew_tap:
+        #  - name: brew taps
+        #    homebrew_tap:
+        #      name: "{{ item }}"
+        #    loop:
+        #    - aws/tap
+
+  - name: Install deps
+    package:
       name: "{{ item }}"
+      state: present
+    become: true
     loop:
-    - aws/tap
+    - curl
+    - apt-transport-https
+    - libcontconfig1-dev
+    - libxcb-shape0-dev
+    - libxcb-render0-dev
+    - libxcb-xfixes0-dev
+    - hwinfo
 
   - name: Install packages
     package:
