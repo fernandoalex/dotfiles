@@ -43,11 +43,17 @@
     loop:
     - curl
     - apt-transport-https
+    - hwinfo
+      # alacritty
     - libcontconfig1-dev
     - libxcb-shape0-dev
     - libxcb-render0-dev
     - libxcb-xfixes0-dev
-    - hwinfo
+      # bevy_chess stuff
+    - libasound2-dev 
+    - libx11-dev
+    - librust-libudev-sys-dev
+    - libasound2-dev
 
   - name: Install packages
     package:
