@@ -16,6 +16,7 @@ set softtabstop=8
 set tabstop=8
 set updatetime=300
 set signcolumn=yes
+set colorcolumn=120
 
 call plug#begin()
 
@@ -79,6 +80,7 @@ call plug#end()
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
     \ 'python': ['/usr/local/bin/pyls'],
+    \ 'terraform': ['terraform-ls', 'serve'],
     \ }
 
 lua << EOF
