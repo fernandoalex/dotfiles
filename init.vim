@@ -54,10 +54,9 @@ Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 "Plug 'nvie/vim-flake8'
-"Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'justinmk/vim-sneak'
 Plug 'wellle/context.vim'
 Plug 'Yggdroot/indentLine'
 " LSP plugins
@@ -101,6 +100,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 EOF
 
+autocmd BufEnter * lua require'completion'.on_attach()
+let g:completion_enable_auto_popup = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_defaultGroup = 'SpecialKey'
 set list lcs=tab:\|\ 
@@ -227,6 +228,13 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 inoremap {;<CR> {<CR>};<ESC>O
+
+" Center screen on next/previous selection.
+nnoremap n nzz
+nnoremap N Nzz
+" Last and next jump should center too.
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
 set undodir=~/.vimdid
 set undofile
