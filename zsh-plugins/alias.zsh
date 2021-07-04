@@ -1,10 +1,11 @@
 alias r='cd $(git rev-parse --show-toplevel)'
 alias co='git checkout `git branch -a | fzf | sed -e "s|remotes\/origin\/||"`'
 alias grep='grep -i'
-alias cat='ccat'
+alias cat='bat'
 alias ls='exa'
 alias ll='exa -la --git'
 alias vi='nvim'
 alias "?"=duck
 alias "wiki"=wiki_search
 alias wt="worktree.sh"
+alias gitlab-mr="git push -o merge_request.create"
