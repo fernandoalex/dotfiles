@@ -11,7 +11,10 @@ ALIAS_FILE="alias.zsh"
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin.local:/usr/local/bin:$PATH
-
+export VISUAL=vi
+export EDITOR="$VISUAL"
+export SAVEHIST=10
+export HISTFILE=~/.zsh_history
 # Git stuff
 # Format the vcs_info_msg_0_ variable
 
@@ -42,7 +45,6 @@ bindkey -v '^?' backward-delete-char
 
 # Custom Plugins
 source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
-source ~/.zsh/plugins/per-directory-history/per-directory-history.zsh
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export FZF_DEFAULT_COMMAND='rg --hidden ---glob !.git --files'

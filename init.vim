@@ -142,9 +142,17 @@ nmap <silent> <F2> <Plug>(lcn-rename)
 set foldlevel=99
 autocmd vimenter * colorscheme gruvbox
 
+"""" BEGIN remaps
 
-" remaps
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+inoremap <C-j> <Esc>
+
 let mapleader = "\<Space>"
+
 nnoremap <leader>gf :Gvdiff<CR>
 nnoremap gfh :diffget //2<CR>
 nnoremap gfl :diffget //3<CR>
@@ -156,9 +164,21 @@ nnoremap <leader>q :bufdo q<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+" Center when jumping
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap G Gzz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
+
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap {<CR> {<CR>}<ESC>O
+
 " BufTabstuff
 nnoremap <C-M> :bnext<CR>
 nnoremap <C-N> :bprev<CR>
+
+""" END remaps
 
 syntax on
 filetype plugin on
@@ -221,31 +241,10 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_show_hidden = 1
 
-
-inoremap <C-j> <Esc>
-
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
-inoremap {;<CR> {<CR>};<ESC>O
-inoremap {<CR> {<CR>}<ESC>O
-
-" Center screen on next/previous selection.
-nnoremap n nzz
-nnoremap N Nzz
-" Last and next jump should center too.
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
-
 set undodir=~/.vimdid
 set undofile
 
 let g:terraform_fmt_on_save=1
-
-let @v='v$%'
-let @c="0i{{/*\<Esc>A*/}}"
 
 " Filetype
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2

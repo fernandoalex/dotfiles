@@ -44,6 +44,7 @@
     - curl
     - apt-transport-https
     - hwinfo
+    - linux-tools-generic
       # alacritty
     - libcontconfig1-dev
     - libxcb-shape0-dev
