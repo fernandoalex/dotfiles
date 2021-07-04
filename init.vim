@@ -228,6 +228,7 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 inoremap {;<CR> {<CR>};<ESC>O
+inoremap {<CR> {<CR>}<ESC>O
 
 " Center screen on next/previous selection.
 nnoremap n nzz
