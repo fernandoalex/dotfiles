@@ -24,17 +24,6 @@
       repo: https://github.com/softmoth/zsh-vim-mode.git
       dest: ~/.zsh/plugins/zsh-vim-mode
 
-  - name: ZSH per directory-history
-    git:
-      repo: https://github.com/jimhester/per-directory-history.git
-      dest: ~/.zsh/plugins/per-directory-history
-
-        #  - name: brew taps
-        #    homebrew_tap:
-        #      name: "{{ item }}"
-        #    loop:
-        #    - aws/tap
-
   - name: Install deps
     package:
       name: "{{ item }}"
@@ -46,7 +35,6 @@
     - hwinfo
     - linux-tools-generic
       # alacritty
-    - libcontconfig1-dev
     - libxcb-shape0-dev
     - libxcb-render0-dev
     - libxcb-xfixes0-dev
@@ -67,16 +55,17 @@
     - fzf
     - tldr
     - cmake 
-    - exa
+      #- exa
     - ripgrep
     - zsh-syntax-highlighting
     - w3m
     - shellcheck
     - ctags
-    - bat
-    - aws-sam-cli
+      #- bat
+      #- aws-sam-cli
     - composer
-    - lf
+      #- lf
+    - autojump
 
   - name: Clonning Tmux themepack
     git:
