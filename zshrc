@@ -13,7 +13,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin.local:/usr/local/bin:$PATH
 export VISUAL=vi
 export EDITOR="$VISUAL"
-export SAVEHIST=10
 export HISTFILE=~/.zsh_history
 # Git stuff
 # Format the vcs_info_msg_0_ variable
@@ -54,3 +53,4 @@ export PATH="$PATH:$HOME/.rvm/bin:$HOME/git/inspec/bin:$HOME/bin:/usr/local/bin:
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
