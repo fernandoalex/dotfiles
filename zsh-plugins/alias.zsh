@@ -8,4 +8,4 @@ alias vi='nvim'
 alias "?"=duck
 alias "wiki"=wiki_search
 alias wt="worktree.sh"
-alias gitlab-mr="git push -o merge_request.create"
+alias date='date -u +"%Y-%m-%dT%H:%M:%S%Z"'

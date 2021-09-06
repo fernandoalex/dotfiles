@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 # stuff
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ln -s ~/dotfiles/tmux.conf ~/.tmux.conf

@@ -80,6 +80,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ 'terraform': ['terraform-ls', 'serve'],
+    \ 'tf': ['terraform-ls', 'serve'],
     \ }
 
 lua << EOF
@@ -91,6 +92,7 @@ local on_attach = function(client)
 end
 
 nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+nvim_lsp.terraformls.setup({ on_attach=on_attach })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -140,7 +142,6 @@ nmap <silent> <F2> <Plug>(lcn-rename)
 
 " Initialize plugin system
 set foldlevel=99
-autocmd vimenter * colorscheme gruvbox
 
 """" BEGIN remaps
 
@@ -173,6 +174,17 @@ nnoremap <C-i> <C-i>zz
 
 inoremap {;<CR> {<CR>};<ESC>O
 inoremap {<CR> {<CR>}<ESC>O
+
+nnoremap Y y$
+
+" better break points
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" mac version
+nnoremap <leader>cfn :let @*=expand("%").":".line(".")
 
 " BufTabstuff
 nnoremap <C-M> :bnext<CR>
@@ -224,13 +236,19 @@ endfun
 
 call SetupCommandAlias("nt","NERDTree")
 
-highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
-highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
-highlight Comment ctermfg=DarkGrey
-highlight Todo cterm=bold ctermfg=red ctermbg=NONE
-highlight Done cterm=bold ctermfg=green ctermbg=NONE
-highlight CursorLineNR cterm=bold ctermfg=LightGrey ctermbg=black
-highlight LanguageClientCodeLens ctermfg=DarkGrey 
+"highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
+"highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
+"highlight Comment ctermfg=DarkGrey
+"highlight Todo cterm=bold ctermfg=red ctermbg=NONE
+"highlight Done cterm=bold ctermfg=green ctermbg=NONE
+"highlight CursorLineNR cterm=bold ctermfg=LightGrey ctermbg=black
+"highlight LanguageClientCodeLens ctermfg=DarkGrey 
+
+
+autocmd vimenter * colorscheme gruvbox
+autocmd VimEnter * hi Normal ctermbg=none
+
+"let g:gruvbox_transparent_bg=1
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
