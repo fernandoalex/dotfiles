@@ -108,6 +108,9 @@ autocmd BufEnter * lua require'completion'.on_attach()
 let g:completion_enable_auto_popup = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_defaultGroup = 'SpecialKey'
+let g:indentLine_setConceal = 0
+let g:indentLine_concealcursor = ""
+
 set list lcs=tab:\|\ 
 
 " Code navigation shortcuts
@@ -236,19 +239,8 @@ endfun
 
 call SetupCommandAlias("nt","NERDTree")
 
-"highlight CursorLine term=NONE cterm=NONE ctermfg=NONE ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
-"highlight LineNr term=bold cterm=NONE ctermfg=Grey ctermbg=black gui=NONE guifg=DarkGrey guibg=NONE 
-"highlight Comment ctermfg=DarkGrey
-"highlight Todo cterm=bold ctermfg=red ctermbg=NONE
-"highlight Done cterm=bold ctermfg=green ctermbg=NONE
-"highlight CursorLineNR cterm=bold ctermfg=LightGrey ctermbg=black
-"highlight LanguageClientCodeLens ctermfg=DarkGrey 
-
-
 autocmd vimenter * colorscheme gruvbox
 autocmd VimEnter * hi Normal ctermbg=none
-
-"let g:gruvbox_transparent_bg=1
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
