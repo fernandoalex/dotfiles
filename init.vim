@@ -23,14 +23,13 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'ap/vim-buftabline'
-
+Plug 'ap/vim-css-color'
 " Git stuff
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
-Plug 'ThePrimeagen/git-worktree.nvim'
 
 " color stuff
 Plug 'altercation/vim-colors-solarized'
@@ -78,7 +77,7 @@ call plug#end()
 " LanguageServer stuff
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
-    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'python': ['/usr/local/bin/pylsp'],
     \ 'terraform': ['terraform-ls', 'serve'],
     \ 'tf': ['terraform-ls', 'serve'],
     \ }
@@ -91,8 +90,9 @@ local on_attach = function(client)
     require'completion'.on_attach(client)
 end
 
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
-nvim_lsp.terraformls.setup({ on_attach=on_attach })
+nvim_lsp.rust_analyzer.setup{on_attach=on_attach}
+nvim_lsp.terraformls.setup{on_attach=on_attach}
+nvim_lsp.pylsp.setup{on_attach=on_attach}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -104,8 +104,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 EOF
 
-autocmd BufEnter * lua require'completion'.on_attach()
-let g:completion_enable_auto_popup = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_defaultGroup = 'SpecialKey'
 let g:indentLine_setConceal = 0
@@ -227,7 +225,7 @@ let g:sneak#s_next = 1
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" --glob "!venv/*" '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 fun! SetupCommandAlias(from, to)
@@ -332,3 +330,7 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
+"" vim-rooter
+let g:rooter_patterns = ['.git', 'Makefile']
+let g:rooter_patterns = ['!.git/worktrees']

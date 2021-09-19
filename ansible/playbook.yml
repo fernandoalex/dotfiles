@@ -86,6 +86,8 @@
         link: ~/.zshrc
       - file: ~/git/dotfiles/gitignore_global
         link: ~/.gitignore_global
+      - file: ~/git/dotfiles/bin
+        link: ~/bin
 
   # COC and language server stuff
   # Rust analyzer stuff
