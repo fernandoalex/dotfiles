@@ -1,29 +1,10 @@
-set backspace=indent,eol,start
-set completeopt-=preview
-set completeopt=menuone,noinsert,noselect
-set cursorline
-set hlsearch
-set inccommand=split
-set incsearch
-set mouse-=a
-set number
-set number relativenumber
-set shiftwidth=8
-set shortmess+=c
-set showcmd
-set smartindent
-set softtabstop=8 
-set tabstop=8
-set updatetime=300
-set signcolumn=yes
-set colorcolumn=120
-
 call plug#begin()
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'ap/vim-buftabline'
 Plug 'ap/vim-css-color'
+
 " Git stuff
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -32,8 +13,11 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
 
 " color stuff
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
+"Plug 'altercation/vim-colors-solarized'
+
+" themes
+"Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 
 Plug 'hashivim/vim-terraform'
 Plug 'fatih/vim-go'
@@ -49,8 +33,13 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'arzg/vim-rust-syntax-ext'
+
 Plug 'preservim/nerdcommenter'
+
 "Plug 'preservim/nerdtree'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
 Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 "Plug 'nvie/vim-flake8'
@@ -71,6 +60,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
+
+Plug 'mogelbrod/vim-jsonpath'
 
 call plug#end()
 
@@ -140,9 +131,14 @@ nmap <silent> gd <Plug>(lcn-definition)
 "nmap <silent> gD <Plug>(coc-implementation)
 nmap <silent> <F2> <Plug>(lcn-rename)
 
-
-" Initialize plugin system
+" Folding
+set foldenable 
+set foldmethod=syntax
 set foldlevel=99
+
+" JsonPath
+
+let g:jsonpath_register = 'p'
 
 """" BEGIN remaps
 
@@ -184,6 +180,9 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
+" nvimtree
+let g:nvim_tree_auto_open = 1
+
 " mac version
 nnoremap <leader>cfn :let @*=expand("%").":".line(".")
 
@@ -193,7 +192,6 @@ nnoremap <C-N> :bprev<CR>
 
 """ END remaps
 
-syntax on
 filetype plugin on
 set clipboard=unnamed
 set rtp+=/usr/local/opt/fzf
@@ -233,12 +231,6 @@ fun! SetupCommandAlias(from, to)
         	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
         	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
-
-
-call SetupCommandAlias("nt","NERDTree")
-
-autocmd vimenter * colorscheme gruvbox
-autocmd VimEnter * hi Normal ctermbg=none
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -334,3 +326,25 @@ endif
 "" vim-rooter
 let g:rooter_patterns = ['.git', 'Makefile']
 let g:rooter_patterns = ['!.git/worktrees']
+
+autocmd vimenter * colorscheme nord
+
+set backspace=indent,eol,start
+set completeopt-=preview
+set completeopt=menuone,noinsert,noselect
+set cursorline
+set hlsearch
+set inccommand=split
+set incsearch
+set mouse-=a
+set number
+set number relativenumber
+set shiftwidth=8
+set shortmess+=c
+set showcmd
+set smartindent
+set softtabstop=8 
+set tabstop=8
+set updatetime=300
+set signcolumn=yes
+set colorcolumn=120
