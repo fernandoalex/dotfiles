@@ -59,9 +59,21 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'nvim-lua/completion-nvim'
+"Plug 'nvim-lua/completion-nvim'
 
 Plug 'mogelbrod/vim-jsonpath'
+
+" Testing plugins
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'rcarriga/nvim-notify'
+
+
 
 call plug#end()
 
@@ -77,13 +89,50 @@ lua << EOF
 
 local nvim_lsp = require'lspconfig'
 
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
+-- Setup nvim-cmp.
+local cmp = require'cmp'
 
-nvim_lsp.rust_analyzer.setup{on_attach=on_attach}
-nvim_lsp.terraformls.setup{on_attach=on_attach}
-nvim_lsp.pylsp.setup{on_attach=on_attach}
+cmp.setup({
+snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      end,
+    },
+mapping = {
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+},
+sources = cmp.config.sources({
+{ name = 'nvim_lsp' },
+-- { name = 'luasnip' }, -- For luasnip users.
+-- { name = 'ultisnips' }, -- For ultisnips users.
+-- { name = 'snippy' }, -- For snippy users.
+}, {
+{ name = 'buffer' },
+})
+})
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+nvim_lsp.rust_analyzer.setup{
+on_attach=on_attach,
+capabilities = capabilities
+}
+nvim_lsp.terraformls.setup{
+on_attach=on_attach,
+capabilities = capabilities
+}
+nvim_lsp.pylsp.setup{
+on_attach=on_attach,
+capabilities = capabilities
+}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
