@@ -33,16 +33,10 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'arzg/vim-rust-syntax-ext'
-
 Plug 'preservim/nerdcommenter'
-
-"Plug 'preservim/nerdtree'
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
-"Plug 'nvie/vim-flake8'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -73,8 +67,6 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'rcarriga/nvim-notify'
 
-
-
 call plug#end()
 
 " LanguageServer stuff
@@ -102,8 +94,6 @@ mapping = {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
@@ -231,9 +221,6 @@ inoremap ? ?<c-g>u
 
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-
-" nvimtree
-let g:nvim_tree_auto_open = 1
 
 " mac version
 nnoremap <leader>cfn :let @*=expand("%").":".line(".")
@@ -400,3 +387,8 @@ set tabstop=8
 set updatetime=300
 set signcolumn=yes
 set colorcolumn=120
+
+"" quicks
+
+" gets the current branch name and send to register a
+command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
