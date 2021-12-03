@@ -24,31 +24,29 @@
       repo: https://github.com/softmoth/zsh-vim-mode.git
       dest: ~/.zsh/plugins/zsh-vim-mode
 
-  - name: Install deps
-    package:
-      name: "{{ item }}"
-      state: present
-    become: true
-    loop:
-    - curl
-    - apt-transport-https
-    - hwinfo
-    - linux-tools-generic
-      # alacritty
-    - libxcb-shape0-dev
-    - libxcb-render0-dev
-    - libxcb-xfixes0-dev
-      # bevy_chess stuff
-    - libasound2-dev 
-    - libx11-dev
-    - librust-libudev-sys-dev
-    - libasound2-dev
+        #  - name: Install deps
+        #    package:
+        #      name: "{{ item }}"
+        #      state: present
+        #    loop:
+        #    - curl
+        #    - apt-transport-https
+        #    - hwinfo
+        #    - linux-tools-generic
+        #      # alacritty
+        #    - libxcb-shape0-dev
+        #    - libxcb-render0-dev
+        #    - libxcb-xfixes0-dev
+        #      # bevy_chess stuff
+        #    - libasound2-dev 
+        #    - libx11-dev
+        #    - librust-libudev-sys-dev
+        #    - libasound2-dev
 
   - name: Install packages
     package:
       name: "{{ item }}"
       state: present
-    become: true
     loop:
     - neovim
     - tmux

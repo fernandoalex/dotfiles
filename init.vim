@@ -11,6 +11,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " color stuff
 "Plug 'altercation/vim-colors-solarized'
@@ -99,29 +100,29 @@ mapping = {
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
 },
 sources = cmp.config.sources({
-{ name = 'nvim_lsp' },
--- { name = 'luasnip' }, -- For luasnip users.
--- { name = 'ultisnips' }, -- For ultisnips users.
--- { name = 'snippy' }, -- For snippy users.
-}, {
-{ name = 'buffer' },
-})
+	{ name = 'nvim_lsp' },
+	-- { name = 'luasnip' }, -- For luasnip users.
+	-- { name = 'ultisnips' }, -- For ultisnips users.
+	-- { name = 'snippy' }, -- For snippy users.
+	},{
+		{ name = 'buffer' },
+	})
 })
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 nvim_lsp.rust_analyzer.setup{
-on_attach=on_attach,
-capabilities = capabilities
+	on_attach=on_attach,
+	capabilities = capabilities
 }
 nvim_lsp.terraformls.setup{
-on_attach=on_attach,
-capabilities = capabilities
+	on_attach=on_attach,
+	capabilities = capabilities
 }
 nvim_lsp.pylsp.setup{
-on_attach=on_attach,
-capabilities = capabilities
+	on_attach=on_attach,
+	capabilities = capabilities
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -131,6 +132,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
+
+require('gitsigns').setup()
 
 EOF
 
@@ -153,8 +156,6 @@ nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 "nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
@@ -222,8 +223,6 @@ inoremap ? ?<c-g>u
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" mac version
-nnoremap <leader>cfn :let @*=expand("%").":".line(".")
 
 " BufTabstuff
 nnoremap <C-M> :bnext<CR>
@@ -389,6 +388,9 @@ set signcolumn=yes
 set colorcolumn=120
 
 "" quicks
+
+" get file name and line
+nnoremap <leader>cfn :let @*=expand("%").":".line(".")
 
 " gets the current branch name and send to register a
 command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
