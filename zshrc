@@ -47,6 +47,7 @@ bindkey -v '^?' backward-delete-char
 # Custom Plugins
 source ~/.zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export FZF_DEFAULT_COMMAND='rg --hidden ---glob !.git --files'
 

@@ -24,6 +24,11 @@
       repo: https://github.com/softmoth/zsh-vim-mode.git
       dest: ~/.zsh/plugins/zsh-vim-mode
 
+  - name: ZSH zsh-autosuggestions
+    git:
+      repo: https://github.com/zsh-users/zsh-autosuggestions.git
+      dest: ~/.zsh/plugins/zsh-autosuggestions
+
         #  - name: Install deps
         #    package:
         #      name: "{{ item }}"
