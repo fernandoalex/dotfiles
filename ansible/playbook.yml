@@ -29,25 +29,6 @@
       repo: https://github.com/zsh-users/zsh-autosuggestions.git
       dest: ~/.zsh/plugins/zsh-autosuggestions
 
-        #  - name: Install deps
-        #    package:
-        #      name: "{{ item }}"
-        #      state: present
-        #    loop:
-        #    - curl
-        #    - apt-transport-https
-        #    - hwinfo
-        #    - linux-tools-generic
-        #      # alacritty
-        #    - libxcb-shape0-dev
-        #    - libxcb-render0-dev
-        #    - libxcb-xfixes0-dev
-        #      # bevy_chess stuff
-        #    - libasound2-dev 
-        #    - libx11-dev
-        #    - librust-libudev-sys-dev
-        #    - libasound2-dev
-
   - name: Install packages
     package:
       name: "{{ item }}"
@@ -58,16 +39,12 @@
     - fzf
     - tldr
     - cmake 
-      #- exa
     - ripgrep
     - zsh-syntax-highlighting
     - w3m
     - shellcheck
     - ctags
-      #- bat
-      #- aws-sam-cli
     - composer
-      #- lf
     - autojump
 
   - name: Clonning Tmux themepack
@@ -91,6 +68,3 @@
         link: ~/.gitignore_global
       - file: ~/git/dotfiles/bin
         link: ~/bin
-
-  # COC and language server stuff
-  # Rust analyzer stuff

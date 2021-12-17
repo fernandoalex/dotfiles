@@ -17,8 +17,8 @@ Plug 'lewis6991/gitsigns.nvim'
 "Plug 'altercation/vim-colors-solarized'
 
 " themes
-"Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
+" Plug 'arcticicestudio/nord-vim'
 
 Plug 'hashivim/vim-terraform'
 Plug 'fatih/vim-go'
@@ -365,7 +365,7 @@ endif
 let g:rooter_patterns = ['.git', 'Makefile']
 let g:rooter_patterns = ['!.git/worktrees']
 
-autocmd vimenter * colorscheme nord
+autocmd vimenter * colorscheme gruvbox
 
 set backspace=indent,eol,start
 set completeopt-=preview
