@@ -133,8 +133,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-require('gitsigns').setup()
-
 EOF
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -223,11 +221,15 @@ inoremap ? ?<c-g>u
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+nnoremap <C-f> :silent !tmux neww tmux-jump.sh<CR>
 
-" BufTabstuff
-nnoremap <C-M> :bnext<CR>
-nnoremap <C-N> :bprev<CR>
+nnoremap <C-b> :Buffer
+" get file name and line
+nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 
+" gets the current branch name and send to register a
+command Bn let @a = system("git rev-parse --abbrev-ref HEAD")<CR>
+	
 """ END remaps
 
 filetype plugin on
@@ -366,6 +368,7 @@ let g:rooter_patterns = ['.git', 'Makefile']
 let g:rooter_patterns = ['!.git/worktrees']
 
 autocmd vimenter * colorscheme gruvbox
+autocmd VimEnter * hi Normal ctermbg=none
 
 set backspace=indent,eol,start
 set completeopt-=preview
@@ -389,8 +392,3 @@ set colorcolumn=120
 
 "" quicks
 
-" get file name and line
-nnoremap <leader>cfn :let @*=expand("%").":".line(".")
-
-" gets the current branch name and send to register a
-command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
