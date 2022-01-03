@@ -223,7 +223,7 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <C-f> :silent !tmux neww tmux-jump.sh<CR>
 
-nnoremap <C-b> :Buffer
+nnoremap <C-b> :Buffer<CR>
 " get file name and line
 nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 
