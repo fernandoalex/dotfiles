@@ -9,3 +9,4 @@ alias "?"=duck
 alias "wiki"=wiki_search
 alias wt="worktree.sh"
 alias date='date -u +"%Y-%m-%dT%H:%M:%S%Z"'
+alias fd='cd `find . -type d ! -name "*.gi*" ! -name "*.terrafor*" | fzf`'

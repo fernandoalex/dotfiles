@@ -63,11 +63,12 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'nvim-telescope/telescope.nvim'
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'rcarriga/nvim-notify'
-
+Plug 'mrjones2014/dash.nvim', { 'do': 'make install' }
 call plug#end()
 
 " LanguageServer stuff
@@ -184,6 +185,7 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+inoremap W <nop>
 
 inoremap <C-j> <Esc>
 
@@ -198,6 +200,8 @@ nnoremap <leader>w :write<CR>
 nnoremap <leader>r :Rg<CR>
 nnoremap <leader>q :bufdo q<CR>
 nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-l> :Files %:h<CR>
+nnoremap <C-b> :Buffer<CR>
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " Center when jumping
@@ -223,12 +227,11 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <C-f> :silent !tmux neww tmux-jump.sh<CR>
 
-nnoremap <C-b> :Buffer<CR>
 " get file name and line
 nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 
 " gets the current branch name and send to register a
-command Bn let @a = system("git rev-parse --abbrev-ref HEAD")<CR>
+command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
 	
 """ END remaps
 
@@ -390,5 +393,8 @@ set updatetime=300
 set signcolumn=yes
 set colorcolumn=120
 
-"" quicks
-
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
