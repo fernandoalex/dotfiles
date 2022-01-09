@@ -158,8 +158,8 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('orgmode').setup({
-  org_agenda_files = {'~/org/*', '~/my-orgs/**/*'},
-  org_default_notes_file = '~/org/refile.org',
+  org_agenda_files = {'~/org/agenda.org', '~/org/**/*'},
+  org_default_notes_file = '~/org/index.org',
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
