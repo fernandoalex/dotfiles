@@ -1,6 +1,10 @@
 call plug#begin()
 
+" stuff depends on this
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-telescope/telescope.nvim'
+
 Plug 'airblade/vim-rooter'
 Plug 'ap/vim-buftabline'
 Plug 'ap/vim-css-color'
@@ -11,17 +15,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
-Plug 'lewis6991/gitsigns.nvim'
-
-" color stuff
-"Plug 'altercation/vim-colors-solarized'
 
 " themes
 Plug 'morhetz/gruvbox'
-" Plug 'arcticicestudio/nord-vim'
 
 Plug 'hashivim/vim-terraform'
-Plug 'fatih/vim-go'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround'
@@ -54,7 +52,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
-"Plug 'nvim-lua/completion-nvim'
 
 Plug 'mogelbrod/vim-jsonpath'
 
@@ -63,7 +60,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'nvim-telescope/telescope.nvim'
+
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
@@ -71,18 +68,19 @@ Plug 'rcarriga/nvim-notify'
 Plug 'mrjones2014/dash.nvim', { 'do': 'make install' }
 Plug 'ThePrimeagen/harpoon'
 
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-orgmode/orgmode'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 call plug#end()
 
 " LanguageServer stuff
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rust-analyzer'],
-    \ 'python': ['/usr/local/bin/pylsp'],
-    \ 'terraform': ['terraform-ls', 'serve'],
-    \ 'tf': ['terraform-ls', 'serve'],
-    \ }
+"let g:LanguageClient_serverCommands = {
+    "\ 'rust': ['rust-analyzer'],
+    "\ 'python': ['/usr/local/bin/pylsp'],
+    "\ 'terraform': ['t,erraform-ls', 'serve'],
+    "\ 'tf': ['terraform-ls', 'serve'],
+    "\ 'go': ['gopls',],
+    "\ }
 
 lua << EOF
 
@@ -110,6 +108,7 @@ sources = cmp.config.sources({
 	-- { name = 'luasnip' }, -- For luasnip users.
 	-- { name = 'ultisnips' }, -- For ultisnips users.
 	-- { name = 'snippy' }, -- For snippy users.
+	{ name = 'orgmode' },
 	},{
 		{ name = 'buffer' },
 	})
@@ -122,19 +121,32 @@ nvim_lsp.rust_analyzer.setup{
 	on_attach = on_attach,
 	capabilities = capabilities
 }
+
 nvim_lsp.terraformls.setup{
 	on_attach = on_attach,
 	capabilities = capabilities
 }
-nvim_lsp.pylsp.setup{
-	on_attach = on_attach,
-	capabilities = capabilities
-}
-nvim_lsp.clangd.setup{
+
+nvim_lsp.pylsp.setup {
 	on_attach = on_attach,
 	capabilities = capabilities
 }
 
+nvim_lsp.clangd.setup {
+	on_attach = on_attach,
+	capabilities = capabilities
+}
+
+nvim_lsp.gopls.setup {
+	cmd = {"gopls", "serve"},
+	on_attach = on_attach,
+	capabilities = capabilities
+}
+
+nvim_lsp.phpactor.setup {
+	on_attach = on_attach,
+	capabilities = capabilities
+}
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 
@@ -158,8 +170,8 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('orgmode').setup({
-  org_agenda_files = {'~/org/agenda.org', '~/org/**/*'},
-  org_default_notes_file = '~/org/index.org',
+  org_agenda_files = {'~/git/org/*.org'},
+  org_default_notes_file = '~/git/org/index.org',
 })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -261,6 +273,7 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <C-f> :silent !tmux neww tmux-jump.sh<CR>
+nnoremap <C-t> :silent !tmux neww tmux-tmp-vi.sh<CR>
 
 " get file name and line
 nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
