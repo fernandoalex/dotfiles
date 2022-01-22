@@ -28,7 +28,6 @@ Plug 'tpope/vim-unimpaired'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-Plug 'vimwiki/vimwiki'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'arzg/vim-rust-syntax-ext'
@@ -39,7 +38,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'wellle/context.vim'
+"Plug 'wellle/context.vim'
 Plug 'Yggdroot/indentLine'
 " LSP plugins
 
@@ -182,6 +181,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+require("telescope").load_extension("git_worktree")
 EOF
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -281,6 +281,10 @@ nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 " gets the current branch name and send to register a
 command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
 	
+" worktree stuff
+nnoremap <leader>wt :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
+nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
+
 """ END remaps
 
 filetype plugin on
@@ -291,18 +295,15 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 " Lightline
 let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ }
-
-function! LightlineFilename()
-  return expand('%:t') !=# '' ? @% : '[No Name]'
-endfunction
+	\'colorscheme': 'wombat',
+	\'active': {
+	\	'left': [ [ 'mode', 'paste' ],
+	\            [ 'redonly', 'gitbranch', 'filename', 'modified' ] ]
+	\},
+	\'component_function': {
+	\	'gitbranch': 'FugitiveHead'
+	\},
+	\}
 
 ""preview stuff""
 
@@ -342,9 +343,6 @@ autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 autocmd Filetype gitcommit setlocal spell
 autocmd Filetype markdown setlocal spell
 autocmd Filetype *.txt setlocal spell
-
-" leader cmd"
-let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md' }]
 
 "" auto set paste""
 function! WrapForTmux(s)
@@ -440,6 +438,7 @@ set tabstop=8
 set updatetime=300
 set signcolumn=yes
 set colorcolumn=120
+set noshowmode
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
