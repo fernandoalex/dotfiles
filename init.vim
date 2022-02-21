@@ -51,14 +51,14 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
-
 Plug 'mogelbrod/vim-jsonpath'
+Plug 'hrsh7th/nvim-cmp'
 
 " Testing plugins
-Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'TimUntersberger/neogit'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -71,15 +71,6 @@ Plug 'nvim-orgmode/orgmode'
 Plug 'ThePrimeagen/git-worktree.nvim'
 
 call plug#end()
-
-" LanguageServer stuff
-"let g:LanguageClient_serverCommands = {
-    "\ 'rust': ['rust-analyzer'],
-    "\ 'python': ['/usr/local/bin/pylsp'],
-    "\ 'terraform': ['t,erraform-ls', 'serve'],
-    "\ 'tf': ['terraform-ls', 'serve'],
-    "\ 'go': ['gopls',],
-    "\ }
 
 lua << EOF
 
@@ -168,11 +159,10 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
 
-require('orgmode').setup({
+require('orgmode').setup_ts_grammar({
   org_agenda_files = {'~/git/org/*.org'},
   org_default_notes_file = '~/git/org/index.org',
 })
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
@@ -182,6 +172,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 require("telescope").load_extension("git_worktree")
+
+local neogit = require('neogit')
+
+neogit.setup {}
 EOF
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -301,7 +295,7 @@ let g:lightline = {
 	\            [ 'redonly', 'gitbranch', 'filename', 'modified' ] ]
 	\},
 	\'component_function': {
-	\	'gitbranch': 'FugitiveHead'
+	\	'gitbranch': 'FugitiveHead',
 	\},
 	\}
 
@@ -452,3 +446,17 @@ nnoremap <leader>ho <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
 nnoremap <leader>h1 <cmd>lua require("harpoon.ui").nav_file(1)<cr>
 nnoremap <leader>h2 <cmd>lua require("harpoon.ui").nav_file(2)<cr>
 nnoremap <leader>h3 <cmd>lua require("harpoon.ui").nav_file(3)<cr>
+
+" Neogit stuff
+hi NeogitNotificationInfo guifg=#80ff95
+hi NeogitNotificationWarning guifg=#fff454
+hi NeogitNotificationError guifg=#c44323
+
+hi def NeogitDiffAddHighlight guibg=#404040 guifg=#859900
+hi def NeogitDiffDeleteHighlight guibg=#404040 guifg=#dc322f
+hi def NeogitDiffContextHighlight guibg=#333333 guifg=#b2b2b2
+hi def NeogitHunkHeader guifg=#cccccc guibg=#404040
+hi def NeogitHunkHeaderHighlight guifg=#cccccc guibg=#4d4d4d
+
+nnoremap <leader>ngo <cmd>lua require('neogit').open({ kind = "vsplit" })<cr>
+
