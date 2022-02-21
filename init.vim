@@ -59,6 +59,9 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'TimUntersberger/neogit'
+Plug 'mg979/vim-visual-multi'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'tpope/vim-rhubarb'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -460,3 +463,9 @@ hi def NeogitHunkHeaderHighlight guifg=#cccccc guibg=#4d4d4d
 
 nnoremap <leader>ngo <cmd>lua require('neogit').open({ kind = "vsplit" })<cr>
 
+"visual multi
+let g:VM_default_mappings = 0
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<leader>mn'
+let g:VM_maps["Add Cursor Down"]    = '<leader>mj'
+let g:VM_maps["Add Cursor Up"]      = '<leader>mk'
