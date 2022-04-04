@@ -14,6 +14,16 @@
       path: ~/.config/nvim
       state: directory
 
+  - name: Make a yabai config folder
+    file:
+      path: ~/.config/yabai
+      state: directory
+
+  - name: Make a skhdrc config folder
+    file:
+      path: ~/.config/skhdrc
+      state: directory
+
   - name: ZSH folder
     file:
       path: ~/.zsh/plugins
@@ -29,6 +39,10 @@
       repo: https://github.com/zsh-users/zsh-autosuggestions.git
       dest: ~/.zsh/plugins/zsh-autosuggestions
 
+        #arch -arm64 brew install koekeishiya/formulae/yabai
+        #arch -arm64 brew install koekeishiya/formulae/skhd
+
+  # make sure this used brew
   - name: Install packages
     package:
       name: "{{ item }}"
@@ -46,6 +60,7 @@
     - ctags
     - composer
     - autojump
+    - llvm
 
   - name: Clonning Tmux themepack
     git:
@@ -60,6 +75,10 @@
     loop:
       - file: ~/git/dotfiles/init.vim
         link: ~/.config/nvim/init.vim
+      - file: ~/git/dotfiles/yabairc
+        link: ~/.config/yabai/yabairc
+      - file: ~/git/dotfiles/skhdrc
+        link: ~/.config/skhd/skhdrc
       - file: ~/git/dotfiles/tmux.conf
         link: ~/.tmux.conf
       - file: ~/git/dotfiles/zshrc

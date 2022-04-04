@@ -55,6 +55,8 @@ Plug 'mogelbrod/vim-jsonpath'
 Plug 'hrsh7th/nvim-cmp'
 
 " Testing plugins
+Plug 'TimUntersberger/neogit'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -62,6 +64,7 @@ Plug 'TimUntersberger/neogit'
 Plug 'mg979/vim-visual-multi'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-rhubarb'
+Plug 'oxytocin/DocComments'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -70,8 +73,11 @@ Plug 'rcarriga/nvim-notify'
 Plug 'mrjones2014/dash.nvim', { 'do': 'make install' }
 Plug 'ThePrimeagen/harpoon'
 
-Plug 'nvim-orgmode/orgmode'
+"Plug 'nvim-orgmode/orgmode'
+Plug 'nvim-neorg/neorg'
 Plug 'ThePrimeagen/git-worktree.nvim'
+
+Plug '~/git/snyk.nvim.git/master'
 
 call plug#end()
 
@@ -101,7 +107,6 @@ sources = cmp.config.sources({
 	-- { name = 'luasnip' }, -- For luasnip users.
 	-- { name = 'ultisnips' }, -- For ultisnips users.
 	-- { name = 'snippy' }, -- For snippy users.
-	{ name = 'orgmode' },
 	},{
 		{ name = 'buffer' },
 	})
@@ -141,31 +146,21 @@ nvim_lsp.phpactor.setup {
 	capabilities = capabilities
 }
 
+nvim_lsp.tsserver.setup{
+	on_attach = on_attach,
+	capabilities = capabilities
+}
+
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 
-parser_config.org = {
-  install_info = {
-    url = 'https://github.com/milisims/tree-sitter-org',
-    revision = 'f110024d539e676f25b72b7c80b0fd43c34264ef',
-    files = {'src/parser.c', 'src/scanner.cc'},
-  },
-  filetype = 'org',
-}
 
 require'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
   },
-  ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
 
-require('orgmode').setup_ts_grammar({
-  org_agenda_files = {'~/git/org/*.org'},
-  org_default_notes_file = '~/git/org/index.org',
-})
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
@@ -179,6 +174,9 @@ require("telescope").load_extension("git_worktree")
 local neogit = require('neogit')
 
 neogit.setup {}
+
+require'lspconfig'.sumneko_lua.setup{}
+
 EOF
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -191,13 +189,13 @@ set list lcs=tab:\|\
 " Code navigation shortcuts
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <leader> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <leader> gtd   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
@@ -208,12 +206,6 @@ nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
 \ lua require'lsp_extensions'.inlay_hints{ prefix = '// ', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
-
-" note that if you are using Plug mapping you should not use `noremap` mappings.
-nmap <F5> <Plug>(lcn-menu)
-nmap <silent> gd <Plug>(lcn-definition)
-"nmap <silent> gD <Plug>(coc-implementation)
-nmap <silent> <F2> <Plug>(lcn-rename)
 
 " Folding
 set foldenable 
@@ -469,3 +461,14 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<leader>mn'
 let g:VM_maps["Add Cursor Down"]    = '<leader>mj'
 let g:VM_maps["Add Cursor Up"]      = '<leader>mk'
+
+" Neogit
+hi NeogitNotificationInfo guifg=#80ff95
+hi NeogitNotificationWarning guifg=#fff454
+hi NeogitNotificationError guifg=#c44323
+
+hi def NeogitDiffAddHighlight guibg=#404040 guifg=#859900
+hi def NeogitDiffDeleteHighlight guibg=#404040 guifg=#dc322f
+hi def NeogitDiffContextHighlight guibg=#333333 guifg=#b2b2b2
+hi def NeogitHunkHeader guifg=#cccccc guibg=#404040
+hi def NeogitHunkHeaderHighlight guifg=#cccccc guibg=#4d4d4d
