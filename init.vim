@@ -57,7 +57,7 @@ Plug 'hrsh7th/nvim-cmp'
 " Testing plugins
 Plug 'TimUntersberger/neogit'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'TimUntersberger/neogit'
@@ -73,7 +73,6 @@ Plug 'rcarriga/nvim-notify'
 Plug 'mrjones2014/dash.nvim', { 'do': 'make install' }
 Plug 'ThePrimeagen/harpoon'
 
-"Plug 'nvim-orgmode/orgmode'
 Plug 'nvim-neorg/neorg'
 Plug 'ThePrimeagen/git-worktree.nvim'
 
@@ -88,29 +87,73 @@ local nvim_lsp = require'lspconfig'
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
+
 cmp.setup({
-snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      end,
-    },
-mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-},
-sources = cmp.config.sources({
-	{ name = 'nvim_lsp' },
-	-- { name = 'luasnip' }, -- For luasnip users.
-	-- { name = 'ultisnips' }, -- For ultisnips users.
-	-- { name = 'snippy' }, -- For snippy users.
-	},{
-		{ name = 'buffer' },
-	})
-})
+	formatting = {
+	    format = function(entry, vim_item)
+	      -- Kind icons
+	      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+	      -- Source
+	      vim_item.menu = ({
+	        nvim_lsp = "[LSP]",
+	        luasnip = "[LuaSnip]",
+	        nvim_lua = "[Lua]",
+	        latex_symbols = "[LaTeX]",
+	      })[entry.source.name]
+	      return vim_item
+	    end
+	  },
+	snippet = {
+	      expand = function(args)
+	        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+	      end,
+	    },
+	mapping = {
+	        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+	        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+	        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+	        ['<C-Space>'] = cmp.mapping.complete(),
+	        ['<C-e>'] = cmp.mapping.close(),
+	        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+	},
+	sources = cmp.config.sources({
+		{ name = 'nvim_lsp' },
+		-- { name = 'luasnip' }, -- For luasnip users.
+		-- { name = 'ultisnips' }, -- For ultisnips users.
+		-- { name = 'snippy' }, -- For snippy users.
+		-- { name = 'orgmode' },
+		},{
+			{ name = 'buffer' },
+		})
+	}
+)
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -153,12 +196,26 @@ nvim_lsp.tsserver.setup{
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 
-
 require'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
   },
+  -- ensure_installed = {'norg'}, -- Or run :TSUpdate org
+  ensure_installed = {'norg'}, -- Or run :TSUpdate org
+}
+
+require('neorg').setup{
+load = {
+        ["core.defaults"] = {},
+        ["core.norg.dirman"] = {
+            config = {
+                workspaces = {
+                    work = "~/git/org",
+                }
+            }
+        }
+    }
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -332,6 +389,7 @@ autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 autocmd Filetype gitcommit setlocal spell
 autocmd Filetype markdown setlocal spell
 autocmd Filetype *.txt setlocal spell
+autocmd Filetype *.norg setlocal spell
 
 "" auto set paste""
 function! WrapForTmux(s)
