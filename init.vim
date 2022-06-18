@@ -11,10 +11,11 @@ Plug 'ap/vim-css-color'
 
 " Git stuff
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'TimUntersberger/neogit'
 
 " themes
 Plug 'morhetz/gruvbox'
@@ -38,7 +39,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
-"Plug 'wellle/context.vim'
+Plug 'wellle/context.vim'
 Plug 'Yggdroot/indentLine'
 " LSP plugins
 
@@ -58,13 +59,14 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'TimUntersberger/neogit'
 Plug 'hrsh7th/nvim-cmp'
 "Plug 'hrsh7th/cmp-buffer'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'TimUntersberger/neogit'
-Plug 'mg979/vim-visual-multi'
-Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'tpope/vim-rhubarb'
-Plug 'oxytocin/DocComments'
+"Plug 'mg979/vim-visual-multi'
+"Plug 'shumphrey/fugitive-gitlab.vim'
+"Plug 'tpope/vim-rhubarb'
+"Plug 'oxytocin/DocComments'
+"Plug 'voldikss/vim-floaterm'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -74,7 +76,8 @@ Plug 'mrjones2014/dash.nvim', { 'do': 'make install' }
 Plug 'ThePrimeagen/harpoon'
 
 Plug 'nvim-neorg/neorg'
-Plug 'ThePrimeagen/git-worktree.nvim'
+Plug 'nvim-neorg/neorg-telescope'
+"Plug 'ThePrimeagen/git-worktree.nvim'
 
 Plug '~/git/snyk.nvim.git/master'
 
@@ -201,13 +204,13 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  -- ensure_installed = {'norg'}, -- Or run :TSUpdate org
   ensure_installed = {'norg'}, -- Or run :TSUpdate org
 }
 
 require('neorg').setup{
 load = {
         ["core.defaults"] = {},
+	["core.integrations.telescope"] = {},
         ["core.norg.dirman"] = {
             config = {
                 workspaces = {
@@ -218,6 +221,18 @@ load = {
     }
 }
 
+require('gitsigns').setup {
+  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 500,
+    ignore_whitespace = false,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  sign_priority = 6,
+}
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
@@ -226,7 +241,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-require("telescope").load_extension("git_worktree")
+-- require("telescope").load_extension("git_worktree")
 
 local neogit = require('neogit')
 
@@ -234,7 +249,21 @@ neogit.setup {}
 
 require'lspconfig'.sumneko_lua.setup{}
 
-EOF
+local cmd = vim.cmd
+local g = vim.g
+local opt = vim.opt
+
+local function map(mode, lhs, rhs, opts)
+  local options = {noremap = true}
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+g.mapleader = " "
+vim.g.floaterm_width = 0.95
+vim.g.floaterm_height = 0.95
+map('n', '<leader>gi', ':FloatermNew lazygit<CR>')
+map('n', '<leader>gg', ':Telescope git_status<CR>')
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_defaultGroup = 'SpecialKey'
@@ -328,8 +357,8 @@ nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
 	
 " worktree stuff
-nnoremap <leader>wt :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
-nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
+"nnoremap <leader>wt :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
+"nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
 
 """ END remaps
 
@@ -389,6 +418,7 @@ autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 autocmd Filetype gitcommit setlocal spell
 autocmd Filetype markdown setlocal spell
 autocmd Filetype *.txt setlocal spell
+autocmd Filetype *.org setlocal spell
 autocmd Filetype *.norg setlocal spell
 
 "" auto set paste""
