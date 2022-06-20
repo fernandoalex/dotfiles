@@ -5,13 +5,16 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-telescope/telescope.nvim'
 
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 
+	\ 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
+	\ }
+
 Plug 'airblade/vim-rooter'
 Plug 'ap/vim-buftabline'
 Plug 'ap/vim-css-color'
 
 " Git stuff
 Plug 'tpope/vim-fugitive'
-"Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
@@ -21,19 +24,13 @@ Plug 'TimUntersberger/neogit'
 Plug 'morhetz/gruvbox'
 
 Plug 'hashivim/vim-terraform'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-"Plug 'ludovicchabant/vim-gutentags'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'vim-syntastic/syntastic'
-Plug 'rust-lang/rust.vim'
-Plug 'arzg/vim-rust-syntax-ext'
-Plug 'preservim/nerdcommenter'
-
+Plug 'simrat39/rust-tools.nvim'
 Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
@@ -41,15 +38,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/context.vim'
 Plug 'Yggdroot/indentLine'
-" LSP plugins
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-"Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
-
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'mogelbrod/vim-jsonpath'
@@ -58,15 +46,11 @@ Plug 'hrsh7th/nvim-cmp'
 " Testing plugins
 Plug 'TimUntersberger/neogit'
 Plug 'hrsh7th/nvim-cmp'
-"Plug 'hrsh7th/cmp-buffer'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
-"Plug 'mg979/vim-visual-multi'
-"Plug 'shumphrey/fugitive-gitlab.vim'
-"Plug 'tpope/vim-rhubarb'
-"Plug 'oxytocin/DocComments'
-"Plug 'voldikss/vim-floaterm'
+Plug 'numToStr/Comment.nvim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -77,14 +61,38 @@ Plug 'ThePrimeagen/harpoon'
 
 Plug 'nvim-neorg/neorg'
 Plug 'nvim-neorg/neorg-telescope'
-"Plug 'ThePrimeagen/git-worktree.nvim'
 
-Plug '~/git/snyk.nvim.git/master'
+Plug '~/git/stackmap.nvim'
+
+"" waiting to see if I will miss this
+"Plug 'ThePrimeagen/git-worktree.nvim'
+"Plug 'mg979/vim-visual-multi'
+"Plug 'shumphrey/fugitive-gitlab.vim'
+"Plug 'tpope/vim-rhubarb'
+"Plug 'oxytocin/DocComments'
+"Plug 'voldikss/vim-floaterm'
+"Plug 'preservim/nerdcommenter'
+"Plug 'ludovicchabant/vim-gutentags'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
+"Plug 'airblade/vim-gitgutter'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'rust-lang/rust.vim'
+"Plug 'arzg/vim-rust-syntax-ext'
+"
+" LSP plugins
+
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+
+"Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
+
 
 call plug#end()
 
 lua << EOF
-
 local nvim_lsp = require'lspconfig'
 
 -- Setup nvim-cmp.
@@ -205,6 +213,10 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
   ensure_installed = {'norg'}, -- Or run :TSUpdate org
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
 }
 
 require('neorg').setup{
@@ -241,29 +253,53 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+-- Loading telescope stuff
 -- require("telescope").load_extension("git_worktree")
+require('telescope').load_extension('fzf')
 
-local neogit = require('neogit')
 
-neogit.setup {}
+require('neogit').setup{}
+require('lspconfig').sumneko_lua.setup{}
 
-require'lspconfig'.sumneko_lua.setup{}
+-- local cmd = vim.cmd
+-- local g = vim.g
+-- local opt = vim.opt
+-- 
+-- local function map(mode, lhs, rhs, opts)
+--   local options = {noremap = true}
+--   if opts then options = vim.tbl_extend('force', options, opts) end
+--   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+-- end
+-- 
+-- g.mapleader = " "
+-- vim.g.floaterm_width = 0.95
+-- vim.g.floaterm_height = 0.95
+-- map('n', '<leader>gi', ':FloatermNew lazygit<CR>')
+-- map('n', '<leader>gg', ':Telescope git_status<CR>')
 
-local cmd = vim.cmd
-local g = vim.g
-local opt = vim.opt
+require('Comment').setup {
+	mappings = {
+		extra = true
+	},
+	pre_hook = function(ctx)
+		local U = require 'Comment.utils'
 
-local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+		local location = nil
+		if ctx.ctype == U.ctype.block then
+			location = require('ts_context_commentstring.utils').get_cursor_location()
+		elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+			location = require('ts_context_commentstring.utils').get_visual_start_location()
+		end
 
-g.mapleader = " "
-vim.g.floaterm_width = 0.95
-vim.g.floaterm_height = 0.95
-map('n', '<leader>gi', ':FloatermNew lazygit<CR>')
-map('n', '<leader>gg', ':Telescope git_status<CR>')
+		return require('ts_context_commentstring.internal').calculate_commentstring {
+			key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+			location = location,
+		}
+	end,
+}
+require('rust-tools').setup({})
+
+EOF
 
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_defaultGroup = 'SpecialKey'
@@ -290,8 +326,8 @@ nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '// ', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+" \ lua require'lsp_extensions'.inlay_hints{ prefix = '// ', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 " Folding
 set foldenable 
@@ -356,9 +392,6 @@ nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 " gets the current branch name and send to register a
 command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
 	
-" worktree stuff
-"nnoremap <leader>wt :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
-"nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
 
 """ END remaps
 
@@ -368,36 +401,53 @@ set rtp+=/usr/local/opt/fzf
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'highlight': 'Comment' } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
-" Lightline
 let g:lightline = {
-	\'colorscheme': 'wombat',
-	\'active': {
-	\	'left': [ [ 'mode', 'paste' ],
-	\            [ 'redonly', 'gitbranch', 'filename', 'modified' ] ]
-	\},
-	\'component_function': {
-	\	'gitbranch': 'FugitiveHead',
-	\},
-	\}
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineTruncatedFileName'
+      \ }
+      \ }
+
+function! LightlineTruncatedFileName()
+let l:filePath = expand('%')
+    if winwidth(0) > 100
+        return l:filePath
+    else
+        return pathshorten(l:filePath)
+    endif
+endfunction
 
 ""preview stuff""
 
-let g:fzf_preview_window = 'right:60%'
-
-"" sneak
-let g:sneak#label = 1
-let g:sneak#s_next = 1
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" --glob "!venv/*" '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-fun! SetupCommandAlias(from, to)
-	exec 'cnoreabbrev <expr> '.a:from
-        	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
-        	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfun
+" let g:fzf_preview_window = 'right:60%'
+"
+" "" sneak
+" let g:sneak#label = 1
+" let g:sneak#s_next = 1
+"
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" --glob "!venv/*" '.shellescape(<q-args>), 1,
+"   \   fzf#vim#with_preview(), <bang>0)
+"
+" fun! SetupCommandAlias(from, to)
+" 	exec 'cnoreabbrev <expr> '.a:from
+"         	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+"         	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
+" endfun
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
