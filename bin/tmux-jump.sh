@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/git ~/OSS -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/git ~/OSS -mindepth 1 -maxdepth 1 -type d | fzf --preview 'exa -l {}')
 fi
 
 if [[ -z $selected ]]; then
