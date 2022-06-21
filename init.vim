@@ -255,6 +255,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 -- Loading telescope stuff
 -- require("telescope").load_extension("git_worktree")
+require('telescope').setup{
+  pickers = {
+	find_files = {
+	        hidden = true,
+	},
+  }
+}
+
 require('telescope').load_extension('fzf')
 
 
