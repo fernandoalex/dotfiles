@@ -52,6 +52,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'numToStr/Comment.nvim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'voldikss/vim-floaterm'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -74,7 +75,6 @@ Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 "Plug 'shumphrey/fugitive-gitlab.vim'
 "Plug 'tpope/vim-rhubarb'
 "Plug 'oxytocin/DocComments'
-"Plug 'voldikss/vim-floaterm'
 "Plug 'preservim/nerdcommenter'
 "Plug 'ludovicchabant/vim-gutentags'
 "Plug 'airblade/vim-gitgutter'
@@ -275,22 +275,6 @@ require("telescope").load_extension("git_worktree")
 require('neogit').setup{}
 require('lspconfig').sumneko_lua.setup{}
 
--- local cmd = vim.cmd
--- local g = vim.g
--- local opt = vim.opt
--- 
--- local function map(mode, lhs, rhs, opts)
---   local options = {noremap = true}
---   if opts then options = vim.tbl_extend('force', options, opts) end
---   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
--- end
--- 
--- g.mapleader = " "
--- vim.g.floaterm_width = 0.95
--- vim.g.floaterm_height = 0.95
--- map('n', '<leader>gi', ':FloatermNew lazygit<CR>')
--- map('n', '<leader>gg', ':Telescope git_status<CR>')
-
 require('Comment').setup {
 	mappings = {
 		extra = true
@@ -339,6 +323,9 @@ nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
+nnoremap <leader>wt :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
+nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
+
 " Enable type inlay hints
 " autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
 " \ lua require'lsp_extensions'.inlay_hints{ prefix = '// ', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
@@ -368,7 +355,6 @@ nnoremap gfh :diffget //2<CR>
 nnoremap gfl :diffget //3<CR>
 nnoremap <leader>co :GBranches<CR>
 nnoremap <leader><leader> <c-^>
-nnoremap <leader>w :write<CR>
 nnoremap <leader>r :Rg<CR>
 nnoremap <leader>q :bufdo q<CR>
 nnoremap <silent> <C-p> :Files<CR>
