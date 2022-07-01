@@ -19,6 +19,7 @@ Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'TimUntersberger/neogit'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 " themes
 Plug 'morhetz/gruvbox'
@@ -64,8 +65,11 @@ Plug 'nvim-neorg/neorg-telescope'
 
 Plug '~/git/stackmap.nvim'
 
+" Telescope live search is kind slow so keep this for now
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
+
 "" waiting to see if I will miss this
-"Plug 'ThePrimeagen/git-worktree.nvim'
 "Plug 'mg979/vim-visual-multi'
 "Plug 'shumphrey/fugitive-gitlab.vim'
 "Plug 'tpope/vim-rhubarb'
@@ -73,8 +77,6 @@ Plug '~/git/stackmap.nvim'
 "Plug 'voldikss/vim-floaterm'
 "Plug 'preservim/nerdcommenter'
 "Plug 'ludovicchabant/vim-gutentags'
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 "Plug 'airblade/vim-gitgutter'
 "Plug 'hrsh7th/cmp-buffer'
 "Plug 'rust-lang/rust.vim'
@@ -253,18 +255,22 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
--- Loading telescope stuff
--- require("telescope").load_extension("git_worktree")
 require('telescope').setup{
-  pickers = {
-	find_files = {
-	        hidden = true,
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
 	},
-  }
+	defaults = {
+		file_ignore_patterns = {
+			".git/",
+			".terraform/"
+		}
+	} 
 }
 
 require('telescope').load_extension('fzf')
-
+require("telescope").load_extension("git_worktree")
 
 require('neogit').setup{}
 require('lspconfig').sumneko_lua.setup{}
@@ -412,14 +418,7 @@ let $FZF_DEFAULT_OPTS='--reverse'
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ],
+      \             [ 'readonly', 'gitbranch', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -440,22 +439,22 @@ endfunction
 
 ""preview stuff""
 
-" let g:fzf_preview_window = 'right:60%'
+let g:fzf_preview_window = 'right:60%'
 "
 " "" sneak
 " let g:sneak#label = 1
 " let g:sneak#s_next = 1
 "
-" command! -bang -nargs=* Rg
-"   \ call fzf#vim#grep(
-"   \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" --glob "!venv/*" '.shellescape(<q-args>), 1,
-"   \   fzf#vim#with_preview(), <bang>0)
-"
-" fun! SetupCommandAlias(from, to)
-" 	exec 'cnoreabbrev <expr> '.a:from
-"         	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
-"         	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
-" endfun
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case --ignore-case --hidden --follow --glob "!.git/*" --glob "!.terraform/*" --glob "!venv/*" '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+fun! SetupCommandAlias(from, to)
+	exec 'cnoreabbrev <expr> '.a:from
+        	\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+        	\ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'

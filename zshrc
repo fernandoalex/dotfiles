@@ -20,7 +20,7 @@ export HISTFILE=~/.zsh_history
 # Enable colors and change prompt:
 autoload -U colors && colors
 PROMPT='
-%B%{$fg[white]%}[ %{$fg[magenta]%}%(4~|.../%3~|%~)%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
+%B%{$fg[white]%}[ %{$fg[magenta]%}%(4~|.../%3~|%~)%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[green]%}$(kubectl_namespace)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
 $%b '
 
 # Basic auto/tab complete:

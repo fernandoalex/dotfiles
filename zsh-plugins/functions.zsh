@@ -16,6 +16,14 @@ function kubectl_profile() {
   fi
 }
 
+function kubectl_namespace() {
+  if [[ -z $KUBECTL_NAMESPACE ]]; then
+    :
+  else
+    echo ' ['$KUBECTL_NAMESPACE']'
+  fi
+}
+
 function aws_profile() {
   if [[ -z $AWS_PROFILE ]]; then
     :

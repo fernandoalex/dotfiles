@@ -8,5 +8,7 @@ alias vi='nvim'
 alias "?"=duck
 alias "wiki"=wiki_search
 alias wt="worktree.sh"
+alias wt-checkout='cd `wt change`'
 alias date='date -u +"%Y-%m-%dT%H:%M:%S%Z"'
 alias fd='cd `find . -type d ! -name "*.gi*" ! -name "*.terrafor*" | fzf`'
+alias tfuse='tfenv use `tfenv list | fzf`'
