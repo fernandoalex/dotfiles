@@ -75,6 +75,8 @@
     loop:
       - file: ~/git/dotfiles/init.vim
         link: ~/.config/nvim/init.vim
+      - file: ~/git/dotfiles/init.lua
+        link: ~/.config/nvim/init.lua
       - file: ~/git/dotfiles/yabairc
         link: ~/.config/yabai/yabairc
       - file: ~/git/dotfiles/skhdrc

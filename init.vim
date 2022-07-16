@@ -38,7 +38,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/context.vim'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'mogelbrod/vim-jsonpath'
@@ -130,19 +130,19 @@ local kind_icons = {
 
 cmp.setup({
 	formatting = {
-	    format = function(entry, vim_item)
-	      -- Kind icons
-	      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-	      -- Source
-	      vim_item.menu = ({
-	        nvim_lsp = "[LSP]",
-	        luasnip = "[LuaSnip]",
-	        nvim_lua = "[Lua]",
-	        latex_symbols = "[LaTeX]",
-	      })[entry.source.name]
-	      return vim_item
-	    end
-	  },
+		format = function(entry, vim_item)
+		-- Kind icons
+		vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+			-- Source
+		vim_item.menu = ({
+			nvim_lsp = "[LSP]",
+		    luasnip = "[LuaSnip]",
+		    nvim_lua = "[Lua]",
+		    latex_symbols = "[LaTeX]",
+		})[entry.source.name]
+		      return vim_item
+		end
+	},
 	snippet = {
 	      expand = function(args)
 	        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -222,17 +222,17 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('neorg').setup{
-load = {
-        ["core.defaults"] = {},
-	["core.integrations.telescope"] = {},
-        ["core.norg.dirman"] = {
-            config = {
-                workspaces = {
-                    work = "~/git/org",
-                }
-            }
-        }
-    }
+	load = {
+		["core.defaults"] = {},
+		["core.integrations.telescope"] = {},
+		["core.norg.dirman"] = {
+			config = {
+				workspaces = {
+					work = "~/git/org",
+				}
+			}
+		}
+	}
 }
 
 require('gitsigns').setup {
@@ -248,11 +248,11 @@ require('gitsigns').setup {
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
+	vim.lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = true,
+		signs = true,
+		update_in_insert = true,
+	}
 )
 
 require('telescope').setup{
@@ -260,15 +260,16 @@ require('telescope').setup{
 		find_files = {
 			hidden = true,
 		},
-	},
-	defaults = {
-		file_ignore_patterns = {
+	defaults = { 
+		file_ignore_patterns = { 
+			"assets/",
 			".git/",
+			"/target/",
 			".terraform/"
 		}
-	} 
+	}
+  }
 }
-
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("git_worktree")
 
@@ -299,12 +300,12 @@ require('rust-tools').setup({})
 
 EOF
 
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_defaultGroup = 'SpecialKey'
-let g:indentLine_setConceal = 0
-let g:indentLine_concealcursor = ""
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" let g:indentLine_defaultGroup = 'SpecialKey'
+" let g:indentLine_setConceal = 0
+" let g:indentLine_concealcursor = ""
 
-set list lcs=tab:\|\ 
+" set list lcs=tab:\|\ 
 
 " Code navigation shortcuts
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -539,7 +540,7 @@ let g:rooter_patterns = ['!.git/worktrees']
 autocmd vimenter * colorscheme gruvbox
 autocmd VimEnter * hi Normal ctermbg=none
 
-set backspace=indent,eol,start
+set backspace=eol,start
 set completeopt-=preview
 set completeopt=menuone,noinsert,noselect
 set cursorline
@@ -549,12 +550,12 @@ set incsearch
 set mouse-=a
 set number
 set number relativenumber
-set shiftwidth=8
+set shiftwidth=4
 set shortmess+=c
 set showcmd
 set smartindent
-set softtabstop=8 
-set tabstop=8
+set softtabstop=4 
+set tabstop=4
 set updatetime=300
 set signcolumn=yes
 set colorcolumn=120
