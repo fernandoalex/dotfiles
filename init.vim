@@ -19,7 +19,6 @@ Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'TimUntersberger/neogit'
-Plug 'ThePrimeagen/git-worktree.nvim'
 
 " themes
 Plug 'morhetz/gruvbox'
@@ -51,6 +50,8 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'numToStr/Comment.nvim'
+Plug 'ray-x/go.nvim'
+Plug 'ray-x/guihua.lua'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'voldikss/vim-floaterm'
 
@@ -214,7 +215,15 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  ensure_installed = {'norg'}, -- Or run :TSUpdate org
+  ensure_installed = {
+	  'norg',
+	  'rust',
+	  'go',
+	  'python',
+	  'php',
+	  'yaml',
+	  'json',
+	  }, 
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
@@ -255,6 +264,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	}
 )
 
+-- Loading telescope stuff
 require('telescope').setup{
 	pickers = {
 		find_files = {
@@ -271,7 +281,6 @@ require('telescope').setup{
   }
 }
 require('telescope').load_extension('fzf')
-require("telescope").load_extension("git_worktree")
 
 require('neogit').setup{}
 require('lspconfig').sumneko_lua.setup{}
@@ -297,6 +306,7 @@ require('Comment').setup {
 	end,
 }
 require('rust-tools').setup({})
+require('go').setup()
 
 EOF
 
