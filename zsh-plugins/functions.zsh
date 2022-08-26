@@ -47,12 +47,19 @@ function urlencode() {
   echo "$encoded"
 }
 
-function duck(){
+function duck() {
   declare url=$(urlencode "$*")
   lynx --accept_all_cookies "https://duckduckgo.com/lite?q=$url"
 }
 
-function wiki_search(){
+function wiki_search() {
   declare url=$(urlencode "$*")
   lynx --accept_all_cookies "https://en.wikipedia.org/wiki/$url"
+}
+
+function git_branch_history() {
+        if [[ $1 -eq 0 ]]; then
+                set -- 10
+        fi
+        for i in $(seq 1 $1); do git rev-parse --symbolic-full-name @{-$i}; done | awk '!a[$0]++' | sed 's/refs\/heads\///g'
 }
