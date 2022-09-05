@@ -4,6 +4,7 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 
 	\ 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
@@ -36,7 +37,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'wellle/context.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
@@ -54,6 +54,10 @@ Plug 'ray-x/go.nvim'
 Plug 'ray-x/guihua.lua'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'voldikss/vim-floaterm'
+Plug 'cuducos/yaml.nvim'
+Plug 'sindrets/diffview.nvim'
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -195,7 +199,18 @@ nvim_lsp.clangd.setup {
 nvim_lsp.gopls.setup {
 	cmd = {"gopls", "serve"},
 	on_attach = on_attach,
-	capabilities = capabilities
+	capabilities = capabilities,
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = true,
+				},
+			staticcheck = true,
+			hints = {
+				assignVariableTypes = true,
+				},
+		},
+	},
 }
 
 nvim_lsp.phpactor.setup {
@@ -223,6 +238,7 @@ require'nvim-treesitter.configs'.setup {
 	  'php',
 	  'yaml',
 	  'json',
+	  'query',
 	  }, 
   context_commentstring = {
     enable = true,
@@ -280,9 +296,15 @@ require('telescope').setup{
 	}
   }
 }
+
 require('telescope').load_extension('fzf')
 
-require('neogit').setup{}
+require('neogit').setup({
+  integrations = {
+    diffview = true  
+  },
+})
+
 require('lspconfig').sumneko_lua.setup{}
 
 require('Comment').setup {
@@ -291,8 +313,8 @@ require('Comment').setup {
 	},
 	pre_hook = function(ctx)
 		local U = require 'Comment.utils'
-
 		local location = nil
+
 		if ctx.ctype == U.ctype.block then
 			location = require('ts_context_commentstring.utils').get_cursor_location()
 		elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
@@ -306,8 +328,48 @@ require('Comment').setup {
 	end,
 }
 require('rust-tools').setup({})
-require('go').setup()
+require('go').setup({})
 
+require('treesitter-context').setup {
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        -- For all filetypes
+        -- Note that setting an entry here replaces all other patterns for this entry.
+        -- By setting the 'default' entry below, you can control which nodes you want to
+        -- appear in the context window.
+        default = {
+            'class',
+            'function',
+            'method',
+            'for',
+            'while',
+            'if',
+            'switch',
+            'case',
+			'block_mapping_pair',
+        },
+        -- Example for a specific filetype.
+        -- If a pattern is missing, *open a PR* so everyone can benefit.
+        --   rust = {
+        --       'impl_item',
+        --   },
+    },
+    exact_patterns = {
+        -- Example for a specific filetype with Lua patterns
+        -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+        -- exactly match "impl_item" only)
+        -- rust = true,
+    },
+
+    -- [!] The options below are exposed but shouldn't require your attention,
+    --     you can safely ignore them.
+
+    zindex = 20, -- The Z-index of the context window
+    mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+    separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
+}
 EOF
 
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -403,7 +465,6 @@ nnoremap <leader>cfn :let @*=expand("%").":".line(".")<CR>
 " gets the current branch name and send to register a
 command Bn let @a = system("git rev-parse --abbrev-ref HEAD")
 	
-
 """ END remaps
 
 filetype plugin on
@@ -421,7 +482,8 @@ let g:lightline = {
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
-      \   'filename': 'LightlineTruncatedFileName'
+      \   'filename': 'LightlineTruncatedFileName',
+	  \   'gitbranch': 'FugitiveHead'
       \ }
       \ }
 
@@ -547,8 +609,13 @@ endif
 let g:rooter_patterns = ['.git', 'Makefile']
 let g:rooter_patterns = ['!.git/worktrees']
 
+" let g:tokyonight_style = "night"
+" let g:tokyonight_transparent = "true"
+
 autocmd vimenter * colorscheme gruvbox
-autocmd VimEnter * hi Normal ctermbg=none
+" autocmd vimenter * colorscheme tokyonight
+autocmd vimenter * hi Normal ctermbg=none
+"
 
 set backspace=eol,start
 set completeopt-=preview
@@ -570,7 +637,7 @@ set updatetime=300
 set signcolumn=yes
 set colorcolumn=120
 set noshowmode
-
+set splitright
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
