@@ -58,6 +58,7 @@ Plug 'cuducos/yaml.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'laytan/cloak.nvim'
 
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
@@ -239,6 +240,10 @@ require'nvim-treesitter.configs'.setup {
 	  'yaml',
 	  'json',
 	  'query',
+	  'lua',
+	  'vim',
+	  'markdown',
+	  'bash'
 	  }, 
   context_commentstring = {
     enable = true,
@@ -370,6 +375,23 @@ require('treesitter-context').setup {
     mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
     separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
 }
+
+require('cloak').setup({
+  enabled = true,
+  cloak_character = '*',
+  patterns = {
+    {
+      -- Match any file starting with '.env'.
+      file_pattern = {
+		  '.env*',
+		  'credentials',
+		  },
+      -- Match an equals sign and any character after it.
+      cloak_pattern = '=.+'
+    },
+  },
+})
+
 EOF
 
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']

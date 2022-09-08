@@ -19,9 +19,9 @@ export HISTFILE=~/.zsh_history
 
 # Enable colors and change prompt:
 autoload -U colors && colors
-PROMPT='
-%B%{$fg[white]%}[ %{$fg[magenta]%}%(4~|.../%3~|%~)%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[green]%}$(kubectl_namespace)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
-$%b '
+# PROMPT='
+# %B%{$fg[white]%}[ %{$fg[magenta]%}%(4~|.../%3~|%~)%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[green]%}$(kubectl_namespace)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
+# $%b '
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -65,3 +65,7 @@ bindkey -s '^f' 'tmux-jump.sh^M'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# source "/usr/local/opt/spaceship/spaceship.zsh"
+# export SPACESHIP_PROMPT_ASYNC=false
+eval "$(starship init zsh)"
