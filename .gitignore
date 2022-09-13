@@ -13,3 +13,4 @@ pyvenv.cfg
 pip-selfcheck.json
 
 .git/
+packer_compiled.lua
