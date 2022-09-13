@@ -9,11 +9,6 @@
       path: ~/.vimdid
       state: directory
 
-  - name: Make a NeoVIM config folder
-    file:
-      path: ~/.config/nvim
-      state: directory
-
   - name: ZSH folder
     file:
       path: ~/.zsh/plugins
@@ -56,8 +51,8 @@
       dest: "{{ item.link }}"
       state: link
     loop:
-      - file: ~/git/dotfiles/init.vim
-        link: ~/.config/nvim/init.vim
+      - file: ~/git/dotfiles/nvim/
+        link: ~/.config/nvim/
       - file: ~/git/dotfiles/tmux.conf
         link: ~/.tmux.conf
       - file: ~/git/dotfiles/zshrc
