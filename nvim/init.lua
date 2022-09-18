@@ -21,15 +21,46 @@ require('packer').startup(function(use)
   -- theme
   use 'ellisonleao/gruvbox.nvim'
 
+  -- lsp
+  use 'neovim/nvim-lspconfig'
+
+  -- completion
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-buffer'
+
+  -- snippets
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+
+  -- misc
   use 'nvim-lualine/lualine.nvim'
   use 'gbprod/substitute.nvim'
-  use 'kylechui/nvim-surround'
+  use {
+	  'kylechui/nvim-surround',
+	  config = function()
+		  require("nvim-surround").setup()
+	  end
+  }
+  use {
+	  'akinsho/bufferline.nvim', 
+	  requires = 'kyazdani42/nvim-web-devicons',
+	  config = function()
+		  require("bufferline").setup{}
+	  end
+  }
+  use {
+	  'numToStr/Comment.nvim',
+	  config = function()
+		  require('Comment').setup()
+	  end
+  }
 
   if is_bootstrap then
     require('packer').sync()
   end
 end)
-
 
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
@@ -44,3 +75,4 @@ require('config.gruvbox')
 require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
+require('config.completion')

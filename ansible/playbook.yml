@@ -4,15 +4,14 @@
   become: false
 
   tasks:
-  - name: Make a vimdid forlder
+  - name: Make some folders
     file:
-      path: ~/.vimdid
+      path: "{{ item }}"
       state: directory
-
-  - name: ZSH folder
-    file:
-      path: ~/.zsh/plugins
-      state: directory
+    loop:
+      - ~/.vimdid
+      - ~/.zsh/plugins
+      - ~/.config
 
   - name: ZSH zsh-vim-mode
     git:
@@ -30,7 +29,7 @@
       name: "{{ item }}"
       state: present
     loop:
-    - neovim
+      #    - neovim # move this to a git clone and build
     - tmux
     - fzf
     - tldr
@@ -44,6 +43,16 @@
     - autojump
     - llvm
     - starship
+
+  # make sure this used brew
+  - name: Install LSPs
+    package:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - rust-analyzer
+    - lua-language-server
+    - gopls
 
   - name: making some links
     file:
