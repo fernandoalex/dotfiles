@@ -32,9 +32,20 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
 
+  -- git
+  
+  use 'lewis6991/gitsigns.nvim'
+
   -- snippets
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
+
+  -- terraform
+  use 'hashivim/vim-terraform' -- non-native
+  use 'ANGkeith/telescope-terraform-doc.nvim'
+
+  -- rust
+  use 'simrat39/rust-tools.nvim'
 
   -- misc
   use 'nvim-lualine/lualine.nvim'
@@ -59,9 +70,8 @@ require('packer').startup(function(use)
 	  end
   }
 
-  -- terraform
-  use 'hashivim/vim-terraform' -- non-native
-  use 'ANGkeith/telescope-terraform-doc.nvim'
+  use 'ThePrimeagen/vim-be-good'
+
 
   if is_bootstrap then
     require('packer').sync()
@@ -82,4 +92,6 @@ require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
 require('config.completion')
+require('config.tools-git')
 require('config.language-terraform')
+require('config.language-rust')

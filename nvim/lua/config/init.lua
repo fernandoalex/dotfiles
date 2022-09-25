@@ -8,6 +8,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.signcolumn = 'yes'
 vim.opt.clipboard = "unnamedplus" -- share clipboard with system
 vim.opt.ignorecase = true -- Ignore case when searching
 vim.opt.completeopt = { "menu", "menuone", "noselect" } -- needed for the autocomplete
