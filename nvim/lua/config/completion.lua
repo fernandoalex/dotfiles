@@ -1,4 +1,5 @@
 local cmp = require'cmp'
+
 cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
@@ -20,6 +21,7 @@ cmp.setup({
 		{ name = 'nvim_lua' },
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' }, 
+		{ name = 'path' }, 
 		{ name = 'buffer', keyword_length = 5 }, 
 	}),
 })

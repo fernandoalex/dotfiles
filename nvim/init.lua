@@ -17,18 +17,20 @@ require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter'
   use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
   use 'kyazdani42/nvim-web-devicons'
+  use 'rcarriga/nvim-notify'
 
   -- theme
   use 'ellisonleao/gruvbox.nvim'
 
   -- lsp
-  use 'neovim/nvim-lspconfig'
+  use {'neovim/nvim-lspconfig'}
 
   -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
   use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
 
   -- snippets
   use 'L3MON4D3/LuaSnip'
@@ -57,6 +59,10 @@ require('packer').startup(function(use)
 	  end
   }
 
+  -- terraform
+  use 'hashivim/vim-terraform' -- non-native
+  use 'ANGkeith/telescope-terraform-doc.nvim'
+
   if is_bootstrap then
     require('packer').sync()
   end
@@ -76,3 +82,4 @@ require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
 require('config.completion')
+require('config.language-terraform')

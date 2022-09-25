@@ -15,7 +15,7 @@ require'nvim-treesitter.configs'.setup {
 	  'lua',
 	  'vim',
 	  'markdown',
-	  'bash'
+	  'bash',
 	  }, 
   context_commentstring = {
     enable = true,
