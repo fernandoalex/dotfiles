@@ -69,6 +69,7 @@ require('packer').startup(function(use)
 		  require('Comment').setup()
 	  end
   }
+  use 'nvim-treesitter/nvim-treesitter-context'
 
   use 'ThePrimeagen/vim-be-good'
 

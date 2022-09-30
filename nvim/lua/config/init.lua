@@ -25,3 +25,5 @@ vim.keymap.set("n", "<C-f>", ":silent !tmux neww tmux-jump.sh<CR>", { noremap = 
 require("substitute").setup()
 vim.keymap.set("n", "s", "<cmd>lua require('substitute').operator()<cr>", { noremap = true })
 vim.keymap.set("x", "s", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
+
+require("treesitter-context").setup()
