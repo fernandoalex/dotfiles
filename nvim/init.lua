@@ -16,12 +16,16 @@ require('packer').startup(function(use)
   use 'nvim-lua/plenary.nvim'
   use 'nvim-treesitter/nvim-treesitter'
   use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
+  use {
+	  'nvim-telescope/telescope-fzf-native.nvim', 
+	  run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
+  }
   use 'kyazdani42/nvim-web-devicons'
   use 'rcarriga/nvim-notify'
 
   -- theme
-  use 'ellisonleao/gruvbox.nvim'
-
+  -- use 'ellisonleao/gruvbox.nvim'
+  use 'folke/tokyonight.nvim'
   -- lsp
   use {'neovim/nvim-lspconfig'}
 
@@ -35,6 +39,7 @@ require('packer').startup(function(use)
   -- git
   use 'lewis6991/gitsigns.nvim'
   use 'TimUntersberger/neogit'
+  use 'sindrets/diffview.nvim'
 
   -- snippets
   use 'L3MON4D3/LuaSnip'
@@ -46,6 +51,10 @@ require('packer').startup(function(use)
 
   -- rust
   use 'simrat39/rust-tools.nvim'
+
+  -- go
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua'
 
   -- misc
   use 'nvim-lualine/lualine.nvim'
@@ -70,9 +79,10 @@ require('packer').startup(function(use)
 	  end
   }
   use 'nvim-treesitter/nvim-treesitter-context'
+  use 'nvim-neorg/neorg'
+  use 'nvim-neorg/neorg-telescope'
 
   use 'ThePrimeagen/vim-be-good'
-
 
   if is_bootstrap then
     require('packer').sync()
@@ -88,11 +98,15 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 require('config')
-require('config.gruvbox')
+-- require('config.gruvbox')
+require('config.tokyonight')
 require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
 require('config.completion')
+require('config.norg')
 require('config.tools-git')
+require('config.tools-lsp')
 require('config.language-terraform')
 require('config.language-rust')
+require('config.language-go')
