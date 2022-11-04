@@ -13,6 +13,7 @@ vim.opt.clipboard = "unnamedplus" -- share clipboard with system
 vim.opt.ignorecase = true -- Ignore case when searching
 vim.opt.completeopt = { "menu", "menuone", "noselect" } -- needed for the autocomplete
 vim.opt.termguicolors = true
+vim.opt.foldlevel = 99
 
 vim.keymap.set('i', '<C-j>', '<Esc>', { desc = '[?] Ctrl-J to Esc' })
 vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[?] Open last file' })
