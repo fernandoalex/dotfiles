@@ -57,6 +57,7 @@ require('packer').startup(function(use)
   use 'ray-x/guihua.lua'
 
   -- misc
+  use 'windwp/nvim-autopairs'
   use 'nvim-lualine/lualine.nvim'
   use 'gbprod/substitute.nvim'
   use {
