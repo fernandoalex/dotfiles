@@ -1,6 +1,5 @@
 font:
   size: 18.0
-  use_thin_strokes: false
   normal:
     family: Hack Nerd Font
     # Style can be specified to pick a specific face.

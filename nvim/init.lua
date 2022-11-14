@@ -84,6 +84,7 @@ require('packer').startup(function(use)
   use 'nvim-neorg/neorg-telescope'
 
   use 'ThePrimeagen/vim-be-good'
+  use 'ThePrimeagen/harpoon'
 
   if is_bootstrap then
     require('packer').sync()
@@ -111,3 +112,4 @@ require('config.tools-lsp')
 require('config.language-terraform')
 require('config.language-rust')
 require('config.language-go')
+require('config.language-html-css')
