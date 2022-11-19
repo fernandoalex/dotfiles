@@ -36,5 +36,6 @@ vim.keymap.set("n", "<leader>h1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr
 vim.keymap.set("n", "<leader>h2", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", { noremap = true })
 vim.keymap.set("n", "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", { noremap = true })
 
+
 require("treesitter-context").setup()
 require("nvim-autopairs").setup()

@@ -82,7 +82,7 @@ require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'nvim-neorg/neorg'
   use 'nvim-neorg/neorg-telescope'
-
+  use 'norcalli/nvim-colorizer.lua'
   use 'ThePrimeagen/vim-be-good'
   use 'ThePrimeagen/harpoon'
 
