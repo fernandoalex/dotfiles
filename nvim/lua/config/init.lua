@@ -6,6 +6,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+vim.opt.mouse = "" -- disable mouse support
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'yes'
@@ -16,6 +17,8 @@ vim.opt.termguicolors = true
 vim.opt.foldlevel = 99
 vim.opt.incsearch = true
 vim.opt.inccommand = "split"
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
 
 vim.keymap.set('i', '<C-j>', '<Esc>', { desc = '[?] Ctrl-J to Esc' })
 vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[?] Open last file' })
@@ -39,3 +42,19 @@ vim.keymap.set("n", "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr
 
 require("treesitter-context").setup()
 require("nvim-autopairs").setup()
+
+require('cloak').setup({
+  enabled = true,
+  cloak_character = '*',
+  patterns = {
+    {
+      file_pattern = {
+      		  -- Match any file starting with '.env'.
+		  '.env*',
+		  'credentials',
+		  },
+      -- Match an equals sign and any character after it.
+      cloak_pattern = '=.+'
+    },
+  },
+})

@@ -47,16 +47,6 @@ function urlencode() {
   echo "$encoded"
 }
 
-function duck() {
-  declare url=$(urlencode "$*")
-  lynx --accept_all_cookies "https://duckduckgo.com/lite?q=$url"
-}
-
-function wiki_search() {
-  declare url=$(urlencode "$*")
-  lynx --accept_all_cookies "https://en.wikipedia.org/wiki/$url"
-}
-
 function git_branch_history() {
         if [[ $1 -eq 0 ]]; then
                 set -- 10

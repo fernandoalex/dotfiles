@@ -70,3 +70,5 @@
         link: ~/.gitignore_global
       - file: ~/git/dotfiles/bin
         link: ~/bin
+
+# TODO: nix stuff

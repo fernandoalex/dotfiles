@@ -14,11 +14,25 @@ require('packer').startup(function(use)
 
   -- Packages that are required by a bunch of stuff
   use 'nvim-lua/plenary.nvim'
-  use 'nvim-treesitter/nvim-treesitter'
+
+  use { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end,
+  }
+
+  use { -- Additional text objects via treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
+  }
+  use 'nvim-treesitter/nvim-treesitter-context'
+  use 'nvim-treesitter/playground'
+
   use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
   use {
-	  'nvim-telescope/telescope-fzf-native.nvim', 
-	  run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
+	  'nvim-telescope/telescope-fzf-native.nvim',
+	  run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   }
   use 'kyazdani42/nvim-web-devicons'
   use 'rcarriga/nvim-notify'
@@ -26,8 +40,19 @@ require('packer').startup(function(use)
   -- theme
   -- use 'ellisonleao/gruvbox.nvim'
   use 'folke/tokyonight.nvim'
-  -- lsp
-  use {'neovim/nvim-lspconfig'}
+
+  -- -- lsp
+  use { -- LSP Configuration & Plugins
+  'neovim/nvim-lspconfig',
+  requires = {
+	  -- Automatically install LSPs to stdpath for neovim
+	  'williamboman/mason.nvim',
+	  'williamboman/mason-lspconfig.nvim',
+
+	  -- Useful status updates for LSP
+	  'j-hui/fidget.nvim',
+  },
+  }
 
   -- completion
   use 'hrsh7th/nvim-cmp'
@@ -67,7 +92,7 @@ require('packer').startup(function(use)
 	  end
   }
   use {
-	  'akinsho/bufferline.nvim', 
+	  'akinsho/bufferline.nvim',
 	  requires = 'kyazdani42/nvim-web-devicons',
 	  config = function()
 		  require("bufferline").setup{}
@@ -79,12 +104,21 @@ require('packer').startup(function(use)
 		  require('Comment').setup()
 	  end
   }
-  use 'nvim-treesitter/nvim-treesitter-context'
+
   use 'nvim-neorg/neorg'
   use 'nvim-neorg/neorg-telescope'
   use 'norcalli/nvim-colorizer.lua'
   use 'ThePrimeagen/vim-be-good'
   use 'ThePrimeagen/harpoon'
+  use 'mbbill/undotree'
+  use 'laytan/cloak.nvim'
+
+  -- test
+  use 'stevearc/dressing.nvim'
+
+  -- is there a full lua version?
+  use 'tpope/vim-abolish'
+  use 'laytan/cloak.nvim'
 
   if is_bootstrap then
     require('packer').sync()
@@ -109,7 +143,8 @@ require('config.completion')
 require('config.norg')
 require('config.tools-git')
 require('config.tools-lsp')
-require('config.language-terraform')
-require('config.language-rust')
-require('config.language-go')
-require('config.language-html-css')
+-- require('config.language-terraform')
+-- require('config.language-rust')
+-- require('config.language-go')
+-- require('config.language-html-css')
+-- require('config.language-java')

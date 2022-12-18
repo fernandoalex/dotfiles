@@ -1,0 +1,6 @@
+[nix_shell]
+disabled = false
+format = 'via [☃️ ( \($name\))](bold blue) '
+
+[aws]
+format = "on [$symbol$profile]($style) "
