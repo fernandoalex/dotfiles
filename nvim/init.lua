@@ -26,6 +26,7 @@ require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
   }
+
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'nvim-treesitter/playground'
 
@@ -53,6 +54,7 @@ require('packer').startup(function(use)
 	  'j-hui/fidget.nvim',
   },
   }
+  use 'mfussenegger/nvim-dap'
 
   -- completion
   use 'hrsh7th/nvim-cmp'
@@ -105,8 +107,6 @@ require('packer').startup(function(use)
 	  end
   }
 
-  use 'nvim-neorg/neorg'
-  use 'nvim-neorg/neorg-telescope'
   use 'norcalli/nvim-colorizer.lua'
   use 'ThePrimeagen/vim-be-good'
   use 'ThePrimeagen/harpoon'
@@ -118,7 +118,6 @@ require('packer').startup(function(use)
 
   -- is there a full lua version?
   use 'tpope/vim-abolish'
-  use 'laytan/cloak.nvim'
 
   if is_bootstrap then
     require('packer').sync()
@@ -140,11 +139,10 @@ require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
 require('config.completion')
-require('config.norg')
 require('config.tools-git')
 require('config.tools-lsp')
 -- require('config.language-terraform')
--- require('config.language-rust')
+require('config.language-rust')
 -- require('config.language-go')
 -- require('config.language-html-css')
 -- require('config.language-java')

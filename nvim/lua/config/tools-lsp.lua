@@ -96,12 +96,12 @@ require('mason').setup()
 
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { 
-	'clangd', 
-	'rust_analyzer', 
-	'pyright', 
-	'tsserver', 
-	'sumneko_lua', 
+local servers = {
+	'clangd',
+	'rust_analyzer',
+	'pyright',
+	'tsserver',
+	'lua_ls',
 	'gopls',
 	'bashls',
 	'dockerls',
@@ -109,7 +109,7 @@ local servers = {
 	'jsonls',
 	'yamlls',
 	'ansiblels',
-	'groovyls',
+	-- 'groovyls',
 }
 
 -- Ensure the servers above are installed
@@ -122,10 +122,10 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
+	require('lspconfig')[lsp].setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
 end
 
 -- Turn on lsp status information
@@ -138,7 +138,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -158,3 +158,28 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
+
+require("rust-tools").setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	server = {
+		on_attach = function(_, bufnr)
+			-- Hover actions
+			vim.keymap.set("n", "<Leader>ha", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
+			-- Code action groups
+			vim.keymap.set("n", "<Leader>ca", require("rust-tools").code_action_group.code_action_group, { buffer = bufnr })
+
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+		end,
+	},
+	tools = {
+		hover_actions = { auto_focus = true },
+		runnables = {
+			use_telescope = true,
+		},
+		inlay_hints = {
+			auto = true,
+			show_parameter_hints = true,
+		},
+	}
+})

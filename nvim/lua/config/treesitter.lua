@@ -46,7 +46,6 @@ require('nvim-treesitter.configs').setup {
 	  'vim',
 	  'markdown',
 	  'bash',
-	  'norg', -- FIXME: breaking for some reason
   },
   highlight = { enable = true },
   indent = { enable = true },
