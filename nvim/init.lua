@@ -115,6 +115,15 @@ require('packer').startup(function(use)
 
   -- test
   use 'stevearc/dressing.nvim'
+  use 'laytan/cloak.nvim'
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
+  use "lukas-reineke/indent-blankline.nvim"
+  use {
+    'ldelossa/gh.nvim',
+    requires = { { 'ldelossa/litee.nvim' } }
+  }
 
   -- is there a full lua version?
   use 'tpope/vim-abolish'

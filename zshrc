@@ -1,7 +1,7 @@
 setopt prompt_subst
 
 # import stuff
-PLUGIN_FOLDER="$HOME/git/dotfiles/zsh-plugins"
+PLUGIN_FOLDER="$HOME/oss/dotfiles/zsh-plugins"
 
 FUNCTION_FILE="functions.zsh"
 [ -f "$PLUGIN_FOLDER/$FUNCTION_FILE" ] && source $PLUGIN_FOLDER/$FUNCTION_FILE
@@ -68,5 +68,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # source "/usr/local/opt/spaceship/spaceship.zsh"
-# export SPACESHIP_PROMPT_ASYNC=false
+export SPACESHIP_PROMPT_ASYNC=true
 eval "$(starship init zsh)"
+
+export PATH="$HOME/.rd/bin:$PATH"

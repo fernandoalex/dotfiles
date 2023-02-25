@@ -232,7 +232,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
   ensure_installed = {
-	  'norg',
+	  -- 'norg',
 	  'rust',
 	  'go',
 	  'python',
@@ -251,19 +251,19 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-require('neorg').setup{
-	load = {
-		["core.defaults"] = {},
-		["core.integrations.telescope"] = {},
-		["core.norg.dirman"] = {
-			config = {
-				workspaces = {
-					work = "~/git/org",
-				}
-			}
-		}
-	}
-}
+-- require('neorg').setup{
+-- 	load = {
+-- 		["core.defaults"] = {},
+-- 		["core.integrations.telescope"] = {},
+-- 		["core.norg.dirman"] = {
+-- 			config = {
+-- 				workspaces = {
+-- 					work = "~/git/org",
+-- 				}
+-- 			}
+-- 		}
+-- 	}
+-- }
 
 require('gitsigns').setup {
   current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`

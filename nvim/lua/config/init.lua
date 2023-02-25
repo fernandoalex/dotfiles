@@ -43,6 +43,12 @@ vim.keymap.set("n", "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr
 require("treesitter-context").setup()
 require("nvim-autopairs").setup()
 
+require('neogit').setup({
+  integrations = {
+    diffview = true
+  },
+})
+
 require('cloak').setup({
   enabled = true,
   cloak_character = '*',
@@ -58,3 +64,13 @@ require('cloak').setup({
     },
   },
 })
+
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+    show_end_of_line = true,
+}
+
+require('litee.lib').setup()
+require('litee.gh').setup()

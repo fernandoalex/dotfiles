@@ -6,5 +6,8 @@ alias ls='exa'
 alias ll='exa -la --git'
 alias vi='nvim'
 alias date='date -u +"%Y-%m-%dT%H:%M:%S%Z"'
-alias fd='cd `find . -type d ! -name "*.gi*" ! -name "*.terrafor*" | fzf`'
 alias tfuse='tfenv use `tfenv list | fzf`'
+
+# kubernetes stuff
+alias set-ns='k8s-set-ns.sh'
+alias k='kubectl'
