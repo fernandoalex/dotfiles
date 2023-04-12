@@ -4,3 +4,16 @@ format = 'via [☃️ ( \($name\))](bold blue) '
 
 [aws]
 format = "on [$symbol$profile]($style) "
+
+[kubernetes]
+style = "blue bold"
+disabled = false
+
+[git_branch]
+style = "red bold"
+
+[git_commit]
+style = "red bold"
+disabled = false
+tag_disabled = false
+only_detached = false

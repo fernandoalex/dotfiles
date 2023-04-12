@@ -109,6 +109,7 @@ local servers = {
 	'jsonls',
 	'yamlls',
 	'ansiblels',
+	'terraformls',
 	-- 'groovyls',
 }
 
@@ -183,3 +184,11 @@ require("rust-tools").setup({
 		},
 	}
 })
+
+require('lspconfig').yamlls.setup {
+  settings = {
+    yaml = {
+	keyOrdering = false,
+    },
+  }
+}

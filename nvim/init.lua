@@ -66,7 +66,7 @@ require('packer').startup(function(use)
 
   -- git
   use 'lewis6991/gitsigns.nvim'
-  use 'TimUntersberger/neogit'
+  use 'tpope/vim-fugitive'
   use 'sindrets/diffview.nvim'
 
   -- snippets
@@ -116,6 +116,7 @@ require('packer').startup(function(use)
 
   -- test
   use 'stevearc/dressing.nvim'
+  use 'github/copilot.vim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end}
@@ -124,6 +125,18 @@ require('packer').startup(function(use)
     'ldelossa/gh.nvim',
     requires = { { 'ldelossa/litee.nvim' } }
   }
+  use {
+  	"folke/trouble.nvim",
+  	requires = "nvim-tree/nvim-web-devicons",
+  	config = function()
+  		require("trouble").setup {
+  			-- your configuration comes here
+  			-- or leave it empty to use the default settings
+  			-- refer to the configuration section below
+  		}
+  	end
+  }
+  use 'nvim-tree/nvim-tree.lua'
 
   -- is there a full lua version?
   use 'tpope/vim-abolish'
@@ -152,6 +165,6 @@ require('config.tools-git')
 require('config.tools-lsp')
 -- require('config.language-terraform')
 require('config.language-rust')
--- require('config.language-go')
+require('config.language-go')
 -- require('config.language-html-css')
 -- require('config.language-java')

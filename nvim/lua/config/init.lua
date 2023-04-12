@@ -43,12 +43,6 @@ vim.keymap.set("n", "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr
 require("treesitter-context").setup()
 require("nvim-autopairs").setup()
 
-require('neogit').setup({
-  integrations = {
-    diffview = true
-  },
-})
-
 require('cloak').setup({
   enabled = true,
   cloak_character = '*',
@@ -64,6 +58,18 @@ require('cloak').setup({
     },
   },
 })
+
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
 
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
