@@ -1,3 +1,8 @@
+=======
+# TODOs:
+# - NVIDIA Cuda stuff
+# - to config with nix:
+# - - zsh: setup not working properly
 { config, pkgs, ... }:
 
 {
@@ -6,35 +11,35 @@
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
   home.packages = with pkgs; [
-    neovim
-    neomutt
-    tmux
-    fzf
-    fd
-    ripgrep
-    bat
-    exa
-    gh
-    go
-    nodejs
-    unzip
-    rustup
-    systemd
-    gcc
-    pkg-config
-    udev
-    udev.dev
-    cmake
-    gnumake
     alsaLib
     alsaLib.dev
+    awscli
+    bat
+    cmake
+    direnv
+    exa
+    fd
+    firefox
+    fzf
+    gcc
+    gh
+    gnumake
+    go
+    lynx
+    neomutt
+    neovim
+    nodejs
+    pkg-config
+    ripgrep
+    rustup
     starship
+    systemd
+    tmux
+    udev
+    udev.dev
+    unzip
     zoxide
     zsh
-    lynx
-    firefox
-    awscli
-    direnv
     zstd
   ];
 
