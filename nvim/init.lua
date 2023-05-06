@@ -115,11 +115,15 @@ require('packer').startup(function(use)
   use 'laytan/cloak.nvim'
 
   -- test
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use { "theHamsta/nvim-dap-virtual-text", config = function()
+    require("nvim-dap-virtual-text").setup()
+  end }
   use 'stevearc/dressing.nvim'
   use 'github/copilot.vim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
-  end}
+  end }
   use "lukas-reineke/indent-blankline.nvim"
   use {
     'ldelossa/gh.nvim',
