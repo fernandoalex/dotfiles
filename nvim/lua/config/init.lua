@@ -19,6 +19,9 @@ vim.opt.incsearch = true
 vim.opt.inccommand = "split"
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[?] Open last file' })
 

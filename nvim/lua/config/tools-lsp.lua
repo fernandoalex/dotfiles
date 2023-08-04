@@ -68,6 +68,7 @@ local servers = {
 	'eslint',
 	'lua_ls',
 	'gopls',
+	'golangci_lint_ls',
 	'bashls',
 	'dockerls',
 	'jdtls',

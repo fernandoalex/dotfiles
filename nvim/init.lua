@@ -121,6 +121,7 @@ require('packer').startup(function(use)
     require("nvim-dap-virtual-text").setup()
   end }
   use 'stevearc/dressing.nvim'
+  -- use 'github/copilot.vim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end }
@@ -140,10 +141,12 @@ require('packer').startup(function(use)
   		}
   	end
   }
-  use 'nvim-tree/nvim-tree.lua'
+  -- use 'nvim-tree/nvim-tree.lua'
 
   -- is there a full lua version?
   use 'tpope/vim-abolish'
+  use 'tpope/vim-dadbod'
+  use 'tpope/vim-unimpaired'
 
   if is_bootstrap then
     require('packer').sync()
