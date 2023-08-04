@@ -65,6 +65,7 @@ local servers = {
 	'zls',
 	'pyright',
 	'tsserver',
+	'eslint',
 	'lua_ls',
 	'gopls',
 	'bashls',

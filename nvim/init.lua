@@ -40,8 +40,9 @@ require('packer').startup(function(use)
   use 'rcarriga/nvim-notify'
 
   -- theme
-  -- use 'ellisonleao/gruvbox.nvim'
-  use 'folke/tokyonight.nvim'
+  use 'ellisonleao/gruvbox.nvim'
+  -- use 'folke/tokyonight.nvim'
+  -- use "rebelot/kanagawa.nvim"
 
   -- -- lsp
   use { -- LSP Configuration & Plugins
@@ -120,7 +121,6 @@ require('packer').startup(function(use)
     require("nvim-dap-virtual-text").setup()
   end }
   use 'stevearc/dressing.nvim'
-  use 'github/copilot.vim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end }
@@ -159,8 +159,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 require('config')
--- require('config.gruvbox')
-require('config.tokyonight')
+require('config.gruvbox')
+-- require('config.tokyonight')
+-- require('config.kanagawa')
 require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
@@ -173,9 +174,9 @@ require('config.language-go')
 -- require('config.language-html-css')
 -- require('config.language-java')
 --
-vim.opt_local.spell = true
-vim.opt_local.spelllang = 'en_us'
-vim.opt_local.fo:append('aw')
-local map = vim.api.nvim_buf_set_keymap
-local options = { noremap = true, silent = true}
-map(0, 'n', '<leader>x', 'ZZ', options)
+-- vim.opt_local.spell = true
+-- vim.opt_local.spelllang = 'en_us'
+-- vim.opt_local.fo:append('aw')
+-- local map = vim.api.nvim_buf_set_keymap
+-- local options = { noremap = true, silent = true}
+-- map(0, 'n', '<leader>x', 'ZZ', options)

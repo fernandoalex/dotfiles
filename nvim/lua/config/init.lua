@@ -20,7 +20,6 @@ vim.opt.inccommand = "split"
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
--- vim.keymap.set('i', '<C-j>', '<Esc>', { desc = '[?] Ctrl-J to Esc' })
 vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[?] Open last file' })
 
 vim.keymap.set('n', "<silent> <Esc>", ':nohlsearch<CR><CR>', { noremap = true}) -- clear search highlight
@@ -59,20 +58,20 @@ require('cloak').setup({
   },
 })
 
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    width = 60,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
+-- require("nvim-tree").setup({
+--   sort_by = "case_sensitive",
+--   view = {
+--     width = 60,
+--   },
+--   renderer = {
+--     group_empty = true,
+--   },
+--   filters = {
+--     dotfiles = true,
+--   },
+-- })
 
-vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
+-- vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
 
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
