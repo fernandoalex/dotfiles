@@ -46,6 +46,8 @@ require('nvim-treesitter.configs').setup {
 	'markdown',
 	'bash',
 	'zig',
+	'terraform',
+	'zig',
   },
   highlight = { enable = true },
   indent = { enable = true },

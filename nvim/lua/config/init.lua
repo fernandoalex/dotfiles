@@ -41,6 +41,10 @@ vim.keymap.set("n", "<leader>h1", "<cmd>lua require('harpoon.ui').nav_file(1)<cr
 vim.keymap.set("n", "<leader>h2", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", { noremap = true })
 vim.keymap.set("n", "<leader>h3", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", { noremap = true })
 
+-- [[ worktree configs]]
+require("telescope").load_extension("git_worktree")
+vim.keymap.set("n", "<leader>wl", "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>wc", "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", { noremap = true })
 
 require("treesitter-context").setup()
 require("nvim-autopairs").setup()
@@ -61,20 +65,17 @@ require('cloak').setup({
   },
 })
 
--- require("nvim-tree").setup({
---   sort_by = "case_sensitive",
---   view = {
---     width = 60,
---   },
---   renderer = {
---     group_empty = true,
---   },
---   filters = {
---     dotfiles = true,
---   },
--- })
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 
--- vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
 
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"

@@ -27,6 +27,8 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
+  use 'xiyaowong/transparent.nvim'
+  use 'MunifTanjim/nui.nvim'
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'nvim-treesitter/playground'
 
@@ -37,7 +39,14 @@ require('packer').startup(function(use)
   }
 
   use 'kyazdani42/nvim-web-devicons'
-  use 'rcarriga/nvim-notify'
+  use {
+        'rcarriga/nvim-notify',
+        config = function()
+            require('notify').setup({
+                background_colour = "#000000"
+            })
+        end
+    }
 
   -- theme
   use 'ellisonleao/gruvbox.nvim'
@@ -68,6 +77,7 @@ require('packer').startup(function(use)
   -- git
   use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-fugitive'
+  use 'NeogitOrg/neogit'
   use 'sindrets/diffview.nvim'
 
   -- snippets
@@ -108,10 +118,16 @@ require('packer').startup(function(use)
 		  require('Comment').setup()
 	  end
   }
-
   use 'norcalli/nvim-colorizer.lua'
   use 'ThePrimeagen/vim-be-good'
   use 'ThePrimeagen/harpoon'
+  use 'ThePrimeagen/git-worktree.nvim'
+  use {
+        'folke/noice.nvim',
+        config = function ()
+            require('noice').setup()
+        end
+    }
   use 'mbbill/undotree'
   use 'laytan/cloak.nvim'
 
@@ -121,7 +137,6 @@ require('packer').startup(function(use)
     require("nvim-dap-virtual-text").setup()
   end }
   use 'stevearc/dressing.nvim'
-  -- use 'github/copilot.vim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end }
@@ -141,11 +156,18 @@ require('packer').startup(function(use)
   		}
   	end
   }
-  -- use 'nvim-tree/nvim-tree.lua'
+  use 'nvim-tree/nvim-tree.lua'
+  use {
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("project_nvim").setup {}
+    end
+  }
 
   -- is there a full lua version?
   use 'tpope/vim-abolish'
   use 'tpope/vim-dadbod'
+  use 'kristijanhusak/vim-dadbod-ui'
   use 'tpope/vim-unimpaired'
 
   if is_bootstrap then
