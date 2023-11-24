@@ -109,7 +109,7 @@ require('packer').startup(function(use)
 	  'akinsho/bufferline.nvim',
 	  requires = 'kyazdani42/nvim-web-devicons',
 	  config = function()
-		  require("bufferline").setup{}
+		  require("bufferline").setup({})
 	  end
   }
   use {
@@ -134,7 +134,7 @@ require('packer').startup(function(use)
   -- test
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use { "theHamsta/nvim-dap-virtual-text", config = function()
-    require("nvim-dap-virtual-text").setup()
+    require("nvim-dap-virtual-text").setup({})
   end }
   use 'stevearc/dressing.nvim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
@@ -169,6 +169,14 @@ require('packer').startup(function(use)
   use 'tpope/vim-dadbod'
   use 'kristijanhusak/vim-dadbod-ui'
   use 'tpope/vim-unimpaired'
+
+  use 'David-Kunz/gen.nvim'
+  use({
+      "stevearc/oil.nvim",
+      config = function()
+          require("oil").setup()
+      end,
+  })
 
   if is_bootstrap then
     require('packer').sync()
