@@ -12,6 +12,7 @@
       - ~/.vimdid
       - ~/.zsh/plugins
       - ~/.config
+      - ~/.config/alacritty
 
   - name: ZSH zsh-vim-mode
     git:
@@ -23,30 +24,38 @@
       repo: https://github.com/zsh-users/zsh-autosuggestions.git
       dest: ~/.zsh/plugins/zsh-autosuggestions
 
+  # Update homebrew and upgrade all packages
+  - community.general.homebrew:
+      update_homebrew: true
+      upgrade_all: true
+
   # make sure this used brew
   - name: Install packages
-    package:
+    community.general.homebrew:
       name: "{{ item }}"
       state: present
     loop:
-      #    - neovim # move this to a git clone and build
+        #    - alacritty # for some reason ansible thinks this is failing
     - tmux
     - fzf
     - tldr
-    - cmake 
     - ripgrep
-    - zsh-syntax-highlighting
-    - w3m
+    - bat
+    - eza
     - shellcheck
-    - ctags
-    - composer
-    - autojump
     - llvm
     - starship
+    - nvm
 
-  # make sure this used brew
+  - name: Languages with brew
+    community.general.homebrew:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - go
+
   - name: Install LSPs
-    package:
+    community.general.homebrew:
       name: "{{ item }}"
       state: present
     loop:
@@ -54,21 +63,70 @@
     - lua-language-server
     - gopls
 
+  - name: Bleeding stuff
+    community.general.homebrew:
+      name: "{{ item }}"
+      state: head
+    loop:
+    - neovim
+
   - name: making some links
     file:
       src: "{{ item.file }}"
       dest: "{{ item.link }}"
       state: link
+      force: yes
     loop:
-      - file: ~/git/dotfiles/nvim/
-        link: ~/.config/nvim/
-      - file: ~/git/dotfiles/tmux.conf
+      - file: ~/personal/dotfiles/nvim
+        link: ~/.config/nvim
+      - file: ~/personal/dotfiles/tmux.conf
         link: ~/.tmux.conf
-      - file: ~/git/dotfiles/zshrc
+      - file: ~/personal/dotfiles/alacritty.yml
+        link: ~/.config/alacritty/alacritty.yml
+      - file: ~/personal/dotfiles/zshrc
         link: ~/.zshrc
-      - file: ~/git/dotfiles/gitignore_global
+      - file: ~/personal/dotfiles/gitignore_global
         link: ~/.gitignore_global
-      - file: ~/git/dotfiles/bin
+      - file: ~/personal/dotfiles/bin
         link: ~/bin
 
-# TODO: nix stuff
+  - name: Download JetBrains Mono Nerd Font
+    get_url:
+      url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+      dest: /tmp/JetBrainsMono.zip
+
+  - name: Create a directory for JetBrains Mono Font
+    file:
+      path: /tmp/JetBrainsMono
+      state: directory
+
+  - name: Unarchive JetBrains Mono Font
+    unarchive:
+      src: /tmp/JetBrainsMono.zip
+      dest: /tmp/JetBrainsMono
+      remote_src: yes
+
+  - name: Copy font files to the Fonts directory
+    copy:
+      src: /tmp/JetBrainsMono/
+      dest: ~/Library/Fonts/
+      mode: 0644
+
+  - name: Remove downloaded and unzipped files
+    file:
+      path: "{{ item }}"
+      state: absent
+    loop:
+      - /tmp/JetBrainsMono.zip
+      - /tmp/JetBrainsMono
+
+  - name: Download Rust installation script
+    get_url:
+      url: https://sh.rustup.rs
+      dest: /tmp/rustup-init.sh
+      mode: '0755'
+
+  - name: Install Rust with default settings
+    command: sh /tmp/rustup-init.sh -y
+    args:
+      creates: ~/.cargo/bin/rustc

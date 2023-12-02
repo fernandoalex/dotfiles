@@ -31,7 +31,6 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {
 	'c',
 	'typescript',
-	'help',
 	'nix',
 	'java',
 	'rust',
