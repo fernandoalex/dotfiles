@@ -60,22 +60,22 @@ require('mason').setup()
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
 local servers = {
-	'clangd',
+	-- 'clangd',
 	'rust_analyzer',
-	'zls',
-	'pyright',
-	'tsserver',
-	'eslint',
+	-- 'zls',
+	-- 'pyright',
+	-- 'tsserver',
+	-- 'eslint',
 	'lua_ls',
 	'gopls',
 	'golangci_lint_ls',
-	'bashls',
-	'dockerls',
+	-- 'bashls',
+	-- 'dockerls',
 	-- 'jdtls',
-	'jsonls',
-	'yamlls',
-	'ansiblels',
-	'terraformls',
+	-- 'jsonls',
+	-- 'yamlls',
+	-- 'ansiblels',
+	-- 'terraformls',
 }
 
 -- Ensure the servers above are installed
@@ -125,30 +125,6 @@ require('lspconfig').lua_ls.setup {
   },
 }
 
-require("rust-tools").setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	server = {
-		on_attach = function(_, bufnr)
-			-- Hover actions
-			vim.keymap.set("n", "<Leader>ha", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
-			-- Code action groups
-			vim.keymap.set("n", "<Leader>ca", require("rust-tools").code_action_group.code_action_group, { buffer = bufnr })
-
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-		end,
-	},
-	tools = {
-		hover_actions = { auto_focus = true },
-		runnables = {
-			use_telescope = true,
-		},
-		inlay_hints = {
-			auto = true,
-			show_parameter_hints = true,
-		},
-	}
-})
 
 require('lspconfig').yamlls.setup {
   settings = {

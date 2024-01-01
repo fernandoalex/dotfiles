@@ -52,6 +52,7 @@ require('packer').startup(function(use)
   use 'ellisonleao/gruvbox.nvim'
   -- use 'folke/tokyonight.nvim'
   -- use "rebelot/kanagawa.nvim"
+  use 'craftzdog/solarized-osaka.nvim'
 
   -- -- lsp
   use { -- LSP Configuration & Plugins
@@ -65,7 +66,6 @@ require('packer').startup(function(use)
 	  'j-hui/fidget.nvim',
   },
   }
-  use 'mfussenegger/nvim-dap'
 
   -- completion
   use 'hrsh7th/nvim-cmp'
@@ -132,7 +132,8 @@ require('packer').startup(function(use)
   use 'laytan/cloak.nvim'
 
   -- test
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use 'mfussenegger/nvim-dap'
+  use 'rcarriga/nvim-dap-ui'
   use { "theHamsta/nvim-dap-virtual-text", config = function()
     require("nvim-dap-virtual-text").setup({})
   end }
@@ -163,7 +164,7 @@ require('packer').startup(function(use)
       require("project_nvim").setup {}
     end
   }
-
+  use 'nvim-focus/focus.nvim'
   -- is there a full lua version?
   use 'tpope/vim-abolish'
   use 'tpope/vim-dadbod'
@@ -192,7 +193,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 require('config')
-require('config.gruvbox')
+-- require('config.gruvbox')
+require('config.osaka')
 -- require('config.tokyonight')
 -- require('config.kanagawa')
 require('config.treesitter')
@@ -206,6 +208,7 @@ require('config.language-rust')
 require('config.language-go')
 -- require('config.language-html-css')
 -- require('config.language-java')
+require('config.tools-dap')
 --
 -- vim.opt_local.spell = true
 -- vim.opt_local.spelllang = 'en_us'
