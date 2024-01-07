@@ -30,12 +30,13 @@
       upgrade_all: true
 
   # make sure this used brew
-  - name: Install packages
+  - name: brew packages
     community.general.homebrew:
       name: "{{ item }}"
       state: present
     loop:
         #    - alacritty # for some reason ansible thinks this is failing
+    # - obsidian
     - tmux
     - fzf
     - tldr
@@ -46,6 +47,10 @@
     - llvm
     - starship
     - nvm
+    - bacon
+    - neomut
+    - direnv
+    - gh
 
   - name: Languages with brew
     community.general.homebrew:
