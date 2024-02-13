@@ -27,7 +27,7 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
-  use 'xiyaowong/transparent.nvim'
+  -- use 'xiyaowong/transparent.nvim'
   use 'MunifTanjim/nui.nvim'
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'nvim-treesitter/playground'
@@ -125,7 +125,34 @@ require('packer').startup(function(use)
   use {
         'folke/noice.nvim',
         config = function ()
-            require('noice').setup()
+            require("noice").setup({
+                lsp = {
+                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    },
+                },
+                -- you can enable a preset for easier configuration
+                presets = {
+                    bottom_search = true, -- use a classic bottom cmdline for search
+                    -- command_palette = true, -- position the cmdline and popupmenu together
+                    long_message_to_split = true, -- long messages will be sent to a split
+                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = false, -- add a border to hover docs and signature help
+                },
+                routes = {
+                    {
+                        filter = {
+                            event = "msg_show",
+                            kind = "",
+                            find = "written",
+                        },
+                        opts = { skip = true },
+                    },
+                },
+            })
         end
     }
   use 'mbbill/undotree'
@@ -137,15 +164,32 @@ require('packer').startup(function(use)
   use { "theHamsta/nvim-dap-virtual-text", config = function()
     require("nvim-dap-virtual-text").setup({})
   end }
+
   use 'stevearc/dressing.nvim'
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end }
-  use "lukas-reineke/indent-blankline.nvim"
+  use { "lukas-reineke/indent-blankline.nvim",
+    config = function ()
+            require('ibl').setup{}
+    end
+    }
   use {
     'ldelossa/gh.nvim',
     requires = { { 'ldelossa/litee.nvim' } }
   }
+  use {
+        "shortcuts/no-neck-pain.nvim",
+        config = function ()
+            require("no-neck-pain").setup({
+                width = 80,
+                autocmds = {
+                    enableOnVimEnter = true,
+                },
+            })
+        end,
+        tag = "*"
+    }
   use {
   	"folke/trouble.nvim",
   	requires = "nvim-tree/nvim-web-devicons",
@@ -158,12 +202,12 @@ require('packer').startup(function(use)
   	end
   }
   use 'nvim-tree/nvim-tree.lua'
-  use {
-    "ahmedkhalf/project.nvim",
-    config = function()
-      require("project_nvim").setup {}
-    end
-  }
+  -- use {
+  --   "ahmedkhalf/project.nvim",
+  --   config = function()
+  --     require("project_nvim").setup {}
+  --   end
+  -- }
   use 'nvim-focus/focus.nvim'
   -- is there a full lua version?
   use 'tpope/vim-abolish'
@@ -178,6 +222,13 @@ require('packer').startup(function(use)
           require("oil").setup()
       end,
   })
+use {
+    "ThePrimeagen/refactoring.nvim",
+    requires = {
+        {"nvim-lua/plenary.nvim"},
+        {"nvim-treesitter/nvim-treesitter"}
+    }
+}
 
   if is_bootstrap then
     require('packer').sync()

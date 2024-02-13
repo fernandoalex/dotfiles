@@ -78,10 +78,12 @@ require("nvim-tree").setup({
 vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
 
 vim.opt.list = true
-vim.opt.listchars:append "eol:↴"
+-- vim.opt.listchars:append "eol:↴"
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 require('litee.lib').setup()
 require('litee.gh').setup()
 require("focus").setup()
+
+require('refactoring').setup()

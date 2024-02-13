@@ -51,6 +51,11 @@
     - neomut
     - direnv
     - gh
+    - lima
+    - kind
+    - moar
+    - jq
+    - yq
 
   - name: Languages with brew
     community.general.homebrew:
