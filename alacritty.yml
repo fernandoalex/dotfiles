@@ -19,7 +19,7 @@ font:
 
 window:
   decorations: buttonless
-  opacity: 0.95
+  # opacity: 0.95
 
 # The definition of color schemes.
 schemes:

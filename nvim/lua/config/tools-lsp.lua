@@ -75,7 +75,8 @@ local servers = {
 	-- 'jsonls',
 	-- 'yamlls',
 	-- 'ansiblels',
-	-- 'terraformls',
+	'terraformls',
+    'nil_ls',
 }
 
 -- Ensure the servers above are installed

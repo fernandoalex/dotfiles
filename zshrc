@@ -1,7 +1,7 @@
 setopt prompt_subst
 
 # import stuff
-PLUGIN_FOLDER="$HOME/oss/dotfiles/zsh-plugins"
+PLUGIN_FOLDER="$HOME/personal/dotfiles/zsh-plugins"
 
 FUNCTION_FILE="functions.zsh"
 [ -f "$PLUGIN_FOLDER/$FUNCTION_FILE" ] && source $PLUGIN_FOLDER/$FUNCTION_FILE
@@ -11,7 +11,7 @@ ALIAS_FILE="alias.zsh"
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin.local:/usr/local/bin:$PATH
-export VISUAL=vi
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export HISTFILE=~/.zsh_history
 # Git stuff
@@ -57,9 +57,6 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/brew/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-[ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
 bindkey -s '^f' 'tmux-jump.sh^M' 
 
@@ -73,13 +70,16 @@ export SPACESHIP_PROMPT_ASYNC=true
 eval "$(starship init zsh)"
 
 export PATH="$HOME/.rd/bin:$PATH"
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/$HOME/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+eval "$(direnv hook zsh)"
+
+export PAGER=moar
+export NIXPKGS_ALLOW_UNFREE=1
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-eval "$(direnv hook zsh)"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/spanta/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

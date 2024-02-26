@@ -24,6 +24,11 @@
       repo: https://github.com/zsh-users/zsh-autosuggestions.git
       dest: ~/.zsh/plugins/zsh-autosuggestions
 
+  - name: ZSH zsh-autosuggestions
+    git:
+      repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+      dest: ~/.zsh/plugins/zsh-syntax-highlighting
+
   # Update homebrew and upgrade all packages
   - community.general.homebrew:
       update_homebrew: true
