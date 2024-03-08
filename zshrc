@@ -57,6 +57,7 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/brew/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f ~/.zshrc-atuin ] && source ~/.zshrc-atuin
 
 bindkey -s '^f' 'tmux-jump.sh^M' 
 

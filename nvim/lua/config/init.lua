@@ -27,7 +27,7 @@ vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[?] Open last file' }
 
 vim.keymap.set('n', "<silent> <Esc>", ':nohlsearch<CR><CR>', { noremap = true}) -- clear search highlight
 
-vim.keymap.set("n", "<C-f>", ":silent !tmux neww tmux-jump.sh<CR>", { noremap = true }) -- trigger tmux-jump
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux-jump.sh<CR>")
 
 -- [[ basic plugins with no/simple custom config ]]
 require("substitute").setup()
