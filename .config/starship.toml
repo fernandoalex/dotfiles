@@ -1,0 +1,95 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+[directory]
+fish_style_pwd_dir_length = 1
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[battery]
+disabled = true
+[buf]
+disabled = true
+[bun]
+disabled = true
+[cobol]
+disabled = true
+[conda]
+disabled = true
+[crystal]
+disabled = true
+[daml]
+disabled = true
+[dart]
+disabled = true
+[deno]
+disabled = true
+[dotnet]
+disabled = true
+[elixir]
+disabled = true
+[elm]
+disabled = true
+[erlang]
+disabled = true
+[fennel]
+disabled = true
+[fill]
+disabled = true
+[gcloud]
+disabled = true
+[guix_shell]
+disabled = true
+[haskell]
+disabled = true
+[haxe]
+disabled = true
+[julia]
+disabled = true
+[kotlin]
+disabled = true
+[meson]
+disabled = true
+[nim]
+disabled = true
+[ocaml]
+disabled = true
+[openstack]
+disabled = true
+[perl]
+disabled = true
+[php]
+disabled = true
+[pijul_channel]
+disabled = true
+[purescript]
+disabled = true
+[rlang]
+disabled = true
+[raku]
+disabled = true
+[red]
+disabled = true
+[ruby]
+disabled = true
+[shlvl]
+disabled = true
+[singularity]
+disabled = true
+[solidity]
+disabled = true
+[spack]
+disabled = true
+[swift]
+disabled = true
+[typst]
+disabled = true
+[vagrant]
+disabled = true
+[vlang]
+disabled = true
+[vcsh]
+disabled = true
+
+

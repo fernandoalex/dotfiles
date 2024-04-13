@@ -35,11 +35,17 @@ require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'nvim-treesitter/playground'
 
-  use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
+  use { 'nvim-telescope/telescope.nvim', 
+    requires = { 
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-github.nvim'
+    } 
+}
   use {
 	  'nvim-telescope/telescope-fzf-native.nvim',
 	  run = 'make'
   }
+
 
   use 'kyazdani42/nvim-web-devicons'
   use {
@@ -89,7 +95,7 @@ require('packer').startup(function(use)
 
   -- terraform
   use 'hashivim/vim-terraform' -- non-native
-  use 'ANGkeith/telescope-terraform-doc.nvim'
+  -- use 'ANGkeith/telescope-terraform-doc.nvim'
 
   -- rust
   use 'simrat39/rust-tools.nvim'
@@ -164,6 +170,7 @@ require('packer').startup(function(use)
   -- test
   use 'mfussenegger/nvim-dap'
   use 'rcarriga/nvim-dap-ui'
+  use 'nvim-neotest/nvim-nio'
   use { "theHamsta/nvim-dap-virtual-text", config = function()
     require("nvim-dap-virtual-text").setup({})
   end }
@@ -181,18 +188,26 @@ require('packer').startup(function(use)
     'ldelossa/gh.nvim',
     requires = { { 'ldelossa/litee.nvim' } }
   }
-  use {
-        "shortcuts/no-neck-pain.nvim",
+    use { 'folke/neodev.nvim',
         config = function ()
-            require("no-neck-pain").setup({
-                width = 80,
-                autocmds = {
-                    enableOnVimEnter = true,
-                },
-            })
+            require('neodev').setup()
         end,
-        tag = "*"
     }
+  -- use {
+  --       "shortcuts/no-neck-pain.nvim",
+  --       config = function ()
+  --           -- TODO: this breaks with other plugins that create splits
+  --           -- I am pretty sure we can run code on events on neovim, so
+  --           -- it is probably possible to use that to fix some
+  --           require("no-neck-pain").setup({
+  --               width = 80,
+  --               autocmds = {
+  --                   enableOnVimEnter = true,
+  --               },
+  --           })
+  --       end,
+  --       tag = "*"
+  --   }
   use {
   	"folke/trouble.nvim",
   	requires = "nvim-tree/nvim-web-devicons",
@@ -222,16 +237,26 @@ require('packer').startup(function(use)
   use({
       "stevearc/oil.nvim",
       config = function()
-          require("oil").setup()
+          require("oil").setup({
+                view_options = {
+                    show_hidden = true,
+                }
+            })
       end,
   })
-use {
-    "ThePrimeagen/refactoring.nvim",
-    requires = {
-        {"nvim-lua/plenary.nvim"},
-        {"nvim-treesitter/nvim-treesitter"}
-    }
-}
+
+    use 'phelipetls/jsonpath.nvim'
+
+  use {
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+          {"nvim-lua/plenary.nvim"},
+          {"nvim-treesitter/nvim-treesitter"}
+      }
+  }
+  -- whyyyy
+  -- use 'fernandoalex/music.nvim'
+  use '~/personal/music.nvim.git/main/'
 
   if is_bootstrap then
     require('packer').sync()
@@ -257,7 +282,7 @@ require('config.lualine')
 require('config.completion')
 require('config.tools-git')
 require('config.tools-lsp')
--- require('config.language-terraform')
+require('config.language-terraform')
 require('config.language-rust')
 require('config.language-go')
 -- require('config.language-html-css')

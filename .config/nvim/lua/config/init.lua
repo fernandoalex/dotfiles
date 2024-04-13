@@ -75,7 +75,7 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>tt", "<cmd>lua require('nvim-tree.api').tree.toggle()<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>tt", "<cmd>TroubleToggle<CR>", { noremap = true })
 
 vim.opt.list = true
 -- vim.opt.listchars:append "eol:↴"
@@ -85,5 +85,23 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 require('litee.lib').setup()
 require('litee.gh').setup()
 require("focus").setup()
-
+require('telescope').load_extension('gh')
 require('refactoring').setup()
+
+-- mail stuff
+vim.opt_local.spell = true
+vim.opt_local.spelllang = 'en_us'
+vim.opt_local.fo:append('aw')
+local map = vim.api.nvim_buf_set_keymap
+local options = { noremap = true, silent = true}
+map(0, 'n', '<leader>x', 'ZZ', options)
+
+vim.api.nvim_set_keymap('n', '<leader>mfp', ':lua require("music").open_playlist_picker()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mp', ':lua require("music").play_track()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mP', ':lua require("music").pause_track()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mn', ':lua require("music").next_track()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>mN', ':lua require("music").previous_track()<CR>', {noremap = true, silent = true})
+
+_G.p = function(tbl)
+  vim.api.nvim_out_write(vim.inspect(tbl) .. "\n")
+end

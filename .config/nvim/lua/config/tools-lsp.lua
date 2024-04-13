@@ -72,10 +72,12 @@ local servers = {
 	-- 'bashls',
 	-- 'dockerls',
 	-- 'jdtls',
-	-- 'jsonls',
-	-- 'yamlls',
+	'jsonls',
+	'yamlls',
 	-- 'ansiblels',
 	'terraformls',
+	'tflint',
+    'marksman',
     'nil_ls',
 }
 

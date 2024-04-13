@@ -5,6 +5,7 @@ $(error USER variable is not set)
 endif
 
 deps: 
+	brew install stow
 	brew install ansible
 
 setup-homebrew:

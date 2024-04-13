@@ -25,7 +25,7 @@ neogit.setup {
     -- If enabled, uses fzf-lua for menu selection. If the telescope integration
     -- is also selected then telescope is used instead
     -- Requires you to have `ibhagwan/fzf-lua` installed.
-    fzf_lua = false,
+    fzf_lua = true,
   },
 }
-vim.keymap.set("n", "<leader>ngo", "<cmd>lua require('neogit').open({kind = 'vsplit'})<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>no", "<cmd>lua require('neogit').open({kind = 'vsplit'})<cr>", { noremap = true })

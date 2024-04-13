@@ -1,7 +1,7 @@
 setopt prompt_subst
 
 # import stuff
-PLUGIN_FOLDER="$HOME/personal/dotfiles/zsh-plugins"
+PLUGIN_FOLDER="$HOME/zsh-plugins"
 
 FUNCTION_FILE="functions.zsh"
 [ -f "$PLUGIN_FOLDER/$FUNCTION_FILE" ] && source $PLUGIN_FOLDER/$FUNCTION_FILE
@@ -19,9 +19,6 @@ export HISTFILE=~/.zsh_history
 
 # Enable colors and change prompt:
 autoload -U colors && colors
-# PROMPT='
-# %B%{$fg[white]%}[ %{$fg[magenta]%}%(4~|.../%3~|%~)%{$fg[red]%}$(git_branch_name)%{$fg[blue]%}$(kubectl_profile)%{$fg[green]%}$(kubectl_namespace)%{$fg[yellow]%}$(aws_profile)%{$fg[white]%} ] %{$reset_color%}
-# $%b '
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -73,6 +70,7 @@ eval "$(starship init zsh)"
 export PATH="$HOME/.rd/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
 
 export PAGER=moar
 export NIXPKGS_ALLOW_UNFREE=1

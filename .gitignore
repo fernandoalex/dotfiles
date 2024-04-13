@@ -15,3 +15,8 @@ pip-selfcheck.json
 .git/
 packer_compiled.lua
 .luarc.json
+
+work/*
+
+#nix
+result/
