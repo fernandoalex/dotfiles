@@ -9,9 +9,6 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs }:
   let
-    # localOverlay = final: prev: {
-    #     firefox = local.pkgs.firefox;
-    # };
 
     commonConfiguration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -25,6 +22,8 @@
             pkgs.stow
             pkgs.zoxide
             pkgs.fd
+            pkgs.eza
+            pkgs.ripgrep
             pkgs.neomutt
             pkgs.toot
             pkgs.lynx
@@ -32,27 +31,32 @@
             pkgs.awscli
             pkgs.neofetch
             pkgs.stow
+            pkgs.neovim
+            pkgs.tmux
+            pkgs.git
+            pkgs.alacritty
+            pkgs.fzf
+            pkgs.nerdfonts
+            pkgs.starship
+            pkgs.direnv
             (import ./utils/aws-s3-ls.nix {inherit pkgs;})
             (import ./utils/aws-ebs-ls.nix {inherit pkgs;})
             (import ./utils/aws-ec2-ls.nix {inherit pkgs;})
             (import ./utils/aws-ec2-output.nix {inherit pkgs;})
             (import ./utils/kubectl-get-nodes.nix {inherit pkgs;})
+
+            # build stuff
+            pkgs.gcc
+            pkgs.cmake
         ];
 
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
-      # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true;  # default shell on catalina
+      programs.zsh.enable = true;
 
-      # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 4;
-
     };
 
     macosConfiguration = { pkgs, ... }: {
@@ -68,7 +72,16 @@
       services.nix-daemon.enable = true;
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
+      system.stateVersion = 4;
     };
+
+    nixosConfiguration = { pkgs, ... }: {
+      # List packages installed in system profile. To search by name, run:
+      # $ nix-env -qaP | grep wget
+      environment.systemPackages =
+        [ pkgs.firefox ];
+    };
+
   in
   {
     # Build darwin flake using:
@@ -77,6 +90,14 @@
       modules = [ 
       commonConfiguration
       macosConfiguration
+      ];
+    };
+
+    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+      modules = [ 
+      ./nixos/configuration.nix
+      commonConfiguration
+      nixosConfiguration
       ];
     };
 
