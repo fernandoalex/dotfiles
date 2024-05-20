@@ -60,7 +60,7 @@ require('mason').setup()
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
 local servers = {
-	-- 'clangd',
+	'clangd',
 	'rust_analyzer',
 	-- 'zls',
 	-- 'pyright',
@@ -119,9 +119,13 @@ require('lspconfig').lua_ls.setup {
         path = runtime_path,
       },
       diagnostics = {
-        globals = { 'vim' },
+        globals = { 'vim', 'love' },
       },
-      workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+      workspace = {
+        library = {
+                    vim.api.nvim_get_runtime_file('', true),
+                }
+            },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = { enable = false },
     },

@@ -114,13 +114,16 @@ require('packer').startup(function(use)
 		  require("nvim-surround").setup()
 	  end
   }
-  use {
-	  'akinsho/bufferline.nvim',
-	  requires = 'kyazdani42/nvim-web-devicons',
-	  config = function()
-		  require("bufferline").setup({})
-	  end
-  }
+
+  -- use {
+	 --  'akinsho/bufferline.nvim',
+	 --  requires = 'kyazdani42/nvim-web-devicons',
+  --     tag = "*",
+	 --  config = function()
+		--   require("bufferline").setup({})
+	 --  end
+  -- }
+  --
   use {
 	  'numToStr/Comment.nvim',
 	  config = function()
@@ -254,6 +257,15 @@ require('packer').startup(function(use)
           {"nvim-treesitter/nvim-treesitter"}
       }
   }
+  use {
+        "S1M0N38/love2d.nvim",
+        config = function ()
+            require('love2d').setup({
+                path_to_love_bin = "/Applications/love.app/Contents/MacOS/love"
+	})
+        end
+
+    }
   -- whyyyy
   -- use 'fernandoalex/music.nvim'
   use '~/personal/music.nvim.git/main/'

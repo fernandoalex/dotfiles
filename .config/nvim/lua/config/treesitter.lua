@@ -49,7 +49,10 @@ require('nvim-treesitter.configs').setup {
 	'zig',
 	'terraform',
 	'zig',
+        'regex',
+        -- 'markdown_line',
   },
+
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {

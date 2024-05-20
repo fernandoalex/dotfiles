@@ -16,7 +16,11 @@ pip-selfcheck.json
 packer_compiled.lua
 .luarc.json
 
-work/*
+work/
+bin/
 
 #nix
 result/
+result
+
+_XDG_CACHE_HOME/

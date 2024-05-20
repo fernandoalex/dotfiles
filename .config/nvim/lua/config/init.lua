@@ -15,6 +15,7 @@ vim.opt.ignorecase = true -- Ignore case when searching
 vim.opt.completeopt = { "menu", "menuone", "noselect" } -- needed for the autocomplete
 vim.opt.termguicolors = true
 vim.opt.foldlevel = 99
+vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.inccommand = "split"
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -22,6 +23,7 @@ vim.opt.undofile = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.colorcolumn = "80"
 
 vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = '[?] Open last file' })
 
@@ -105,3 +107,9 @@ vim.api.nvim_set_keymap('n', '<leader>mN', ':lua require("music").previous_track
 _G.p = function(tbl)
   vim.api.nvim_out_write(vim.inspect(tbl) .. "\n")
 end
+
+require('gen').setup({
+    model = "llama3",
+    display_mode = "split",
+    no_auto_close = true,
+})

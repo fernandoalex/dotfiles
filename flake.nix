@@ -5,66 +5,75 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, neovim-nightly-overlay }:
   let
-
-    commonConfiguration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ pkgs.ast-grep
-            pkgs.lnav
-            pkgs.atuin
-            pkgs.btop
-            pkgs.dust
-            pkgs.stow
-            pkgs.zoxide
-            pkgs.fd
-            pkgs.eza
-            pkgs.ripgrep
-            pkgs.neomutt
-            pkgs.toot
-            pkgs.lynx
-            pkgs.irssi
-            pkgs.awscli
-            pkgs.neofetch
-            pkgs.stow
-            pkgs.neovim
-            pkgs.tmux
-            pkgs.git
-            pkgs.alacritty
-            pkgs.fzf
-            pkgs.nerdfonts
-            pkgs.starship
-            pkgs.direnv
-            (import ./utils/aws-s3-ls.nix {inherit pkgs;})
-            (import ./utils/aws-ebs-ls.nix {inherit pkgs;})
-            (import ./utils/aws-ec2-ls.nix {inherit pkgs;})
-            (import ./utils/aws-ec2-output.nix {inherit pkgs;})
-            (import ./utils/kubectl-get-nodes.nix {inherit pkgs;})
-
-            # build stuff
-            pkgs.gcc
-            pkgs.cmake
+    overlays = [
+          inputs.neovim-nightly-overlay.overlay
         ];
+    commonConfiguration = { pkgs, ... }: {
+        nixpkgs.overlays = overlays;
+        nixpkgs.config.allowUnfree = true;
+# List packages installed in system profile. To search by name, run:
+# $ nix-env -qaP | grep wget
+        environment.systemPackages =
+            [ pkgs.ast-grep
+            pkgs.lnav
+                pkgs.atuin
+                pkgs.btop
+                pkgs.dust
+                pkgs.stow
+                pkgs.zoxide
+                pkgs.fd
+                pkgs.eza
+                pkgs.ripgrep
+                pkgs.neomutt
+                pkgs.toot
+                pkgs.lynx
+                pkgs.irssi
+                pkgs.awscli
+                pkgs.neofetch
+                pkgs.stow
+                pkgs.neovim
+                pkgs.tmux
+                pkgs.git
+                pkgs.alacritty
+                pkgs.fzf
+                pkgs.nerdfonts
+                pkgs.starship
+                pkgs.direnv
+                pkgs.parallel
+
+                pkgs.discord
+
+                (import ./utils/aws-s3-ls.nix {inherit pkgs;})
+                (import ./utils/aws-ebs-ls.nix {inherit pkgs;})
+                (import ./utils/aws-ec2-ls.nix {inherit pkgs;})
+                (import ./utils/aws-ec2-output.nix {inherit pkgs;})
+                (import ./utils/kubectl-get-nodes.nix {inherit pkgs;})
+
+# build stuff
+                pkgs.gcc
+                pkgs.cmake
+                pkgs.go
+                ];
 
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+# Necessary for using flakes on this system.
+        nix.settings.experimental-features = "nix-command flakes";
 
-      programs.zsh.enable = true;
+        programs.zsh.enable = true;
+        system.configurationRevision = self.rev or self.dirtyRev or null;
 
-      system.configurationRevision = self.rev or self.dirtyRev or null;
     };
 
     macosConfiguration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.parallel
-            pkgs.yabai
+        [ pkgs.yabai
         ];
 
       services.yabai.enable = true;
@@ -79,7 +88,7 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.firefox ];
+        [ pkgs.firefox ]; # firefox build is broken on macos
     };
 
   in

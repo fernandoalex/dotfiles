@@ -25,9 +25,7 @@ require('lspconfig').gopls.setup {
             unusedparams = true,
         },
         staticcheck = true,
-        hints = {
-            parameterNames = false,
-        },
+        gofumpt = true,
     },
   },
 }
