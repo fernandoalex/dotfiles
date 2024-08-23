@@ -2,7 +2,7 @@
 
 pkgs.writeShellApplication {
     name = "kubectl-get-nodes";
-    runtimeInputs = [ pkgs.kubectl];
+    runtimeInputs = [ pkgs.kubectl ];
     text = ''
     kubectl get nodes \
     -o=custom-columns=NAME:.metadata.name,\

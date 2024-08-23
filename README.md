@@ -8,6 +8,11 @@ Right now most things are setup with ansible, but I am in the process of migrati
 
 
 # steps
+Things outside of nix
+```
+brew install --cask wezterm
+```
+
 1 - install nix
 ```
 sh <(curl -L https://nixos.org/nix/install)

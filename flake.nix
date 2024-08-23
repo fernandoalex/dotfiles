@@ -5,59 +5,65 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, neovim-nightly-overlay }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs }:
   let
-    overlays = [
-          inputs.neovim-nightly-overlay.overlay
-        ];
     commonConfiguration = { pkgs, ... }: {
-        nixpkgs.overlays = overlays;
         nixpkgs.config.allowUnfree = true;
 # List packages installed in system profile. To search by name, run:
 # $ nix-env -qaP | grep wget
-        environment.systemPackages =
-            [ pkgs.ast-grep
+        environment.systemPackages = [ 
+            pkgs.alacritty
+            pkgs.ast-grep
+            pkgs.atuin
+            pkgs.awscli2
+            pkgs.bat
+            pkgs.btop
+            pkgs.cmake
+            pkgs.direnv
+            pkgs.dust
+            pkgs.eza
+            pkgs.fd
+            pkgs.fzf
+            pkgs.gcc
+            pkgs.gh
+            pkgs.git
+            pkgs.git
+            pkgs.go
+            pkgs.irssi
+            pkgs.k9s
+            pkgs.kubectx
+            pkgs.kubernetes-helm
             pkgs.lnav
-                pkgs.atuin
-                pkgs.btop
-                pkgs.dust
-                pkgs.stow
-                pkgs.zoxide
-                pkgs.fd
-                pkgs.eza
-                pkgs.ripgrep
-                pkgs.neomutt
-                pkgs.toot
-                pkgs.lynx
-                pkgs.irssi
-                pkgs.awscli
-                pkgs.neofetch
-                pkgs.stow
-                pkgs.neovim
-                pkgs.tmux
-                pkgs.git
-                pkgs.alacritty
-                pkgs.fzf
-                pkgs.nerdfonts
-                pkgs.starship
-                pkgs.direnv
-                pkgs.parallel
+            pkgs.lynx
+            pkgs.minikube
+            pkgs.moar
+            pkgs.neofetch
+            pkgs.neomutt
+            pkgs.neovim
+            pkgs.nerdfonts
+            pkgs.nodejs
+            pkgs.parallel
+            pkgs.ripgrep
+            pkgs.starship
+            pkgs.stern
+            pkgs.stow
+            pkgs.stow
+            pkgs.tldr
+            pkgs.tmux
+            pkgs.toot
+            pkgs.zoxide
+            pkgs.ffmpeg
+            pkgs.exiftool
+            pkgs.yazi
+            # pkgs.mpv
 
-                pkgs.discord
-
-                (import ./utils/aws-s3-ls.nix {inherit pkgs;})
-                (import ./utils/aws-ebs-ls.nix {inherit pkgs;})
-                (import ./utils/aws-ec2-ls.nix {inherit pkgs;})
-                (import ./utils/aws-ec2-output.nix {inherit pkgs;})
-                (import ./utils/kubectl-get-nodes.nix {inherit pkgs;})
-
-# build stuff
-                pkgs.gcc
-                pkgs.cmake
-                pkgs.go
+            (import ./utils/aws-s3-ls.nix {inherit pkgs;})
+            (import ./utils/aws-ebs-ls.nix {inherit pkgs;})
+            (import ./utils/aws-ec2-ls.nix {inherit pkgs;})
+            (import ./utils/aws-ec2-output.nix {inherit pkgs;})
+            (import ./utils/kubectl-get-nodes.nix {inherit pkgs;})
                 ];
 
 
