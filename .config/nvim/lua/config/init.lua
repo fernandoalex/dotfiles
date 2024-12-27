@@ -67,26 +67,24 @@ require('cloak').setup({
   },
 })
 
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
+-- require("nvim-tree").setup({
+--   sort_by = "case_sensitive",
+--   renderer = {
+--     group_empty = true,
+--   },
+--   filters = {
+--     dotfiles = true,
+--   },
+-- })
 
-vim.keymap.set("n", "<leader>tt", "<cmd>TroubleToggle<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>tt", "<cmd>Trouble diagnostics toggle<CR>", { noremap = true })
 
 vim.opt.list = true
 -- vim.opt.listchars:append "eol:↴"
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
-require('litee.lib').setup()
-require('litee.gh').setup()
-require("focus").setup()
+-- require("focus").setup()
 require('telescope').load_extension('gh')
 require('refactoring').setup()
 

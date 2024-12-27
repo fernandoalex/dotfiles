@@ -8,6 +8,7 @@
   };
 
   outputs = inputs@{ self, nix-darwin, nixpkgs }:
+
   let
     commonConfiguration = { pkgs, ... }: {
         nixpkgs.config.allowUnfree = true;
@@ -27,36 +28,39 @@
             pkgs.fd
             pkgs.fzf
             pkgs.gcc
+            pkgs.cargo
             pkgs.gh
-            pkgs.git
             pkgs.git
             pkgs.go
             pkgs.irssi
             pkgs.k9s
             pkgs.kubectx
             pkgs.kubernetes-helm
-            pkgs.lnav
             pkgs.lynx
             pkgs.minikube
             pkgs.moar
             pkgs.neofetch
             pkgs.neomutt
             pkgs.neovim
-            pkgs.nerdfonts
             pkgs.nodejs
             pkgs.parallel
             pkgs.ripgrep
             pkgs.starship
             pkgs.stern
             pkgs.stow
-            pkgs.stow
             pkgs.tldr
             pkgs.tmux
-            pkgs.toot
             pkgs.zoxide
             pkgs.ffmpeg
             pkgs.exiftool
             pkgs.yazi
+            pkgs.zig
+            pkgs.tt
+            pkgs.uv
+            # pkgs.lnav # broken on mac?
+            # pkgs.toot
+                    # pkgs.pomodoro-cli # add to nix 
+                    #github.com/open-pomodoro/openpomodoro-cli
             # pkgs.mpv
 
             (import ./utils/aws-s3-ls.nix {inherit pkgs;})
@@ -79,10 +83,11 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.yabai
+        [ 
+                        # pkgs.yabai
         ];
 
-      services.yabai.enable = true;
+      # services.yabai.enable = true;
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
       # The platform the configuration will be used on.

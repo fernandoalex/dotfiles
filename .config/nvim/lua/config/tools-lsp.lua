@@ -61,10 +61,10 @@ require('mason').setup()
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
 local servers = {
 	'clangd',
-	'rust_analyzer',
-	-- 'zls',
+	-- 'rust_analyzer',
+	'zls',
 	-- 'pyright',
-	'tsserver',
+	'ts_ls',
 	'eslint',
 	'lua_ls',
 	'gopls',

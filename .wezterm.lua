@@ -6,7 +6,7 @@ config = {
 
     audible_bell = "Disabled",
     enable_tab_bar = false,
-    font_size = 22,
+    font_size = 36,
  
     color_schemes = {
         ['Solarized Osaka'] = {

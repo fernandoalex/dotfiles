@@ -1,6 +1,4 @@
 -- TODO: try lazy
--- TODO: Disable NoNeckPain when DBUI
--- TODO: Disable NoNeckPain when DAP
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -62,6 +60,11 @@ require('packer').startup(function(use)
     -- use 'folke/tokyonight.nvim'
     -- use "rebelot/kanagawa.nvim"
     use 'craftzdog/solarized-osaka.nvim'
+    use {
+        "xero/evangelion.nvim",
+        config = function () require("evangelion").setup{}
+        end,
+    }
 
     -- -- lsp
     use { -- LSP Configuration & Plugins
@@ -88,6 +91,10 @@ require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
     use 'NeogitOrg/neogit'
     use 'sindrets/diffview.nvim'
+    use {'nvim-orgmode/orgmode', config = function()
+        require('orgmode').setup{}
+    end
+}
 
     -- snippets
     use 'L3MON4D3/LuaSnip'
@@ -98,8 +105,8 @@ require('packer').startup(function(use)
     -- use 'ANGkeith/telescope-terraform-doc.nvim'
 
     -- rust
-    use 'simrat39/rust-tools.nvim'
-
+    -- use 'simrat39/rust-tools.nvim'
+    use 'mrcjkb/rustaceanvim'
     -- go
     use 'ray-x/go.nvim'
     use 'ray-x/guihua.lua'
@@ -188,30 +195,26 @@ require('packer').startup(function(use)
             require('ibl').setup{}
         end
     }
+    -- use {
+    --     'ldelossa/gh.nvim',
+    --     requires = { { 'ldelossa/litee.nvim' } }
+    -- }
     use {
-        'ldelossa/gh.nvim',
-        requires = { { 'ldelossa/litee.nvim' } }
+        'pwntester/octo.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+            'nvim-tree/nvim-web-devicons'
+        },
+        config = function ()
+            require("octo").setup()
+        end,
     }
     use { 'folke/neodev.nvim',
         config = function ()
             require('neodev').setup()
         end,
     }
-    -- use {
-    --       "shortcuts/no-neck-pain.nvim",
-    --       config = function ()
-    --           -- TODO: this breaks with other plugins that create splits
-    --           -- I am pretty sure we can run code on events on neovim, so
-    --           -- it is probably possible to use that to fix some
-    --           require("no-neck-pain").setup({
-    --               width = 80,
-    --               autocmds = {
-    --                   enableOnVimEnter = true,
-    --               },
-    --           })
-    --       end,
-    --       tag = "*"
-    --   }
     use {
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
@@ -223,20 +226,21 @@ require('packer').startup(function(use)
             }
         end
     }
-    use 'nvim-tree/nvim-tree.lua'
+    -- use 'nvim-tree/nvim-tree.lua'
     -- use {
     --   "ahmedkhalf/project.nvim",
     --   config = function()
     --     require("project_nvim").setup {}
     --   end
     -- }
-    use 'nvim-focus/focus.nvim'
+    -- use 'nvim-focus/focus.nvim'
     -- is there a full lua version?
     use 'tpope/vim-abolish'
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-ui'
     use 'tpope/vim-unimpaired'
 
+    use 'diegoulloao/nvim-file-location'
     use 'David-Kunz/gen.nvim'
     use({
         "stevearc/oil.nvim",
@@ -270,6 +274,13 @@ require('packer').startup(function(use)
     -- whyyyy
     -- use 'fernandoalex/music.nvim'
     use '~/personal/music.nvim.git/main/'
+    -- lets get good
+    use {
+        'm4xshen/hardtime.nvim',
+        config = function ()
+            require("hardtime").setup()
+        end
+    }
 
     if is_bootstrap then
         require('packer').sync()
@@ -286,9 +297,10 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 require('config')
 -- require('config.gruvbox')
-require('config.osaka')
+-- require('config.osaka')
 -- require('config.tokyonight')
 -- require('config.kanagawa')
+require('config.evangelion')
 require('config.treesitter')
 require('config.telescope')
 require('config.lualine')
