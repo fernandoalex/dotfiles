@@ -15,8 +15,8 @@
                 # List packages installed in system profile. To search by name, run:
                 # $ nix-env -qaP | grep wget
                 environment.systemPackages = [ 
-                    pkgs.chafa # for image suport
-                    pkgs.imagemagick # for svg
+                    pkgs.alacritty
+                    pkgs.chafa
                     pkgs.ast-grep
                     pkgs.atuin
                     pkgs.awscli2
@@ -45,14 +45,12 @@
                     pkgs.neomutt
                     pkgs.neovim
                     pkgs.lua5_1
-                    # pkgs.luarocks
-                    pkgs.lua51Packages.busted
+                    pkgs.luarocks
                     # language-servers
                     pkgs.lua-language-server
                     pkgs.eslint
                     pkgs.superhtml
                     pkgs.htmx-lsp
-                    pkgs.ruff
                     pkgs.nodejs
                     pkgs.parallel
                     pkgs.ripgrep
@@ -108,17 +106,9 @@
                     NSGlobalDomain._HIHideMenuBar = true;
                     spaces.spans-displays = true;
                 };
-
-                system.activationScripts.extraUserActivation.text = ''
-                  #!/bin/bash
-                  echo "extra config that nix can't handle here"
-                  # luarocks --lua-version 5.1 install busted
-                '';
-
                 homebrew.enable = true;
                 homebrew.casks = [
-                    "google-chrome"
-                    "nikitabobko/tap/aerospace"
+                    # "firefox"
                 ];
                 homebrew.brews = [
                     # "imagemagick"
