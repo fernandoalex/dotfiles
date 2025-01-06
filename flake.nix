@@ -53,6 +53,8 @@
                     pkgs.superhtml
                     pkgs.htmx-lsp
                     pkgs.ruff
+                    pkgs.terraform-ls
+
                     pkgs.nodejs
                     pkgs.parallel
                     pkgs.ripgrep

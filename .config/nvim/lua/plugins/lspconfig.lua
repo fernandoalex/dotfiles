@@ -12,6 +12,7 @@ return {
             require("lspconfig").htmx.setup({ capabilities = capabilities })
             require("lspconfig").ruff.setup({ capabilities = capabilities })
             require("lspconfig").lua_ls.setup({ capabilities = capabilities })
+            require("lspconfig").terraformls.setup({ capabilities = capabilities })
         end
     },
 }
