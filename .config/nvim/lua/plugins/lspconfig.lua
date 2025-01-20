@@ -13,6 +13,7 @@ return {
             require("lspconfig").ruff.setup({ capabilities = capabilities })
             require("lspconfig").lua_ls.setup({ capabilities = capabilities })
             require("lspconfig").terraformls.setup({ capabilities = capabilities })
+            require("lspconfig").gopls.setup({ capabilities = capabilities })
         end
     },
 }

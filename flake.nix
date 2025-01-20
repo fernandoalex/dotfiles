@@ -117,14 +117,21 @@
                   # luarocks --lua-version 5.1 install busted
                 '';
 
-                homebrew.enable = true;
-                homebrew.casks = [
-                    "google-chrome"
-                    "nikitabobko/tap/aerospace"
-                ];
-                homebrew.brews = [
-                    # "imagemagick"
-                ];
+                homebrew = {
+                    enable = true;
+                    taps = [
+                        "FelixKratz/formulae"
+                    ];
+                    casks = [
+                        "google-chrome"
+                        "nikitabobko/tap/aerospace"
+
+                    ];
+                    brews = [
+                        # "imagemagick"
+                        "borders"
+                    ];
+                };
             };
 
             nixosConfiguration = { pkgs, ... }: {
