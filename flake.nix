@@ -42,7 +42,7 @@
                     pkgs.minikube
                     pkgs.moar
                     pkgs.neofetch
-                    pkgs.neomutt
+                    # pkgs.neomutt
                     pkgs.neovim
                     pkgs.lua5_1
                     # pkgs.luarocks
@@ -50,6 +50,7 @@
                     # language-servers
                     pkgs.lua-language-server
                     pkgs.eslint
+                    pkgs.nodePackages.vscode-langservers-extracted
                     pkgs.superhtml
                     pkgs.htmx-lsp
                     pkgs.ruff
@@ -70,7 +71,10 @@
                     pkgs.zig
                     pkgs.tt
                     pkgs.uv
-                    # pkgs.lnav # broken on mac?
+                    pkgs.fastfetch
+                    pkgs.pgcli
+                    # pkgs.gns3
+                    pkgs.lnav # broken on mac?
                     # pkgs.toot
                     # pkgs.pomodoro-cli # add to nix 
                     #github.com/open-pomodoro/openpomodoro-cli
@@ -100,8 +104,6 @@
                         # pkgs.yabai
                     ];
 
-                # Auto upgrade nix package and the daemon service.
-                services.nix-daemon.enable = true;
                 # The platform the configuration will be used on.
                 nixpkgs.hostPlatform = "aarch64-darwin";
                 system.stateVersion = 4;

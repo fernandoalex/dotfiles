@@ -14,6 +14,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.colorcolumn = "80"
 vim.opt.hlsearch = false
+vim.opt.scrolloff = 999
 
 -- keymaps
 vim.keymap.set("n", "<leader>xs", "<cmd>source %<CR>") -- TODO: Add description
@@ -75,3 +76,4 @@ vim.api.nvim_set_keymap('n', '<leader>mN', ':lua require("music").previous_track
 
 -- call tmux jump from nvim
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux-jump.sh<CR>")
+vim.treesitter.language.register("html", "handlebars")
