@@ -74,6 +74,7 @@ eval "$(zoxide init zsh)"
 
 export PAGER=moar
 export NIXPKGS_ALLOW_UNFREE=1
+export NIX_CONF_DIR="$HOME/.config/nix"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

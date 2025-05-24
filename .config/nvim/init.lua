@@ -1,322 +1,79 @@
--- TODO: try lazy
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
+require("config.lazy")
+require("config.custom")
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    is_bootstrap = true
-    vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-    vim.cmd [[packadd packer.nvim]]
-end
+-- options
+vim.opt.mouse = "" -- disable mouse support
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.clipboard = "unnamedplus" -- share clipboard with system
+vim.opt.ignorecase = true         -- Ignore case when searching
+vim.opt.foldlevel = 99
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.colorcolumn = "80"
+vim.opt.hlsearch = false
+vim.opt.scrolloff = 999
 
--- stylua: ignore start
-require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim' -- Package manager
+-- keymaps
+vim.keymap.set("n", "<leader>xs", "<cmd>source %<CR>") -- TODO: Add description
+vim.keymap.set("n", "<leader>x", ":.lua<CR>")          -- TODO: Add description
+vim.keymap.set("v", "<leader>x", ":lua<CR>")           -- TODO: Add description
 
-    -- Packages that are required by a bunch of stuff
-    use 'nvim-lua/plenary.nvim'
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[?] Find files' })
+vim.keymap.set('n', '<leader>fbb', require('telescope.builtin').buffers, { desc = '[?] Find buffers' })
+vim.keymap.set('n', '<leader>fbc', require('telescope.builtin').git_bcommits, { desc = '[?] Buffer Git Commits' })
+vim.keymap.set('n', '<leader>fg',
+    ":lua require('config.multigrep').live_multigrep(require('telescope.themes').get_ivy({}))<CR>",
+    { desc = '[?] Live grep' })
+vim.keymap.set('n', '<leader>fc', require('telescope.builtin').git_commits, { desc = '[?] Git Commits' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags) -- TODO: Add description
+-- search nvim config files
 
-    use { -- Highlight, edit, and navigate code
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            pcall(require('nvim-treesitter.install').update { with_sync = true })
-        end,
-    }
+--[[ TODO: tree-sitter text objects for quickly jumping to outer function definition
+-- usefull for quickly getting docs of the function you are in
+]] --
 
-    use { -- Additional text objects via treesitter
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        after = 'nvim-treesitter',
-    }
-
-    -- use 'xiyaowong/transparent.nvim'
-    use 'MunifTanjim/nui.nvim'
-    use 'nvim-treesitter/nvim-treesitter-context'
-    use 'nvim-treesitter/playground'
-
-    use { 'nvim-telescope/telescope.nvim', 
-        requires = { 
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope-github.nvim'
-        } 
-    }
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make'
-    }
-
-
-    use 'kyazdani42/nvim-web-devicons'
-    use {
-        'rcarriga/nvim-notify',
-        config = function()
-            require('notify').setup({
-                background_colour = "#000000"
-            })
-        end
-    }
-
-    -- theme
-    use 'ellisonleao/gruvbox.nvim'
-    -- use 'folke/tokyonight.nvim'
-    -- use "rebelot/kanagawa.nvim"
-    use 'craftzdog/solarized-osaka.nvim'
-    use {
-        "xero/evangelion.nvim",
-        config = function () require("evangelion").setup{}
-        end,
-    }
-
-    -- -- lsp
-    use { -- LSP Configuration & Plugins
-        'neovim/nvim-lspconfig',
-        requires = {
-            -- Automatically install LSPs to stdpath for neovim
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
-
-            -- Useful status updates for LSP
-            'j-hui/fidget.nvim',
-        },
-    }
-
-    -- completion
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-
-    -- git
-    use 'lewis6991/gitsigns.nvim'
-    use 'tpope/vim-fugitive'
-    use 'NeogitOrg/neogit'
-    use 'sindrets/diffview.nvim'
-    use {'nvim-orgmode/orgmode', config = function()
-        require('orgmode').setup{}
-    end
-}
-
-    -- snippets
-    use 'L3MON4D3/LuaSnip'
-    use 'saadparwaiz1/cmp_luasnip'
-
-    -- terraform
-    use 'hashivim/vim-terraform' -- non-native
-    -- use 'ANGkeith/telescope-terraform-doc.nvim'
-
-    -- rust
-    -- use 'simrat39/rust-tools.nvim'
-    use 'mrcjkb/rustaceanvim'
-    -- go
-    use 'ray-x/go.nvim'
-    use 'ray-x/guihua.lua'
-
-    -- misc
-    use 'windwp/nvim-autopairs'
-    use 'nvim-lualine/lualine.nvim'
-    use 'gbprod/substitute.nvim'
-    use {
-        'kylechui/nvim-surround',
-        config = function()
-            require("nvim-surround").setup()
-        end
-    }
-
-    -- use {
-    --  'akinsho/bufferline.nvim',
-    --  requires = 'kyazdani42/nvim-web-devicons',
-    --     tag = "*",
-    --  config = function()
-    --   require("bufferline").setup({})
-    --  end
-    -- }
-    --
-    use {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
-    }
-    use 'norcalli/nvim-colorizer.lua'
-    use 'ThePrimeagen/vim-be-good'
-    use 'ThePrimeagen/harpoon'
-    -- use 'ThePrimeagen/git-worktree.nvim'
-    use 'fernandoalex/git-worktree.nvim'
-    use {
-        'folke/noice.nvim',
-        config = function ()
-            require("noice").setup({
-                lsp = {
-                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-                    override = {
-                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                        ["vim.lsp.util.stylize_markdown"] = true,
-                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-                    },
-                },
-                -- you can enable a preset for easier configuration
-                presets = {
-                    bottom_search = true, -- use a classic bottom cmdline for search
-                    -- command_palette = true, -- position the cmdline and popupmenu together
-                    long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = false, -- add a border to hover docs and signature help
-                },
-                routes = {
-                    {
-                        filter = {
-                            event = "msg_show",
-                            kind = "",
-                            find = "written",
-                        },
-                        opts = { skip = true },
-                    },
-                },
-            })
-        end
-    }
-    use 'mbbill/undotree'
-    use 'laytan/cloak.nvim'
-
-    -- test
-    use 'mfussenegger/nvim-dap'
-    use 'rcarriga/nvim-dap-ui'
-    use 'nvim-neotest/nvim-nio'
-    use { "theHamsta/nvim-dap-virtual-text", config = function()
-        require("nvim-dap-virtual-text").setup({})
-    end }
-
-    use 'stevearc/dressing.nvim'
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-        require("toggleterm").setup()
-    end }
-    use { "lukas-reineke/indent-blankline.nvim",
-        config = function ()
-            require('ibl').setup{}
-        end
-    }
-    -- use {
-    --     'ldelossa/gh.nvim',
-    --     requires = { { 'ldelossa/litee.nvim' } }
-    -- }
-    use {
-        'pwntester/octo.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-            'nvim-tree/nvim-web-devicons'
-        },
-        config = function ()
-            require("octo").setup()
-        end,
-    }
-    use { 'folke/neodev.nvim',
-        config = function ()
-            require('neodev').setup()
-        end,
-    }
-    use {
-        "folke/trouble.nvim",
-        requires = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("trouble").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
-    -- use 'nvim-tree/nvim-tree.lua'
-    -- use {
-    --   "ahmedkhalf/project.nvim",
-    --   config = function()
-    --     require("project_nvim").setup {}
-    --   end
-    -- }
-    -- use 'nvim-focus/focus.nvim'
-    -- is there a full lua version?
-    use 'tpope/vim-abolish'
-    use 'tpope/vim-dadbod'
-    use 'kristijanhusak/vim-dadbod-ui'
-    use 'tpope/vim-unimpaired'
-
-    use 'diegoulloao/nvim-file-location'
-    use 'David-Kunz/gen.nvim'
-    use({
-        "stevearc/oil.nvim",
-        config = function()
-            require("oil").setup({
-                view_options = {
-                    show_hidden = true,
-                }
-            })
-        end,
-    })
-
-    use 'phelipetls/jsonpath.nvim'
-
-    use {
-        "ThePrimeagen/refactoring.nvim",
-        requires = {
-            {"nvim-lua/plenary.nvim"},
-            {"nvim-treesitter/nvim-treesitter"}
-        }
-    }
-    use {
-        "S1M0N38/love2d.nvim",
-        config = function ()
-            require('love2d').setup({
-                path_to_love_bin = "/Applications/love.app/Contents/MacOS/love"
-            })
-        end
+vim.keymap.set('n', '<leader>en', function()
+    require('telescope.builtin').find_files {
+        desc = '[?] Find files for nvim config',
+        cwd = "~/dotfiles"
 
     }
-    -- whyyyy
-    -- use 'fernandoalex/music.nvim'
-    use '~/personal/music.nvim.git/main/'
-    -- lets get good
-    use {
-        'm4xshen/hardtime.nvim',
-        config = function ()
-            require("hardtime").setup()
-        end
-    }
-
-    if is_bootstrap then
-        require('packer').sync()
-    end
 end)
 
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-    command = 'source <afile> | PackerCompile',
-    group = packer_group,
-    pattern = vim.fn.expand '$MYVIMRC',
-})
+vim.keymap.set('n', '<leader>ep', function()
+    require('telescope.builtin').find_files {
+        desc = '[?] Find files in Lazy folder',
+        cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy')
+    }
+end)
 
-require('config')
--- require('config.gruvbox')
--- require('config.osaka')
--- require('config.tokyonight')
--- require('config.kanagawa')
-require('config.evangelion')
-require('config.treesitter')
-require('config.telescope')
-require('config.lualine')
-require('config.completion')
-require('config.tools-git')
-require('config.tools-lsp')
-require('config.language-terraform')
-require('config.language-rust')
-require('config.language-go')
--- require('config.language-html-css')
--- require('config.language-java')
-require('config.tools-dap')
---
--- vim.opt_local.spell = true
--- vim.opt_local.spelllang = 'en_us'
--- vim.opt_local.fo:append('aw')
--- local map = vim.api.nvim_buf_set_keymap
--- local options = { noremap = true, silent = true}
--- map(0, 'n', '<leader>x', 'ZZ', options)
+
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+vim.keymap.set("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>ho", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { noremap = true })
+
+vim.keymap.set("n", "s", require('substitute').operator, { noremap = true })
+vim.keymap.set("n", "ss", require('substitute').line, { noremap = true })
+vim.keymap.set("n", "S", require('substitute').eol, { noremap = true })
+vim.keymap.set("x", "s", require('substitute').visual, { noremap = true })
+
+vim.keymap.set("n", "<leader>tt", "<cmd>Trouble diagnostics toggle<CR>", { noremap = true })
+
+vim.keymap.set("n", "<leader>no", "<cmd>lua require('neogit').open({kind = 'vsplit'})<cr>", { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>mfp', ':lua require("music").open_playlist_picker()<CR>',
+    { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>mp', ':lua require("music").play_track()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>mP', ':lua require("music").pause_track()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>mn', ':lua require("music").next_track()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>mN', ':lua require("music").previous_track()<CR>',
+    { noremap = true, silent = true })
+
+
+-- call tmux jump from nvim
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux-jump.sh<CR>")
+vim.treesitter.language.register("html", "handlebars")

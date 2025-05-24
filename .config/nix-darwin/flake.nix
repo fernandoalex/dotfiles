@@ -15,8 +15,8 @@
                 # List packages installed in system profile. To search by name, run:
                 # $ nix-env -qaP | grep wget
                 environment.systemPackages = [ 
-                    pkgs.chafa # for image suport
-                    pkgs.imagemagick # for svg
+                    pkgs.alacritty
+                    pkgs.chafa
                     pkgs.ast-grep
                     pkgs.atuin
                     pkgs.awscli2
@@ -42,20 +42,15 @@
                     pkgs.minikube
                     pkgs.moar
                     pkgs.neofetch
-                    # pkgs.neomutt
+                    pkgs.neomutt
                     pkgs.neovim
                     pkgs.lua5_1
-                    # pkgs.luarocks
-                    pkgs.lua51Packages.busted
+                    pkgs.luarocks
                     # language-servers
                     pkgs.lua-language-server
                     pkgs.eslint
-                    pkgs.nodePackages.vscode-langservers-extracted
                     pkgs.superhtml
                     pkgs.htmx-lsp
-                    pkgs.ruff
-                    pkgs.terraform-ls
-
                     pkgs.nodejs
                     pkgs.parallel
                     pkgs.ripgrep
@@ -71,10 +66,7 @@
                     pkgs.zig
                     pkgs.tt
                     pkgs.uv
-                    pkgs.fastfetch
-                    pkgs.pgcli
-                    # pkgs.gns3
-                    pkgs.lnav # broken on mac?
+                    # pkgs.lnav # broken on mac?
                     # pkgs.toot
                     # pkgs.pomodoro-cli # add to nix 
                     #github.com/open-pomodoro/openpomodoro-cli
@@ -104,6 +96,8 @@
                         # pkgs.yabai
                     ];
 
+                # Auto upgrade nix package and the daemon service.
+                services.nix-daemon.enable = true;
                 # The platform the configuration will be used on.
                 nixpkgs.hostPlatform = "aarch64-darwin";
                 system.stateVersion = 4;
@@ -112,28 +106,13 @@
                     NSGlobalDomain._HIHideMenuBar = true;
                     spaces.spans-displays = true;
                 };
-
-                system.activationScripts.extraUserActivation.text = ''
-                  #!/bin/bash
-                  echo "extra config that nix can't handle here"
-                  # luarocks --lua-version 5.1 install busted
-                '';
-
-                homebrew = {
-                    enable = true;
-                    taps = [
-                        "FelixKratz/formulae"
-                    ];
-                    casks = [
-                        "google-chrome"
-                        "nikitabobko/tap/aerospace"
-
-                    ];
-                    brews = [
-                        # "imagemagick"
-                        "borders"
-                    ];
-                };
+                homebrew.enable = true;
+                homebrew.casks = [
+                    # "firefox"
+                ];
+                homebrew.brews = [
+                    # "imagemagick"
+                ];
             };
 
             nixosConfiguration = { pkgs, ... }: {
