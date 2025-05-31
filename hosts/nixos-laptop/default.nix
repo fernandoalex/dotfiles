@@ -3,12 +3,11 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/gaming.nix
     ../../modules/nixos/nvidia.nix
   ];
 
   # System info
-  networking.hostName = "nixos-gaming";
+  networking.hostName = "nixos";
   
   # Bootloader
   boot = {
@@ -60,7 +59,7 @@
   programs.zsh.enable = true;
 
   # Home Manager
-  home-manager.users.fernando = {
+  home-manager.users.spanta = {
     imports = [ ../../modules/home ../../modules/home/gaming.nix ];
   };
 

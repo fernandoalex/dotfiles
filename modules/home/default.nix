@@ -6,7 +6,6 @@
   
   # Basic home configuration
   home.username = "spanta";
-  home.homeDirectory = "/Users/spanta";  # Add this for clarity
 
   # Common packages
   home.packages = with pkgs; [
