@@ -1,168 +1,161 @@
 {
-    description = "Example Darwin system flake";
+  description = "cross-platform dotfiles - macOS, NixOS, and cloud";
 
-    inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-        nix-darwin.url = "github:LnL7/nix-darwin";
-        nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+  inputs = {
+    # Core dependencies
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+
+    # Home Manager for user configuration
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = inputs@{ self, nix-darwin, nixpkgs }:
+    # nix-darwin for macOS
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-        let
-            commonConfiguration = { pkgs, ... }: {
-                nixpkgs.config.allowUnfree = true;
-                # List packages installed in system profile. To search by name, run:
-                # $ nix-env -qaP | grep wget
-                environment.systemPackages = [ 
-                    pkgs.chafa # for image suport
-                    pkgs.imagemagick # for svg
-                    pkgs.ast-grep
-                    pkgs.atuin
-                    pkgs.awscli2
-                    pkgs.bat
-                    pkgs.btop
-                    pkgs.cmake
-                    pkgs.direnv
-                    pkgs.dust
-                    pkgs.eza
-                    pkgs.fd
-                    pkgs.fzf
-                    pkgs.gcc
-                    pkgs.cargo
-                    pkgs.gh
-                    pkgs.git
-                    pkgs.git-lfs
-                    pkgs.go
-                    pkgs.irssi
-                    pkgs.k9s
-                    pkgs.kubectx
-                    pkgs.kubernetes-helm
-                    pkgs.lynx
-                    pkgs.minikube
-                    pkgs.moar
-                    pkgs.neofetch
-                    # pkgs.neomutt
-                    pkgs.neovim
-                    pkgs.lua5_1
-                    # pkgs.luarocks
-                    pkgs.lua51Packages.busted
-                    # language-servers
-                    pkgs.lua-language-server
-                    pkgs.eslint
-                    pkgs.nodePackages.vscode-langservers-extracted
-                    pkgs.superhtml
-                    pkgs.htmx-lsp
-                    pkgs.ruff
-                    pkgs.terraform-ls
+    # Additional useful inputs
+    flake-utils.url = "github:numtide/flake-utils";
 
-                    pkgs.nodejs
-                    pkgs.parallel
-                    pkgs.ripgrep
-                    pkgs.starship
-                    pkgs.stern
-                    pkgs.stow
-                    pkgs.tldr
-                    pkgs.tmux
-                    pkgs.zoxide
-                    pkgs.ffmpeg
-                    pkgs.exiftool
-                    pkgs.yazi
-                    pkgs.zig
-                    pkgs.tt
-                    pkgs.uv
-                    pkgs.fastfetch
-                    pkgs.pgcli
-                    # pkgs.gns3
-                    pkgs.lnav # broken on mac?
-                    # pkgs.toot
-                    # pkgs.pomodoro-cli # add to nix 
-                    #github.com/open-pomodoro/openpomodoro-cli
-                    # pkgs.mpv
+    # Hardware-specific configurations for NixOS
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-                    (import ./utils/aws-s3-ls.nix {inherit pkgs;})
-                    (import ./utils/aws-ebs-ls.nix {inherit pkgs;})
-                    (import ./utils/aws-ec2-ls.nix {inherit pkgs;})
-                    (import ./utils/aws-ec2-output.nix {inherit pkgs;})
-                    (import ./utils/kubectl-get-nodes.nix {inherit pkgs;})
-                ];
+    # # Secrets management (optional)
+    # agenix = {
+    #   url = "github:ryantm/agenix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.home-manager.follows = "home-manager";
+    # };
+  };
 
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nix-darwin, nixos-hardware, flake-utils, ... }:
+    let
+      inherit (nixpkgs) lib;
 
-                # Necessary for using flakes on this system.
-                nix.settings.experimental-features = "nix-command flakes";
+      # Supported systems
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-                programs.zsh.enable = true;
-                system.configurationRevision = self.rev or self.dirtyRev or null;
+      # Helper function to generate packages for each system
+      forAllSystems = nixpkgs.lib.genAttrs systems;
 
-            };
+      # Custom lib functions
+      myLib = import ./lib { inherit lib; };
 
-            macosConfiguration = { pkgs, ... }: {
-                # List packages installed in system profile. To search by name, run:
-                # $ nix-env -qaP | grep wget
-                environment.systemPackages =
-                    [ 
-                        # pkgs.yabai
-                    ];
+      # Shared configuration between all machines
+      sharedModules = [
+        ./modules/common
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = { inherit inputs myLib; };
+        }
+      ];
 
-                # The platform the configuration will be used on.
-                nixpkgs.hostPlatform = "aarch64-darwin";
-                system.stateVersion = 4;
-                system.defaults = {
-                    dock.autohide = true;
-                    NSGlobalDomain._HIHideMenuBar = true;
-                    spaces.spans-displays = true;
-                };
+      # Overlays for all systems
+      # overlays = [
+      #   (import ./overlays)
+      #   # Add more overlays here
+      # ];
 
-                system.activationScripts.extraUserActivation.text = ''
-                  #!/bin/bash
-                  echo "extra config that nix can't handle here"
-                  # luarocks --lua-version 5.1 install busted
-                '';
-
-                homebrew = {
-                    enable = true;
-                    taps = [
-                        "FelixKratz/formulae"
-                    ];
-                    casks = [
-                        "google-chrome"
-                        "nikitabobko/tap/aerospace"
-
-                    ];
-                    brews = [
-                        # "imagemagick"
-                        "borders"
-                    ];
-                };
-            };
-
-            nixosConfiguration = { pkgs, ... }: {
-                # List packages installed in system profile. To search by name, run:
-                # $ nix-env -qaP | grep wget
-                environment.systemPackages =
-                    [ pkgs.firefox ]; # firefox build is broken on macos
-            };
-
-        in
+    in
+    {
+      # NixOS Configurations
+      nixosConfigurations = {
+        # Desktop/Laptop NixOS machine
+        nixos-laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs myLib; };
+          modules = sharedModules ++ [
+            ./hosts/nixos-laptop
+            ./modules/nixos
+            nixos-hardware.nixosModules.common-pc-ssd
+            # agenix.nixosModules.default
             {
-            # Build darwin flake using:
-            # $ darwin-rebuild build --flake .#darwin
-            darwinConfigurations."darwin" = nix-darwin.lib.darwinSystem {
-                modules = [ 
-                    commonConfiguration
-                    macosConfiguration
-                ];
-            };
-
-            nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-                modules = [ 
-                    ./nixos/configuration.nix
-                    commonConfiguration
-                    nixosConfiguration
-                ];
-            };
-
-            # # Expose the package set, including overlays, for convenience.
-            # darwinPackages = self.darwinConfigurations."darwin".pkgs;
+              # nixpkgs.overlays = overlays;
+              home-manager.users.spanta = import ./modules/home;
+            }
+          ];
         };
+      };
+
+      # macOS Configurations (nix-darwin) - MOVED OUT of nixosConfigurations
+      darwinConfigurations = {
+        # Your MacBook
+        darwin-laptop = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";  # or x86_64-darwin for Intel Macs
+          specialArgs = { inherit inputs myLib; };
+          modules = [
+            ./hosts/darwin-laptop
+            ./modules/darwin
+            home-manager.darwinModules.home-manager
+            # agenix.darwinModules.default
+            {
+              # nixpkgs.overlays = overlays;
+              home-manager.users.spanta = import ./modules/home;
+              home-manager.extraSpecialArgs = { inherit inputs myLib; };
+            }
+          ];
+        };
+      };
+
+      # Development shells for each system - MOVED OUT of nixosConfigurations
+      devShells = forAllSystems (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            # overlays = overlays;
+          };
+        in
+        {
+          default = pkgs.mkShell {
+            name = "dotfiles-dev";
+            packages = with pkgs; [
+              nixfmt-classic
+              nil  # Nix LSP
+              git
+              # age  # For agenix secrets
+            ];
+            shellHook = ''
+              echo "Welcome to your dotfiles development environment!"
+              echo "Available commands:"
+              echo "  darwin-rebuild switch --flake .#darwin-laptop"
+              echo "  nixos-rebuild switch --flake .#nixos-laptop"
+            '';
+          };
+        });
+
+      # # Custom packages - MOVED OUT of nixosConfigurations
+      # packages = forAllSystems (system:
+      #   let
+      #     pkgs = import nixpkgs {
+      #       inherit system;
+      #       overlays = overlays;
+      #     };
+      #   in
+      #   import ./packages { inherit pkgs; }
+      # );
+
+      # Overlays for external use - MOVED OUT of nixosConfigurations
+
+      # Templates for new machines - MOVED OUT of nixosConfigurations
+      # templates = {
+      #   server = {
+      #     path = ./templates/server;
+      #     description = "Template for server configuration";
+      #   };
+      # };
+
+      # Formatter for all systems - MOVED OUT of nixosConfigurations
+      formatter = forAllSystems (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        pkgs.nixfmt-classic
+      );
+    };
 }
