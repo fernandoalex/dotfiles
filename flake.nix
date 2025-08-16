@@ -23,13 +23,6 @@
 
     # Hardware-specific configurations for NixOS
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # # Secrets management (optional)
-    # agenix = {
-    #   url = "github:ryantm/agenix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.home-manager.follows = "home-manager";
-    # };
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nix-darwin, nixos-hardware, flake-utils, ... }:

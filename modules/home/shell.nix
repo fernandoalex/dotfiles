@@ -20,9 +20,10 @@
             
     };
     # Additional shell options
-    initExtra = ''
+    initContent = ''
       # Better history search
       bindkey '^R' history-incremental-search-backward
+      bindkey -s '^f' '~/bin/tmux-jump.sh^M'
       
       # Edit command line in editor
       autoload -U edit-command-line

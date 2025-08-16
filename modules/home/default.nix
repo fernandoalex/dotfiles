@@ -25,6 +25,16 @@
         tt
         uv
         btop
+        yazi
+        skim
+        
+        #LSP/Dev Stuff
+        gopls
+        eslint
+        htmx-lsp
+        lua-language-server
+
+        # NodeJS
   ];
 
   # Git configuration
@@ -196,6 +206,7 @@
       # macOS clipboard integration (improved)
       if -b 'command -v pbcopy > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | pbcopy"'
       
+      bind-key -r i run-shell "~/bin/tmux-jump.sh"
       # Status bar styling
       # Tokyo Night theme (alternative to Gruvbox)
       set -g status-justify "left"

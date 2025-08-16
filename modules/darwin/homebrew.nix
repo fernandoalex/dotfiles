@@ -2,6 +2,8 @@
 
 {
   # Homebrew configuration for macOS-specific apps
+
+  system.primaryUser = "spanta";
   homebrew = {
     enable = true;
     onActivation = {
@@ -21,9 +23,9 @@
     
     # Casks (GUI applications)
     casks = [
-            "firefox"
+      "firefox"
       "1password"
-            "ghostty"
+      "ghostty"
     ];
     
     # Mac App Store apps
