@@ -27,6 +27,8 @@
         btop
         yazi
         skim
+        fastfetch
+        pass
         
         #LSP/Dev Stuff
         gopls

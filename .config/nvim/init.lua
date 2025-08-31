@@ -14,7 +14,20 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.colorcolumn = "80"
 vim.opt.hlsearch = false
+
+-- keep centered
 vim.opt.scrolloff = 999
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+    desc = "Center cursor",
+    group = vim.api.nvim_create_augroup("CenterCursor", { clear = true }),
+    callback = function()
+        local mode = vim.fn.mode(1)
+        if mode == "i" then
+            return
+        end
+        vim.cmd "normal! zz"
+    end,
+})
 
 -- keymaps
 vim.keymap.set("n", "<leader>xs", "<cmd>source %<CR>") -- TODO: Add description
