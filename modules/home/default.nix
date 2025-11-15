@@ -10,6 +10,7 @@
   # Common packages
   home.packages = with pkgs; [
         git
+        git-lfs
         neovim
         curl
         tree
@@ -29,12 +30,17 @@
         skim
         fastfetch
         pass
-        
+        irssi
+
+        kitty # to enable kitty icat
+
         #LSP/Dev Stuff
         gopls
         eslint
         htmx-lsp
         lua-language-server
+        cargo
+        python3
 
         # NodeJS
   ];
@@ -116,7 +122,7 @@
     historyLimit = 5000;
     keyMode = "vi";
     mouse = true;
-    terminal = "xterm-256color";
+    terminal = "xterm-ghostty";
     
     # Custom prefix (your C-a instead of C-b)
     prefix = "C-a";
@@ -126,7 +132,6 @@
     
     # All your custom configuration
     extraConfig = ''
-      # Copy to OS clipboard setting
       tmux_conf_copy_to_os_clipboard=true
       
       # General settings
@@ -246,8 +251,10 @@
       # Ensure environment variables are passed through
       set -ga update-environment " STARSHIP_SHELL"
       set -ga update-environment " ATUIN_SESSION"
-      
+      set -ga update-environment TERM
+      set -ga update-environment TERM_PROGRAM
       # Don't interfere with shell history (Atuin handles this)
+
       set -g history-file ""
       
       # Better window titles for your workflow
